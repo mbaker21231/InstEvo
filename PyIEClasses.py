@@ -574,7 +574,7 @@ class ParameterizedTree(ResolvedTree):
 
         self.timeinplace = TimeInPlace
 
-    def latlonplot(self, htmlfile):
+    def latlonplot(self, htmlfile, Cmap = "Reds"):
 
         '''
         In the future, we should add in a color choice method...or a save the data method.
@@ -599,7 +599,7 @@ class ParameterizedTree(ResolvedTree):
 
         myfig = plt.figure()
         mypic = myfig.add_subplot(111)
-        mypic.scatter(x, y, c=s, s=s, cmap="Reds")
+        mypic.scatter(x, y, c=s, s=s, cmap=Cmap)
 
         for i, txt in enumerate(name):
             mypic.annotate(name[i], (x[i], y[i]))
