@@ -574,7 +574,7 @@ class ParameterizedTree(ResolvedTree):
 
         self.timeinplace = TimeInPlace
 
-    def latlonplot(self):
+    def latlonplot(self, htmlfile):
 
         '''
         In the future, we should add in a color choice method...or a save the data method.
@@ -595,7 +595,7 @@ class ParameterizedTree(ResolvedTree):
         
         name = np.asarray(self.name).flatten().tolist()
 
-        s = [3*2**n for n in self.timeinplace]
+        s = [3000*n for n in self.timeinplace]
 
         myfig = plt.figure()
         mypic = myfig.add_subplot(111)
@@ -604,5 +604,5 @@ class ParameterizedTree(ResolvedTree):
         for i, txt in enumerate(name):
             mypic.annotate(name[i], (x[i], y[i]))
         
-        mplleaflet.show()
+        mplleaflet.show(fig = myfig, path = htmlfile)
 
