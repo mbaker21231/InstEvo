@@ -528,7 +528,7 @@ class ParameterizedTree(ResolvedTree):
                 subTr = Tr[colns,ind[1]:]
                 subBr = branchpos(subTree)
                 subD = D[colns,:][:,colns]
-                contProb = OriginLikelihood(subTree, subBr, subD, subTr)
+                contProb = OriginLikelihood_args(subTree, subBr, subD, subTr)
                 toGet = np.matrix(-np.log(D))[origin,:][:,colns].T
                 contProb = contProb + toGet
                 destination = colns[DiscretePicker(contProb,np.where(colns == origin)[0])]
@@ -604,5 +604,5 @@ class ParameterizedTree(ResolvedTree):
         for i, txt in enumerate(name):
             mypic.annotate(name[i], (x[i], y[i]))
         
-        mplleaflet.show(fig=myfig)
+        mplleaflet.show()
 
