@@ -9,6 +9,7 @@ from numba import int32
 from tqdm import tqdm
 from scipy.stats import multivariate_normal 
 from numpy.random import normal
+import PyIEClasses
 
 def worddolg(word):
     
@@ -1048,3 +1049,38 @@ def mlfun(x, Obj):
     L3=-Obj.DeathLikelihood()
     L4=-np.max(Obj.OriginLikelihood())
     return -L1-L2-L3-L4	
+
+def puzzler(Data,Splits,ruhlen_1,phylum,its=1000,priordepthmin=5,priordepthmax=10,parameters='None'):
+
+    RTree=PyIEClasses.ResolvedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree')   
+    if parameters=='None':
+        numbranches=RTree.interiorbranches
+        bInit=np.matrix(-1-np.linspace(0,10,num=numbranches)/numbranches)
+        rInit=np.zeros((1,len(RTree.words)))
+        dparms=np.sum(RTree.deathmat[:,0]==0)
+        dInit=np.zeros((1,dparms))+1
+        eInit=np.matrix(5)
+        parms=np.hstack((bInit,rInit,dInit,eInit))
+    else: 
+        parms=parameters
+        
+    PTreeMax=PyIEClasses.ParameterizedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree',parms)
+    PTreeMax.priordepth(priordepthmin,priordepthmax)
+    PTreeMax.splitinfo(Splits[Splits['phylum']==phylum])    
+    PTreeMax.settimes()
+    
+    valMax=mlfun(parms, PTreeMax)
+    
+    for i in range(0,its):
+        parmsHat=parms+np.random.uniform(-1,1,cols(parms))/100
+        PTreeHat=PyIEClasses.ParameterizedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree',np.matrix(parms))
+        PTreeHat.priordepth(priordepthmin,priordepthmax)
+        PTreeHat.splitinfo(Splits[Splits['phylum']==phylum])
+        PTreeHat.settimes()
+        valHat=mlfun(parmsHat,PTreeHat)
+        
+        if valHat>valMax:
+            valMax, PTreeMax=valHat,PTreeHat
+            print('New Tree Found at ',i,': ',valMax)
+            
+    return PTreeMax	
