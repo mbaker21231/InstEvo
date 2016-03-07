@@ -83,7 +83,7 @@ Reveal.initialize({
     //backgroundTransition: 'default', // default/linear/none
 
     // Theme
-    theme: 'biege' // available themes are in /css/theme
+    // theme: 'biege' // available themes are in /css/theme
 
 });
 
