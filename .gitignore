@@ -6,4 +6,4 @@
 *.pkl
 *.png
 +.ipynb_checkpoints 
-+-checkpoint.ipynb
+*checkpoint.ipynb
