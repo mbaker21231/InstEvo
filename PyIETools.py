@@ -9,7 +9,7 @@ from numba import int32
 from tqdm import tqdm
 from scipy.stats import multivariate_normal 
 from numpy.random import normal
-import PyIEClasses
+
 
 def worddolg(word):
     
@@ -133,7 +133,7 @@ def comptree(Tree):
     
     return(NT)     
 
-@jit(int32[:](int32[:], int32))
+#@jit(int32[:](int32[:], int32))
 def ps(X, col):
 
     '''Panel setup ala Stata\Mata - creates rows with beginning and ending 

@@ -2,9 +2,11 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import mplleaflet          #pip install mplleaflet...it rocks! and it elminates a step!
+import mplleaflet          
 
 from PyIETools import *
+
+
 
 class PhyloTree:
     
