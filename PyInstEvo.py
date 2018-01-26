@@ -290,7 +290,7 @@ def timeFractions(Tree, b, fill=False, DM=np.ones((1, 1)), r=1, a=0):
     while True:
         V[:,i:i+1] = F[:,i-1:i]*(np.exp(Z[:,i:i+1]) + a)*r/(1 + np.exp(Z[:,i:i+1]) + a)
         F[:,i:i+1] = F[:,i-1:i]*(1 + (1 - r)*(np.exp(Z[:,i:i+1])+a))/(1 + np.exp(Z[:,i:i+1] + a))
-        ind=np.where((F[:,i:i+1] <= 1) == False)[0]   # This line and the next one edit nans to previous value. 
+        ind=np.argwhere(np.isnan(F[:,i:i+1]))[:,0]   # This line and the next one edit nans to previous value. 
         F[ind,i:i+1] = F[ind,i-1:i]
         i += 1
         if i > cols(V):
