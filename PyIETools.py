@@ -9,7 +9,7 @@ from numba import int32
 from tqdm import tqdm
 from scipy.stats import multivariate_normal 
 from numpy.random import normal
-from PyIEClasses import ResolvedTree
+#from PyIEClasses import ResolvedTree
 
 def worddolg(word):
     

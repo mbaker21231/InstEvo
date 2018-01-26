@@ -284,13 +284,13 @@ def timeFractions(Tree, b, fill=False, DM=np.ones((1, 1)), r=1, a=0):
 
     F[:,0:1] = (1 + (1 - r)*(np.exp(Z[:,0:1]) + a))/(1 + np.exp(Z[:,0:1] + a))
     V[:,0:1] = (np.exp(Z[:,0:1]) + a)*r/(1 + np.exp(Z[:,0:1]) + a)
-    
+
     # Code block to progressively keep track of time left and time elapsed. 
     i = 1
     while True:
         V[:,i:i+1] = F[:,i-1:i]*(np.exp(Z[:,i:i+1]) + a)*r/(1 + np.exp(Z[:,i:i+1]) + a)
         F[:,i:i+1] = F[:,i-1:i]*(1 + (1 - r)*(np.exp(Z[:,i:i+1])+a))/(1 + np.exp(Z[:,i:i+1] + a))
-        ind=np.where((F[:,i:i+1] <= 1) == False)[0]   # This line and the next one edit nans to previous value. 
+        ind=np.argwhere(np.isnan(F[:,i:i+1]))[:,0]   # This line and the next one edit nans to previous value. 
         F[ind,i:i+1] = F[ind,i-1:i]
         i += 1
         if i > cols(V):
@@ -353,7 +353,7 @@ def branchpos(Tree):
             if TreeBP[i,j] >= 0:
                 BPs=np.vstack((BPs, (i, j)))
     
-    return BPs    
+    return BPs.astype(int)    
 
     
 def BuiltBranchNodes(Treeo,Tree,ibs):
@@ -700,9 +700,9 @@ def OriginLikelihood_args(Tree,bp,Dhat,TFR):
     D [D <= 0] = 10                                      # Here again I love Python!
     lnD = np.matrix(-np.log(D))
     np.fill_diagonal(lnD, 0) 
-
+    print(bp)
     # The main recursive loop backwards through the branches:
-    for i in range(rows(Tree), rows(bp)):     
+    for i in range(rows(Tree), rows(bp)):  
         id = Tree[bp[i,0], bp[i,1]]
         tu = np.where(Tree[:,bp[i,1]]==id)[0]
         Bhat = np.copy(TFR[tu,bp[i,1]:])
@@ -759,7 +759,6 @@ def RouteChooser(ParameterizedTreeClass):
     Tree = ParameterizedTreeClass.resolvedtree
     bp = ParameterizedTreeClass.branchpositions
     D = ParameterizedTreeClass.D
-
     branchRoute = J(0, 2, np.nan) 
     TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0,rows(Tree))).T))        #Renumbered tree
 
@@ -1442,9 +1441,9 @@ class ParameterizedTree(ResolvedTree):
         D[D <= 0] = 10   
         lnD = np.matrix(-np.log(D))
         np.fill_diagonal(lnD,0) 
-
     # The main recursive loop backwards through the branches:
-        for i in range(rows(self.resolvedtree), rows(bp)):     
+        for i in range(rows(self.resolvedtree), rows(bp)):   
+            print(bp[i,0], bp[i,1], type(bp[i,0]), type(bp[i,1]))            
             id = self.resolvedtree[bp[i,0], bp[i,1]]
             tu = np.where(self.resolvedtree[:,bp[i,1]] == id)[0]
             Bhat = self.depth*1000*np.copy(self.filledtimeFractions[tu,bp[i,1]:])
@@ -1560,7 +1559,7 @@ class ParameterizedTree(ResolvedTree):
         Tree = self.resolvedtree
         bp = self.branchpositions
         D = self.D
-
+        print(bp)
         branchRoute = J(0, 2, np.nan)   # Arrows
         TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0, rows(Tree))).T))        #Renumbered tree
 
