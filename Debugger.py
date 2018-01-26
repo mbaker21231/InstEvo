@@ -5,7 +5,7 @@ Created on Fri Jan 26 10:23:21 2018
 @author: mjbaker
 """
 
-import PyInstEvodb
+import PyInstEvo
 # Other modules needed
 
 import os
@@ -29,7 +29,7 @@ Data   = pd.read_pickle(os.getcwd() + '//IEData//MasterData.pkl')
 Splits = pd.read_pickle(os.getcwd() + '//IEData//Splits.pkl')
 Depths = pd.read_pickle(os.getcwd() + '//IEData//Depths.pkl')
 
-KhoisanRT   = PyInstEvodb.ResolvedTree(Data.loc[Data['ruhlen_1'] == 'KHOISAN'], 'KTree1') #Create a resolved tree
+KhoisanRT   = PyInstEvo.ResolvedTree(Data.loc[Data['ruhlen_1'] == 'KHOISAN'], 'KTree1') #Create a resolved tree
 numbranches = KhoisanRT.interiorbranches                                                  #Get no. of interior branches
 bInit       = np.matrix(- 1 - np.linspace(0,10,num=numbranches)/numbranches)              #Make a conformable set of parameters
 rInit       = np.zeros((1, len(KhoisanRT.words)))                                         #initial rate parameters
@@ -39,7 +39,7 @@ eInit       = np.matrix(5)                                                      
 parmsInit   = np.hstack((bInit, rInit, dInit, eInit))
 
 
-KhoisanPT=PyInstEvodb.ParameterizedTree(Data.loc[Data['ruhlen_1']=='KHOISAN'],'KTree1',parmsInit)
+KhoisanPT=PyInstEvo.ParameterizedTree(Data.loc[Data['ruhlen_1']=='KHOISAN'],'KTree1',parmsInit)
 min = np.array(Depths['min'].loc[Depths['phylum'] == 'Khoisan'])
 max = np.array(Depths['max'].loc[Depths['phylum'] == 'Khoisan'])
 KhoisanPT.priordepth(min,max)

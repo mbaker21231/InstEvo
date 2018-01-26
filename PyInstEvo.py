@@ -353,7 +353,7 @@ def branchpos(Tree):
             if TreeBP[i,j] >= 0:
                 BPs=np.vstack((BPs, (i, j)))
     
-    return BPs    
+    return BPs.astype(int)    
 
     
 def BuiltBranchNodes(Treeo,Tree,ibs):
