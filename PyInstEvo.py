@@ -629,7 +629,7 @@ def LnLikeOrigins(Tr,D,Tree,bp):
         
         for p in range(0, rows(tu)):
             if Live[tu[p]] == 1:
-                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TM[tu[p]]))+LLHat[p]
+                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p]))+LLHat[p]
                 TM[tu[p]] = np.copy(TMHat[p])
                 IndCount[tu[p]] = np.copy(IMHat[p])
             else:
@@ -739,7 +739,7 @@ def OriginLikelihood_args(Tree,bp,Dhat,TFR):
      
         for p in range(0, rows(tu)):
             if Live[tu[p]] == 1:
-                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TM[tu[p]])) + LLHat[p]
+                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p])) + LLHat[p]
                 TM[tu[p]] = np.copy(TMHat[p])
                 IndCount[tu[p]] = np.copy(IMHat[p])
             else:
@@ -888,7 +888,7 @@ def OriginLikelihood(PhyTree):
         
         for p in range(0, rows(tu)):
             if Live[tu[p]] == 1:
-                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TM[tu[p]])) + LLHat[p]
+                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p])) + LLHat[p]
                 TM[tu[p]] = np.copy(TMHat[p])
                 IndCount[tu[p]] = np.copy(IMHat[p])
             else:
@@ -1030,13 +1030,15 @@ def mlfun(x, Obj):
     L2=-Obj.jukescantorlikelihood()
     L3=-Obj.DeathLikelihood()
     L4=-np.max(Obj.OriginLikelihood())
-    return -L1-L2-L3-L4	
+    
+    penalty = np.sum(Obj.penaltyparm*np.square(Obj.parameters))
+    return -L1-L2-L3-L4	- penalty
 
-def puzzler(Data,Splits,ruhlen_1,phylum,its=1000,priordepthmin=5,priordepthmax=10,parameters='None'):
+def puzzler(Data,Splits,ruhlen_1,phylum,its=1000,priordepthmin=5,priordepthmax=10,parameters=np.array([])):
 
     RTree=ResolvedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree')   
     RTree=ResolvedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree')   
-    if parameters=='None':
+    if np.shape(parameters)[0] == 0:
         numbranches=RTree.interiorbranches
         bInit=np.matrix(-1-np.linspace(0,10,num=numbranches)/numbranches)
         rInit=np.zeros((1,len(RTree.words)))
@@ -1270,6 +1272,7 @@ class ParameterizedTree(ResolvedTree):
         self.dparms = self.parameters[0,self.dimInfo[1]:self.dimInfo[2]]
         self.eparms = self.parameters[0,self.dimInfo[3]]
         self.rates = np.exp(self.rparms)
+        self.penaltyparm = 1
     
     def settimes(self):
         
@@ -1284,6 +1287,9 @@ class ParameterizedTree(ResolvedTree):
         TFS = timeFractions(self.resolvedtree, self.bparms,False, self.deathmat)     
         self.filledtimeFractions = TFS[0]
         self.timeFractions = TFS[1]
+        
+    def setpenalty(self, val):
+        self.penaltyparm = val
     
     def showparmcount(self):
         a = self.numberbranches+1-len(self.name)
@@ -1331,8 +1337,8 @@ class ParameterizedTree(ResolvedTree):
    
         TreeBL = self.timeFractions
     
-        S = np.copy(self.states)
-        dim = cols(S)/10
+        S = np.copy(self.states).astype(float)
+        dim = cols(S)//10
     
         # Initialization of the Tree
         for i in range(0, rows(TreeBL)):
@@ -1353,15 +1359,15 @@ class ParameterizedTree(ResolvedTree):
             bl = TreeBL[r,c]                # Retrieve the branch we are going to use
             Sn = np.nansum(p,axis=0) # Sum of logs of columns corresponds to multiplication
             Qn = jcallQ1(self.rates,bl)
-            Sn = np.reshape(Sn,(dim,cols(Sn)/dim))
-            Qn = np.reshape(Qn,(rows(Qn)/10,cols(Qn)*10)) 
+            Sn = np.reshape(Sn,(dim,cols(Sn)//dim))
+            Qn = np.reshape(Qn,(rows(Qn)//10,cols(Qn)*10)) 
             ind = np.where(self.resolvedtree[:,c]==id)[0]      # Be careful wiht this function! The tailing zero is needed I think!
             S[ind,:] = np.nan
             S[r,:] = np.reshape(Sn,(1,rows(Sn)*cols(Sn)))     # Needed or not?
         
     # Collapsation and report:
         S = np.matrix(S[-1,:])
-        S = np.reshape(S, (dim, cols(S)/dim))    
+        S = np.reshape(S, (dim, cols(S)//dim))    
         rowmax = np.amax(S,axis=1)
         S = rowmax + np.log(np.dot(np.exp(S - rowmax), np.ones((10, 1))))
     
@@ -1481,7 +1487,7 @@ class ParameterizedTree(ResolvedTree):
         
             for p in range(0, rows(tu)):
                 if Live[tu[p]] == 1:
-                    LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TM[tu[p]])) + LLHat[p]
+                    LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p])) + LLHat[p]
                     TM[tu[p]] = np.copy(TMHat[p])
                     IndCount[tu[p]] = np.copy(IMHat[p])
                 else:

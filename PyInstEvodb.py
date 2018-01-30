@@ -284,7 +284,7 @@ def timeFractions(Tree, b, fill=False, DM=np.ones((1, 1)), r=1, a=0):
 
     F[:,0:1] = (1 + (1 - r)*(np.exp(Z[:,0:1]) + a))/(1 + np.exp(Z[:,0:1] + a))
     V[:,0:1] = (np.exp(Z[:,0:1]) + a)*r/(1 + np.exp(Z[:,0:1]) + a)
-
+    
     # Code block to progressively keep track of time left and time elapsed. 
     i = 1
     while True:
@@ -700,9 +700,9 @@ def OriginLikelihood_args(Tree,bp,Dhat,TFR):
     D [D <= 0] = 10                                      # Here again I love Python!
     lnD = np.matrix(-np.log(D))
     np.fill_diagonal(lnD, 0) 
-    print(bp)
+
     # The main recursive loop backwards through the branches:
-    for i in range(rows(Tree), rows(bp)):  
+    for i in range(rows(Tree), rows(bp)):     
         id = Tree[bp[i,0], bp[i,1]]
         tu = np.where(Tree[:,bp[i,1]]==id)[0]
         Bhat = np.copy(TFR[tu,bp[i,1]:])
@@ -759,6 +759,7 @@ def RouteChooser(ParameterizedTreeClass):
     Tree = ParameterizedTreeClass.resolvedtree
     bp = ParameterizedTreeClass.branchpositions
     D = ParameterizedTreeClass.D
+
     branchRoute = J(0, 2, np.nan) 
     TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0,rows(Tree))).T))        #Renumbered tree
 
@@ -1330,8 +1331,8 @@ class ParameterizedTree(ResolvedTree):
    
         TreeBL = self.timeFractions
     
-        S = np.copy(self.states)
-        dim = cols(S)/10
+        S = np.copy(self.states).astype(float)
+        dim = cols(S)//10
     
         # Initialization of the Tree
         for i in range(0, rows(TreeBL)):
@@ -1352,15 +1353,15 @@ class ParameterizedTree(ResolvedTree):
             bl = TreeBL[r,c]                # Retrieve the branch we are going to use
             Sn = np.nansum(p,axis=0) # Sum of logs of columns corresponds to multiplication
             Qn = jcallQ1(self.rates,bl)
-            Sn = np.reshape(Sn,(dim,cols(Sn)/dim))
-            Qn = np.reshape(Qn,(rows(Qn)/10,cols(Qn)*10)) 
+            Sn = np.reshape(Sn,(dim,cols(Sn)//dim))
+            Qn = np.reshape(Qn,(rows(Qn)//10,cols(Qn)*10)) 
             ind = np.where(self.resolvedtree[:,c]==id)[0]      # Be careful wiht this function! The tailing zero is needed I think!
             S[ind,:] = np.nan
             S[r,:] = np.reshape(Sn,(1,rows(Sn)*cols(Sn)))     # Needed or not?
         
     # Collapsation and report:
         S = np.matrix(S[-1,:])
-        S = np.reshape(S, (dim, cols(S)/dim))    
+        S = np.reshape(S, (dim, cols(S)//dim))    
         rowmax = np.amax(S,axis=1)
         S = rowmax + np.log(np.dot(np.exp(S - rowmax), np.ones((10, 1))))
     
@@ -1441,9 +1442,9 @@ class ParameterizedTree(ResolvedTree):
         D[D <= 0] = 10   
         lnD = np.matrix(-np.log(D))
         np.fill_diagonal(lnD,0) 
+
     # The main recursive loop backwards through the branches:
-        for i in range(rows(self.resolvedtree), rows(bp)):   
-            print(bp[i,0], bp[i,1], type(bp[i,0]), type(bp[i,1]))            
+        for i in range(rows(self.resolvedtree), rows(bp)):     
             id = self.resolvedtree[bp[i,0], bp[i,1]]
             tu = np.where(self.resolvedtree[:,bp[i,1]] == id)[0]
             Bhat = self.depth*1000*np.copy(self.filledtimeFractions[tu,bp[i,1]:])
@@ -1559,7 +1560,7 @@ class ParameterizedTree(ResolvedTree):
         Tree = self.resolvedtree
         bp = self.branchpositions
         D = self.D
-        print(bp)
+
         branchRoute = J(0, 2, np.nan)   # Arrows
         TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0, rows(Tree))).T))        #Renumbered tree
 
