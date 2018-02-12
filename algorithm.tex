@@ -1,0 +1,452 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\begin{document}
+Algorithm:
+\begin{tiny}
+\begin{verbatim}
+def OriginLikelihood(Tree):
+
+    TM       = Tree.resolvedtree
+    bp       = Tree.branchpositions
+    bp       = bp[rows(TM):]
+    branches = Tree.filledtimeFractions*Tree.depth*1000
+
+    LL       = np.zeros(rows(TM))
+    LL_D     = np.zeros(rows(TM))
+    NN       = np.zeros(rows(TM))
+    TT       = branches[:,-1]
+    DD       = np.zeros(rows(TM))
+    Live     = np.zeros(rows(TM))
+
+    D         = np.copy(Tree.D)
+    np.fill_diagonal(D, 1)
+    lnD       = - np.log(D)
+    lnD       = np.zeros(np.shape(lnD))
+
+    for bb in bp:
+        r, c    = bb[0], bb[1]
+        id      = TM[r, c]
+        tu      = np.where(TM[:, c] == id)[0]
+        bhat    = branches[tu, c]
+        THat    = TM[tu, c:]
+        NNCount = NN[tu] + 1
+        TTCount = TT[tu] + branches
+        LLHat   = LL[tu]
+
+        for p in tu:
+            if Live[p] == 1:
+                LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
+                LL_D[p] = LL_D[p] + DD[p]
+
+        LL_DHat = LL_D[tu]
+
+        DHat    = (lnD[tu, :])[:, tu]
+
+        z = 0
+        while True:
+            ids  = uniq(THat[:, z])
+            nums = THat[:, z]
+            z    = z + 1
+            if len(ids) > 1:
+                break
+
+        TTHat = np.zeros(len(nums))
+        NNHat = np.zeros(len(nums))
+        DDHat = np.zeros(len(nums))
+
+        for m in ids:
+            posi   = np.where(nums == m)[0]
+            posni  = np.where(nums != m)[0]
+            toAdd  = TTCount[posni]
+            for q in posi:
+                maxFinder = NNCount[posni]*(np.log(NNCount[posni]) \
+                    - np.log(toAdd)) + LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                maxm      = np.argmax(maxFinder)
+                TTHat[q]  = toAdd[maxm]
+                NNHat[q]  = NNCount[posni[maxm]]
+                DDHat[q]  = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
+
+        for p in range(0, rows(tu)):
+            TT[tu[p]] = TTHat[p]
+            NN[tu[p]] = NNHat[p]
+            DD[tu[p]] = DDHat[p]
+            if Live[tu[p]] == 0:
+                Live[tu[p]] = 1
+
+    for p in tu:
+        if Live[p] == 1:
+            LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
+            LL_D[p] = LL_D[p] + DD[p]
+
+    return LL_D + LL
+
+\end{verbatim}
+
+
+\section{Example}
+
+The execution of the initial block of code:
+\begin{verbatim}
+    TM       = Tree.resolvedtree
+    bp       = Tree.branchpositions
+    bp       = bp[rows(TM):]
+    branches = Tree.filledtimeFractions*Tree.depth*1000
+
+    LL       = np.zeros(rows(TM))
+    LL_D     = np.zeros(rows(TM))
+    NN       = np.zeros(rows(TM))
+    TT       = branches[:,-1]
+    DD       = np.zeros(rows(TM))
+    Live     = np.zeros(rows(TM))
+
+    D         = np.copy(Tree.D)
+    np.fill_diagonal(D, 1)
+    lnD       = - np.log(D)
+    lnD       = np.zeros(np.shape(lnD))
+\end{verbatim}
+Gives us the following entities:
+\begin{equation*}
+TM = \left[\begin{array}{ccccc}
+0 & 0 & 0 & 0 & 0 \\
+0 & 0 & 0 & 1 & 1 \\
+0 & 0 & 1 & 2 & 2 \\
+0 & 0 & 1 & 2 & 3 \\
+0 & 0 & 1 & 3 & 4 \\
+0 & 1 & 2 & 3 & 5 \\
+0 & 1 & 2 & 4 & 6 \\
+0 & 1 & 2 & 4 & 7 \\ 
+\end{array}\right]
+\end{equation*}
+With branch matrix:
+\begin{equation*}
+branches = \left[\begin{array}{ccccc}
+b_1 & b_2 & b_4 & .   & b_8 \\
+b_1 & b_2 & b_4 & .   & b_9 \\
+b_1 & b_2 & b_5 & .   & b_{10} \\
+b_1 & b_2 & b_5 & b_6 & b_{11} \\
+b_1 & b_2 & b_5 & b_6 & b_{12} \\
+b_1 & b_3 & .   & b_7 & b_{13} \\
+b_1 & b_3 & .   & b_7 & b_{14} \\
+b_1 & b_3 & .   & .   & b_{15} \\
+\end{array}\right]
+\end{equation*}
+The list of (interior) branch positions is:
+\begin{equation*}
+bp = \left[\begin{array}{c}
+\left[4,3\right] \\
+\left[6,3\right] \\
+\left[1,2\right] \\
+\left[4,2\right] \\
+\left[4,1\right] \\
+\left[7,1\right] \\
+\left[7,0\right]
+ \end{array}\right]
+\end{equation*}
+
+That is all we need to start the iterations, along with a distance matrix. we keep track of things in a table:
+
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+0   & 0     & $b_8$   & 0  & 0   & 0 \\
+0   & 0     & $b_9$   & 0  & 0   & 0 \\
+0   & 0     & $b_10$   & 0  & 0   & 0 \\
+0   & 0     & $b_11$   & 0  & 0   & 0 \\
+0   & 0     & $b_12$   & 0  & 0   & 0 \\
+0   & 0     & $b_13$   & 0  & 0   & 0 \\
+0   & 0     & $b_14$   & 0  & 0   & 0 \\
+0   & 0     & $b_15$   & 0  & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+The distance matrix is:
+
+\begin{equation*}
+\ln(D) =\left[\begin{array}{cccccccc}
+0      & d_{12}  & d_{13}  & d_{14}  & d_{15}  & d_{16} & d_{17} & d_{18} \\
+d_{21} & 0       & d_{23}  & d_{24}  & d_{25}  & d_{26} & d_{27} & d_{28} \\
+d_{31} & d_{32}  & 0       & d_{34}  & d_{35}  & d_{36} & d_{37} & d_{38} \\
+d_{41} & d_{42}  & d_{43}  & 0       & d_{45}  & d_{46} & d_{47} & d_{48} \\
+d_{51} & d_{52}  & d_{53}  & d_{54}  & 0       & d_{56} & d_{57} & d_{58} \\
+d_{61} & d_{62}  & d_{63}  & d_{64}  & d_{65}  & 0      & d_{67} & d_{68} \\
+d_{71} & d_{72}  & d_{73}  & d_{74}  & d_{75}  & d_{76} & 0      & d_{78} \\
+d_{81} & d_{82}  & d_{83}  & d_{84}  & d_{85}  & d_{86} & d_{87} & 0      \end{array}\right]
+\end{equation*}
+
+\subsection{Looping over branches}
+We now enter the loop, which, in the first iteration, is fairly simple. We have $r,c=4,3$:
+\begin{equation*}
+\texttt{NNCount}=\left[\begin{array}{c} 1 \\ 1 \end{array} \right]
+\end{equation*}
+\begin{equation*}
+\texttt{bhat}=\left[\begin{array}{c} b_6 \\ b_6 \end{array} \right]
+\end{equation*}
+and then:
+\begin{equation*}
+\texttt{TTCount}=\left[\begin{array}{c} b_6 +b_{10}\\ b_6+b_{11} \end{array} \right]
+\end{equation*}
+The rest of the values are all zero. 
+\subsubsection{Looping over ids at a given branch}
+We then enter the loop that splits the subtree. Coming out of the loop, we have something like:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+0   & 0     & $b_8$   & 0  & 0   & 0 \\
+0   & 0     & $b_9$   & 0  & 0   & 0 \\
+0   & 0     & $b_10$   & 0  & 0   & 0 \\
+0   & 0     & $b_6 + b_{12}$   & 1  & 0   & 1 \\
+0   & 0     & $b_6 + b_{11}$   & 1  & 0   & 1 \\
+0   & 0     & $b_13$   & 0  & 0   & 0 \\
+0   & 0     & $b_14$   & 0  & 0   & 0 \\
+0   & 0     & $b_15$   & 0  & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Similarly...}
+After popping the next two branches, the algorithm is really just starting to get rolling, so we will have:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+0   & 0     & $b_4+b_9$   & 1  & $d_{12}$   & 1 \\
+0   & 0     & $b_4+b_8$   & 1  & $d_{21}$   & 1 \\
+0   & 0     & $b_10$   & 0  & 0   & 0 \\
+0   & 0     & $b_6 + b_{12}$   & 1  & $d_{45}$   & 1 \\
+0   & 0     & $b_6 + b_{11}$   & 1  & $d_{54}$   & 1 \\
+0   & 0     & $b_7+b_{14}$   & 1  & $d_{67}$   & 1 \\
+0   & 0     & $b_7+b_{13}$   & 1  & $d_{76}$   & 1 \\
+0   & 0     & $b_15$   & 0  & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+And this is basically it for the low-hanging fruit. 
+\subsubsection{Interior branches} 
+So, we now pop a triple branch, to get:
+\begin{equation*}
+\texttt{NNCount}=\left[\begin{array}{c} 1 \\ 2 \\ 2 \\ \end{array} \right]
+\end{equation*}
+\begin{equation*}
+\texttt{bhat}=\left[\begin{array}{c} b_5 \\ b_5 \\ b_5 \end{array} \right]
+\end{equation*}
+and then:
+\begin{equation*}
+\texttt{TTCount}=\left[\begin{array}{c}b_5+b_{10} \\ b_5+ b_6 +b_{10}\\ b_5+b_6+b_{11} \end{array} \right]
+\end{equation*}
+
+Note since two of the branches were already ``live'', the likelihood has to be updated and we get:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+0   &              & $b_4+b_9$        & 1  & $d_{12}$   & 1 \\
+0   & 0            & $b_4+b_8$        & 1  & $d_{21}$   & 1 \\
+0   & 0            & $b_{10}$           & 0  & 0   & 0 \\
+$-\ln(b_6+b_{12})$   & $d_{45}$ & $b_6 + b_{12}$   & 1  & $d_{45}$   & 1 \\
+$-\ln(v_6+b_{11})$   & $d_{54}$ & $b_6 + b_{11}$   & 1  & $d_{54}$   & 1 \\
+0   & 0            & $b_7+b_{14}$     & 1  & $d_{67}$   & 1 \\
+0   & 0            & $b_7+b_{13}$     & 1  & $d_{76}$   & 1 \\
+0   & 0            & $b_15$   & 0     & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+Now, we loop over the in and out group entries. In our case, we first have to deal with the other two entries. As written, we will go through the loop and arrive at:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+0   & 0            & $b_4+b_9$        & 1  & $d_{12}$   & 1 \\
+0   & 0            & $b_4+b_8$        & 1  & $d_{21}$   & 1 \\
+0   & 0            & $b_5+b_6+b_{11}$           & 2  & $d_{34}$   & 1 \\
+$-\ln(b_6+b_{12})$   & $d_{45}$ & $b_5 + b_{10}$   & 1  & $d_{43}$   & 1 \\
+$-\ln(v_6+b_{11})$   & $d_{54}$ & $b_5 + b_{10}$   & 1  & $d_{53}$   & 1 \\
+0   & 0            & $b_7+b_{14}$     & 1  & $d_{67}$   & 1 \\
+0   & 0            & $b_7+b_{13}$     & 1  & $d_{76}$   & 1 \\
+0   & 0            & $b_{15}$   & 0     & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Next branch}
+
+Now, we pop branch $b_2$. This is a big one and we are at the place where the rubber really hits the road. Our two most important entities are:
+\begin{equation*}
+\texttt{NNCount}=\left[\begin{array}{c} 2\\ 2 \\ 3 \\ 2 \\ 2 \\ \end{array} \right]
+\end{equation*}
+\begin{equation*}
+\texttt{bhat}=\left[\begin{array}{c} b_2 \\ b_2 \\ b_2 \\ b_2 \\ b_2 \end{array} \right]
+\end{equation*}
+and then:
+\begin{equation*}
+\texttt{TTCount}=\left[\begin{array}{c}b_2+b_4+b_9 \\ b_2+ b_4 +b_8 \\ b_2+b_5+b_6+b_{11} \\ b2 + b5 + b_{10} \\ b2+b_5+b_{10}\end{array} \right]
+\end{equation*}
+
+Everyone is now live. So, now, we have the following interim update:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$-\ln(b_4+b_9)$   & $d_{12}$            & $b_4+b_9$        & 1  & $d_{12}$   & 1 \\
+$-\ln(b_4+b_8)$   & $d_{21}$            & $b_4+b_8$        & 1  & $d_{21}$   & 1 \\
+2$(\ln 2-\ln(b_5+b_6+b_{11}))$   & $d_{34}$            & $b_5+b_6+b_{11}$           & 2  & $d_{34}$   & 1 \\
+$-\ln(b_6+b_{12})+\ln(b_5+b_{10})$   & $d_{45}+d_{43}$ & $b_5 + b_{10}$   & 1  & $d_{43}$   & 1 \\
+$-\ln(v_6+b_{11})+\ln(b_5+b_{10})$   & $d_{54}+d_{53}$ & $b_5 + b_{10}$   & 1  & $d_{53}$   & 1 \\
+0   & 0            & $b_7+b_{14}$     & 1  & $d_{67}$   & 1 \\
+0   & 0            & $b_7+b_{13}$     & 1  & $d_{76}$   & 1 \\
+0   & 0            & $b_{15}$   & 0     & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+At first, we have the in group at positions $0,1$ and the out group at positions $2,3,4$. So, we suppose the branch with three entities along it is selected as the max. For the other group, we will suppose that the first of the top two is selected. This means that in the end, we have:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$-\ln(b_4+b_9)$   & $d_{12}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{13}$   & 1 \\
+$-\ln(b_4+b_8)$   & $d_{21}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{23}$   & 1 \\
+2$(\ln 2-\ln(b_5+b_6+b_{11}))$   & $d_{34}$            & $b_2+b_4+b_{9}$           & 2  & $d_{31}$   & 1 \\
+$-\ln(b_6+b_{12})+\ln(b_5+b_{10})$   & $d_{45}+d_{43}$ & $b_2 +b_4+b_{9}$   & 2  & $d_{41}$   & 1 \\
+$-\ln(v_6+b_{11})+\ln(b_5+b_{10})$   & $d_{54}+d_{53}$ & $b_2 +b_{4}+b_9$   & 2  & $d_{51}$   & 1 \\
+0   & 0            & $b_7+b_{14}$     & 1  & $d_{67}$   & 1 \\
+0   & 0            & $b_7+b_{13}$     & 1  & $d_{76}$   & 1 \\
+0   & 0            & $b_{15}$   & 0     & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+And that is how things should stand after the next iteration. The next branch to be popped is the bottom three groups. So, have an interim update, that gives:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$-\ln(b_4+b_9)$   & $d_{12}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{13}$   & 1 \\
+$-\ln(b_4+b_8)$   & $d_{21}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{23}$   & 1 \\
+2$(\ln 2-\ln(b_5+b_6+b_{11}))$   & $d_{34}$            & $b_2+b_4+b_{9}$           & 2  & $d_{31}$   & 1 \\
+$-\ln(b_6+b_{12})+\ln(b_5+b_{10})$   & $d_{45}+d_{43}$ & $b_2 +b_4+b_{9}$   & 2  & $d_{41}$   & 1 \\
+$-\ln(b_6+b_{11})+\ln(b_5+b_{10})$   & $d_{54}+d_{53}$ & $b_2 +b_{4}+b_9$   & 2  & $d_{51}$   & 1 \\
+$-\ln(b_7+b_{14})$   & $d_{67}$            & $b_7+b_{14}$     & 1  & $d_{67}$   & 1 \\
+$-\ln(b_7+b_{13}$   & $d_{76}$            & $b_7+b_{13}$     & 1  & $d_{76}$   & 1 \\
+0   & 0            & $b_{15}$   & 0     & 0   & 0 \\
+\hline
+\end{tabular}
+\end{center}
+The important entities that we then create are:
+\begin{equation*}
+\texttt{NNCount}=\left[\begin{array}{c} 2 \\ 2 \\ 1 \\ \end{array} \right]
+\end{equation*}
+\begin{equation*}
+\texttt{bhat}=\left[\begin{array}{c} b_2 \\ b_2 \\ b_2 \end{array} \right]
+\end{equation*}
+and then:
+\begin{equation*}
+\texttt{TTCount}=\left[\begin{array}{c} b_3+b_7+b_{14} \\ b_3 + b_7 + b_{14} \\ b_3+b_{15}\end{array} \right]
+\end{equation*}
+Accordingly, at the end of the loop, we have: 
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$-\ln(b_4+b_9)$   & $d_{12}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{13}$   & 1 \\
+$-\ln(b_4+b_8)$   & $d_{21}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{23}$   & 1 \\
+2$(\ln 2-\ln(b_5+b_6+b_{11}))$   & $d_{34}$            & $b_2+b_4+b_{9}$           & 2  & $d_{31}$   & 1 \\
+$-\ln(b_6+b_{12})+\ln(b_5+b_{10})$   & $d_{45}+d_{43}$ & $b_2 +b_4+b_{9}$   & 2  & $d_{41}$   & 1 \\
+$-\ln(b_6+b_{11})+\ln(b_5+b_{10})$   & $d_{54}+d_{53}$ & $b_2 +b_{4}+b_9$   & 2  & $d_{51}$   & 1 \\
+$-\ln(b_7+b_{14})$   & $d_{67}$            & $b_3+b_{15}$     & 1  & $d_{68}$   & 1 \\
+$-\ln(b_7+b_{13}$   & $d_{76}$            & $b_3+b_{15}$     & 1  & $d_{78}$   & 1 \\
+0   & 0            & $b_3+b_7+b_{14}$   & 2     & $d_{86}$   & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Final pass through the loop}
+
+On the final pass through the loop, we have an interim update across the board - all groups are live and included in the last branch. So:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$\begin{array}{c}-\ln(b_4+b_9)+3(\ln(3)-\\ \ln(b_2+b_5+b_6+b_{11})) \end{array}$   & $d_{12}+d_{13}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{13}$   & 1 \\
+$\begin{array}{c} -\ln(b_4+b_8)+3(\ln(3)- \\ \ln(b_2+b_5+b_6+b_{11})) \end{array}$   & $d_{21}+d_{23}$            & $b_2+b_5+b_6+b_{11}$        & 3  & $d_{23}$   & 1 \\
+$\begin{array}{c} 2(\ln 2-\ln(b_5+b_6+b_{11}))+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))\end{array}$   & $d_{34}+d_{31}$            & $b_2+b_4+b_{9}$           & 2  & $d_{31}$   & 1 \\
+$\begin{array}{c}-\ln(b_6+b_{12})-\ln(b_5+b_{10})+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))\end{array}$   & $d_{45}+d_{43}+d_{41}$ & $b_2 +b_4+b_9$   & 2  & $d_{41}$   & 1 \\
+$\begin{array}{c}-\ln(b_6+b_{11})-\ln(b_5+b_{10})+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))\end{array}$   & $d_{54}+d_{53}+d_{51}$ & $b_2 +b_4+b_9$   & 2  & $d_{51}$   & 1 \\
+$\begin{array}{c}-\ln(b_7+b_{14})-\ln(b_3+b_{15}\end{array}$   & $d_{67}+d_{68}$            & $b_3+b_{15}$     & 1  & $d_{68}$   & 1 \\
+$\begin{array}{c}-\ln(b_7+b_{13}-\ln(b_3+b_{15}\end{array}$   & $d_{76}+d_{68}$            & $b_3+b_{15}$     & 1  & $d_{78}$   & 1 \\
+$\begin{array}{c}2(\ln(2)-\ln(b_3+b_7+b14))\end{array}$   & $d_{86}$            & $b_3+b_7+b_{14}$   & 2     & $d_{86}$   & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+Now, there is no need to rewrite anything. On our final pass, we get:
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$\begin{array}{c}-\ln(b_4+b_9)+3(\ln(3)-\\ \ln(b_2+b_5+b_6+b_{11})) \end{array}$   & $d_{12}+d_{13}$            & $b_1+b_3+b_{15}$        & 2  & $d_{16}$   & 1 \\
+$\begin{array}{c} -\ln(b_4+b_8)+3(\ln(3)- \\ \ln(b_2+b_5+b_6+b_{11})) \end{array}$   & $d_{21}+d_{23}$            & $b_1+b_3+b_{15}$        & 2  & $d_{26}$   & 1 \\
+$\begin{array}{c} 2(\ln 2-\ln(b_5+b_6+b_{11}))+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))\end{array}$   & $d_{34}+d_{31}$            & $b_1+b_3+b_{15}$           & 2  & $d_{36}$   & 1 \\
+$\begin{array}{c}-\ln(b_6+b_{12})-\ln(b_5+b_{10})+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))\end{array}$   & $d_{45}+d_{43}+d_{41}$ & $b_1+b_3+b_{15}$   & 2  & $d_{46}$   & 1 \\
+$\begin{array}{c}-\ln(b_6+b_{11})-\ln(b_5+b_{10})+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))\end{array}$   & $d_{54}+d_{53}+d_{51}$ & $b_1+b_3+b_{15}$   & 2  & $d_{56}$   & 1 \\
+$\begin{array}{c}-\ln(b_7+b_{14})-\ln(b_3+b_{15}\end{array}$   & $d_{67}+d_{68}$            & $b_1+b_2+b_5+b_6+b_{11}$     & 4  & $d_{61}$   & 1 \\
+$\begin{array}{c}-\ln(b_7+b_{13}-\ln(b_3+b_{15}\end{array}$   & $d_{76}+d_{68}$            & $b_1+b_2+b_5+b_6+b_{11}$     & 4  & $d_{71}$   & 1 \\
+$\begin{array}{c}2(\ln(2)-\ln(b_3+b_7+b14))\end{array}$   & $d_{86}$            & $b_1+b_2+b_5+b_6+b_{11}$   & 4     & $d_{81}$   & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+And we are at the end of the loop. We next have to perform one more update to get everything in the right place.
+\begin{center}
+\begin{tabular}{cccccc}
+\hline
+LL  & LL\_D  & TT  & NN & DD  & Live \\
+\hline
+$\begin{array}{c}-\ln(b_4+b_9)+3(\ln(3)-\\ \ln(b_2+b_5+b_6+b_{11})) + \\ 2(\ln(2)-\ln(b_1+b_3+b_{15}) \end{array}$   & $d_{12}+d_{13}$            & $b_1+b_3+b_{15}$        & 2  & $d_{16}$   & 1 \\
+$\begin{array}{c} -\ln(b_4+b_8)+3(\ln(3)- \\ \ln(b_2+b_5+b_6+b_{11})+ \\ 2(\ln(2)-\ln(b_1+b_3+b_{15})) \end{array}$   & $d_{21}+d_{23}$            & $b_1+b_3+b_{15}$        & 2  & $d_{26}$   & 1 \\
+$\begin{array}{c} 2(\ln 2-\ln(b_5+b_6+b_{11}))+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))+ \\ 2(\ln(2)-\ln(b_1+b_3+b_{15})\end{array}$   & $d_{34}+d_{31}$            & $b_1+b_3+b_{15}$           & 2  & $d_{36}$   & 1 \\
+$\begin{array}{c}-\ln(b_6+b_{12})-\ln(b_5+b_{10})+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))+ \\ 2(\ln(2)-\ln(b_1+b_3+b_{15})\end{array}$   & $d_{45}+d_{43}+d_{41}$ & $b_1+b_3+b_{15}$   & 2  & $d_{46}$   & 1 \\
+$\begin{array}{c}-\ln(b_6+b_{11})-\ln(b_5+b_{10})+ \\ 2(\ln(2)-\ln(b_2+b_4+b_9))+ \\ 2(\ln(2)-\ln(b_1+b_3+b_{15})\end{array}$   & $d_{54}+d_{53}+d_{51}$ & $b_1+b_3+b_{15}$   & 2  & $d_{56}$   & 1 \\
+$\begin{array}{c}-\ln(b_7+b_{14})-\ln(b_3+b_{15}+ \\ 4(\ln(4)-\ln(b_1+b_2+b_5+b_6+b_{11} \end{array}$   & $d_{67}+d_{68}$            & $b_1+b_2+b_5+b_6+b_{11}$     & 4  & $d_{61}$   & 1 \\
+$\begin{array}{c}-\ln(b_7+b_{13}-\ln(b_3+b_{15}+ \\ 4(\ln(4)-\ln(b_1+b_2+b_5+b_6+b_{11} \end{array}$   & $d_{76}+d_{68}$            & $b_1+b_2+b_5+b_6+b_{11}$     & 4  & $d_{71}$   & 1 \\
+$\begin{array}{c}2(\ln(2)-\ln(b_3+b_7+b14))+ \\ 4(\ln(4)-\ln(b_1+b_2+b_5+b_6+b_{11} \end{array}$   & $d_{86}$            & $b_1+b_2+b_5+b_6+b_{11}$   & 4     & $d_{81}$   & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+\end{tiny}
+
+\end{document} 
