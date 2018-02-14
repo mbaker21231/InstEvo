@@ -648,7 +648,7 @@ def runningsum(X):
     rs=np.array([0])
 
     for i in range(1, len(X)):
-        rs = np.vstack((rs, np.array(np.sum(X[0:i,:]))))
+        rs = np.vstack((rs, np.array(np.sum(X[0:i]))))
     
     return rs
 
@@ -822,82 +822,81 @@ def RouteChooser(ParameterizedTreeClass):
     
     return Path, branchRoute    
 	
-def OriginLikelihood(PhyTree):
+def OriginLikelihood(Tree):
+    
+    TM       = Tree.resolvedtree 
+    bp       = Tree.branchpositions      
+    bp       = bp[rows(TM):]
+    branches = Tree.filledtimeFractions*Tree.depth*1000
+ 
+    LL       = np.zeros(rows(TM))
+    LL_D     = np.zeros(rows(TM))
+    NN       = np.zeros(rows(TM))        
+    TT       = branches[:, -1]
+    DD       = np.zeros(rows(TM))
+    Live     = np.zeros(rows(TM))
         
-    '''A function that takes in a time-filled in Tree (Tr), a pairwise distance matrix D, the actual
-       Tree in Matrix form (Tree), and a list of the row,column branch positions of the Tree. It puts
-       out the likelihood of each row in Tree being the point of origin for the tree. '''
-    
-    '''Some things to watch out for - the np.where function can behave in funny ways! Also, it is critical
-       that maxFinder and toAdd have the right shape - column vectors, effectively.'''
-    
-    '''In trouble shooting, a frequent culprit causing problems were programming snafus that
-       left TM empty (equal to zero) while at the same time attempting to take a log.'''
-    
-    '''Another thing to watch out for - branches that are so small they violate Poisson rareness assumption!'''
-    
-    # Initialize placeholders:
-    
-    TM = np.copy(PhyTree.resolvedtree[:,-1])   #Just to shorten the code a bit
-    bp = PhyTree.branchpositions      #Likewise
-    LL = np.zeros((rows(TM), 1))
-    IndCount = np.zeros((rows(TM), 1))
-    Live = np.zeros((rows(TM), 1))        
+    D         = np.copy(Tree.D)
+    np.fill_diagonal(D, 1)
+    lnD       = - np.log(D)
+    lnD       = np.zeros(np.shape(lnD))
 
-    # Get rid of zeros in the Distance matrix:
-    D = np.copy(PhyTree.D)
-    D[D <= 0] = 10   
-    lnD = np.matrix(-np.log(D))
-    np.fill_diagonal(lnD,0) 
+    for bb in bp:
+        r, c    = bb[0], bb[1]
+        id      = TM[r, c]
+        tu      = np.where(TM[:, c] == id)[0]
+        bhat    = branches[tu, c]
+        THat    = TM[tu, c:]
+        NNCount = NN[tu] + 1
+        TTCount = TT[tu] + bhat
+        LLHat   = LL[tu]
 
-    # The main recursive loop backwards through the branches:
-    for i in range(rows(PhyTree.resolvedtree), rows(bp)):     
-        id = PhyTree.resolvedtree[bp[i,0], bp[i,1]]
-        tu = np.where(PhyTree.resolvedtree[:,bp[i,1]] == id)[0]
-        Bhat = PhyTree.depth*1000*np.copy(PhyTree.filledtimeFractions[tu,bp[i,1]:])
-        TreeHat = np.copy(PhyTree.resolvedtree[tu,bp[i,1]:])
-        IndCountHat = np.copy(IndCount[tu])
-        LLHat = np.copy(LL[tu])
-    
+        for p in tu:
+            if Live[p] == 1:
+                LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
+                LL_D[p] = LL_D[p] + DD[p]
+     
+        LL_DHat = LL_D[tu]
+
+        DHat    = (lnD[tu, :])[:, tu]
+     
         z = 0
         while True:
-            ids = np.unique(np.asarray(TreeHat[:,z]))             # Replaced again...
-            nums = TreeHat[:,z]
-            z += 1
+            ids  = uniq(THat[:, z])
+            nums = THat[:, z]
+            z    = z + 1
             if len(ids) > 1:
                 break
-
-        TMHat = np.zeros((len(nums), 1))
-        IMHat = np.copy(IndCountHat)   
-        DHat = (lnD[tu,:])[:,tu] 
+         
+        TTHat = np.zeros(len(nums))
+        NNHat = np.zeros(len(nums))
+        DDHat = np.zeros(len(nums))
+     
         for m in ids:
-            posi = np.where(nums == m)[0]
-            posni = np.where(nums != m)[0]
-            toAdd = np.matrix(np.nansum(Bhat[posni,:], axis=1)).T
+            posi   = np.where(nums == m)[0]
+            posni  = np.where(nums != m)[0]
+            toAdd  = TTCount[posni]
             for q in posi:
-                maxFinder = DHat[q,posni].T
-                for n in range(0, len(posni)):
-                    if IndCountHat[posni[n]] >= 1:
-                        maxFinder[n]=maxFinder[n] + IndCountHat[posni[n]]*(np.log(IndCountHat[posni[n]]) - np.log(toAdd[n])) + LLHat[posni[n]]
-                max = np.argmax(maxFinder)           # No need to do more - defaults to first entry if more than one
-                TMHat[q] = toAdd[max]
-                IMHat[q] =1 + IndCountHat[posni[max]]
-                LLHat[q] = DHat[q,posni[max]]
-            TMHat[posi] = toAdd[max]
-            IMHat[posi] = IndCountHat[posni[max]] + 1
-        
+                maxFinder = NNCount[posni]*(np.log(NNCount[posni]) \
+                    - np.log(toAdd)) + LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                maxm      = np.argmax(maxFinder)
+                TTHat[q]  = toAdd[maxm]
+                NNHat[q]  = NNCount[posni[maxm]]
+                DDHat[q]  = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
+     
         for p in range(0, rows(tu)):
-            if Live[tu[p]] == 1:
-                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p])) + LLHat[p]
-                TM[tu[p]] = np.copy(TMHat[p])
-                IndCount[tu[p]] = np.copy(IMHat[p])
-            else:
-                LL[tu[p]] = LLHat[p]
+            TT[tu[p]] = TTHat[p]
+            NN[tu[p]] = NNHat[p]
+            DD[tu[p]] = DDHat[p]
+            if Live[tu[p]] == 0:
                 Live[tu[p]] = 1
-                TM[tu[p]] = TMHat[p]
-                IndCount[tu[p]] = IMHat[p]   
     
-    return LL 	
+    for p in tu:
+        if Live[p] == 1:
+            LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
+            LL_D[p] = LL_D[p] + DD[p]    
+        
+    return LL_D + LL
 
 def settimes(PhyTree):
         
@@ -1423,80 +1422,80 @@ class ParameterizedTree(ResolvedTree):
         return np.sum(norm.logpdf(DateErr))
     
     def OriginLikelihood(self):
+    
+        TM       = self.resolvedtree 
+        bp       = self.branchpositions      
+        bp       = bp[rows(TM):]
+        branches = self.filledtimeFractions*self.depth*1000
+ 
+        LL       = np.zeros(rows(TM))
+        LL_D     = np.zeros(rows(TM))
+        NN       = np.zeros(rows(TM))        
+        TT       = branches[:, -1]
+        DD       = np.zeros(rows(TM))
+        Live     = np.zeros(rows(TM))
         
-        '''A function that takes in a time-filled in Tree (Tr), a pairwise distance matrix D, the actual
-           Tree in Matrix form (Tree), and a list of the row,column branch positions of the Tree. It puts
-           out the likelihood of each row in Tree being the point of origin for the tree. '''
-    
-        '''Some things to watch out for - the np.where function can behave in funny ways! Also, it is critical
-           that maxFinder and toAdd have the right shape - column vectors, effectively.'''
-    
-        '''In trouble shooting, a frequent culprit causing problems were programming snafus that
-           left TM empty (equal to zero) while at the same time attempting to take a log.'''
-    
-        '''Another thing to watch out for - branches that are so small they violate Poisson rareness assumption!'''
-    
-    # Initialize placeholders:
-        TM = np.copy(self.resolvedtree[:,-1])   #Just to shorten the code a bit
-        bp = self.branchpositions      #Likewise
-        LL = np.zeros((rows(TM), 1))
-        IndCount = np.zeros((rows(TM), 1))
-        Live = np.zeros((rows(TM), 1))        
+        D         = np.copy(self.D)
+        np.fill_diagonal(D, 1)
+        lnD       = - np.log(D)
+        lnD       = np.zeros(np.shape(lnD))
 
-        # Get rid of zeros in the Distance matrix:
-        D = np.copy(self.D)
-        D[D <= 0] = 10   
-        lnD = np.matrix(-np.log(D))
-        np.fill_diagonal(lnD,0) 
+        for bb in bp:
+            r, c    = bb[0], bb[1]
+            id      = TM[r, c]
+            tu      = np.where(TM[:, c] == id)[0]
+            bhat    = branches[tu, c]
+            THat    = TM[tu, c:]
+            NNCount = NN[tu] + 1
+            TTCount = TT[tu] + bhat
+            LLHat   = LL[tu]
 
-    # The main recursive loop backwards through the branches:
-        for i in range(rows(self.resolvedtree), rows(bp)):     
-            id = self.resolvedtree[bp[i,0], bp[i,1]]
-            tu = np.where(self.resolvedtree[:,bp[i,1]] == id)[0]
-            Bhat = self.depth*1000*np.copy(self.filledtimeFractions[tu,bp[i,1]:])
-            TreeHat = np.copy(self.resolvedtree[tu,bp[i,1]:])
-            IndCountHat = np.copy(IndCount[tu])
-            LLHat = np.copy(LL[tu])
-    
+            for p in tu:
+                if Live[p] == 1:
+                    LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
+                    LL_D[p] = LL_D[p] + DD[p]
+     
+            LL_DHat = LL_D[tu]
+
+            DHat    = (lnD[tu, :])[:, tu]
+     
             z = 0
             while True:
-                ids = uniq(TreeHat[:,z])
-                nums = TreeHat[:,z]
-                z += 1
+                ids  = uniq(THat[:, z])
+                nums = THat[:, z]
+                z    = z + 1
                 if len(ids) > 1:
                     break
-
-            TMHat = np.zeros((len(nums), 1))
-            IMHat = np.copy(IndCountHat)   
-            DHat = (lnD[tu,:])[:,tu] 
+         
+            TTHat = np.zeros(len(nums))
+            NNHat = np.zeros(len(nums))
+            DDHat = np.zeros(len(nums))
+     
             for m in ids:
-                posi = np.where(nums == m)[0]
-                posni = np.where(nums != m)[0]
-                toAdd = np.matrix(np.nansum(Bhat[posni,:], axis=1)).T
+                posi   = np.where(nums == m)[0]
+                posni  = np.where(nums != m)[0]
+                toAdd  = TTCount[posni]
                 for q in posi:
-                    maxFinder = DHat[q,posni].T
-                    for n in range(0, len(posni)):
-                        if IndCountHat[posni[n]] >= 1:
-                            maxFinder[n]=maxFinder[n] + IndCountHat[posni[n]]*(np.log(IndCountHat[posni[n]]) - np.log(toAdd[n])) + LLHat[posni[n]]
-                    max = np.argmax(maxFinder)           # No need to do more - defaults to first entry if more than one
-                    TMHat[q] = toAdd[max]
-                    IMHat[q] =1 + IndCountHat[posni[max]]
-                    LLHat[q] = DHat[q,posni[max]]
-                TMHat[posi] = toAdd[max]
-                IMHat[posi] = IndCountHat[posni[max]] + 1
-        
+                    maxFinder = NNCount[posni]*(np.log(NNCount[posni]) \
+                        - np.log(toAdd)) + LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                    maxm      = np.argmax(maxFinder)
+                    TTHat[q]  = toAdd[maxm]
+                    NNHat[q]  = NNCount[posni[maxm]]
+                    DDHat[q]  = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
+     
             for p in range(0, rows(tu)):
-                if Live[tu[p]] == 1:
-                    LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p])) + LLHat[p]
-                    TM[tu[p]] = np.copy(TMHat[p])
-                    IndCount[tu[p]] = np.copy(IMHat[p])
-                else:
-                    LL[tu[p]] = LLHat[p]
+                TT[tu[p]] = TTHat[p]
+                NN[tu[p]] = NNHat[p]
+                DD[tu[p]] = DDHat[p]
+                if Live[tu[p]] == 0:
                     Live[tu[p]] = 1
-                    TM[tu[p]] = TMHat[p]
-                    IndCount[tu[p]] = IMHat[p]   
     
-        return LL    
+        for p in tu:
+            if Live[p] == 1:
+                LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
+                LL_D[p] = LL_D[p] + DD[p]    
+        
+        return LL_D + LL 
     
     def TotalLikelihood(self):
         '''Compute the combined likelihood of the tree, given death times

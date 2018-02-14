@@ -16,7 +16,7 @@ Data   = pd.read_pickle(os.getcwd() + '//IEData//MasterData.pkl')
 Splits = pd.read_pickle(os.getcwd() + '//IEData//Splits.pkl')
 Depths = pd.read_pickle(os.getcwd() + '//IEData//Depths.pkl')
 
-EskimoALRT    = PyInstEvo.ResolvedTree(Data.loc[Data['ruhlen_1']=='ESKIMOAL'],'NTree1')
+EskimoALRT    = PyInstEvo.ResolvedTree(Data.loc[Data['ruhlen_1']=='AMERIND'],'NTree1')
 numbranches = EskimoALRT.interiorbranches
 bInit       = np.matrix(-1-np.linspace(0,10,num=numbranches)/numbranches)
 rInit=np.zeros((1,len(EskimoALRT.words)))
@@ -25,13 +25,13 @@ dInit=np.zeros((1,dparms))+1
 eInit=np.matrix(5)
 parmsInit=np.hstack((bInit,rInit,dInit,eInit))
 
-EskimoPT=PyInstEvo.ParameterizedTree(Data.loc[Data['ruhlen_1']=='ESKIMOAL'], 'NTree1', parmsInit)
+EskimoPT=PyInstEvo.ParameterizedTree(Data.loc[Data['ruhlen_1']=='AMERIND'], 'NTree1', parmsInit)
 
 
-min = np.array(Depths['min'].loc[Depths['phylum'] == 'EskimoAl'])
-max = np.array(Depths['max'].loc[Depths['phylum'] == 'EskimoAl'])
+min = np.array(Depths['min'].loc[Depths['phylum'] == 'Amerind'])
+max = np.array(Depths['max'].loc[Depths['phylum'] == 'Amerind'])
 EskimoPT.priordepth(min[0], max[0])
-EskimoPT.splitinfo(Splits[Splits['phylum'] == 'EkimoAl'])
+EskimoPT.splitinfo(Splits[Splits['phylum'] == 'Amerind'])
 
 EskimoPT.settimes()
 EskimoPT.showtree()
