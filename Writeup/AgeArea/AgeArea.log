@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=latex 2015.8.24)  14 FEB 2018 14:06
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=latex 2015.8.24)  20 FEB 2018 11:16
 entering extended mode
 **AgeArea.tex
 (C:\Users\mjbaker\Documents\GitHub\InstEvo\Writeup\AgeArea\AgeArea.tex
@@ -557,9 +557,9 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ] [2]
 File: simplePT.eps Graphic file (type eps)
 
-<simplePT.eps> [3]
+<simplePT.eps>
 File: simpleMR.eps Graphic file (type eps)
- <simpleMR.eps> [4] [5] [6] [7] [8]
+ <simpleMR.eps> [3] [4] [5] [6] [7] [8] [9]
 (C:\Users\mjbaker\Documents\GitHub\InstEvo\Writeup\AgeArea\AgeArea.aux)
 
 LaTeX Warning: There were multiply-defined labels.
@@ -574,4 +574,4 @@ Here is how much of TeX's memory you used:
  841 hyphenation exceptions out of 8191
  44i,6n,54p,735b,344s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on AgeArea.dvi (8 pages, 20252 bytes).
+Output written on AgeArea.dvi (9 pages, 21388 bytes).

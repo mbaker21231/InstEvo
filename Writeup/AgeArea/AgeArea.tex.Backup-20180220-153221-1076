@@ -50,7 +50,7 @@ groups have been concealed from us, and that we have no access to archaeological
 
 The Age-Area hypothesis (henceforth the AAH) concerns the location in which this group of societies originated, and the times and sequences behind how they subsequently migrated to populate their current locations. The AAH posits that the point of origin was A's location, as A is the most divergent language from the group. If one wanted to push the hypothesis a bit further, or even apply it recursively, one would come up with a hypothetical migratory route: the hypothesis would lead one to believe that the point of origin of the stock was A, at which point there was a migration from A to B, then from B to C, and then from C to either D or E.
 
-\begin{figure}
+\begin{figure}[htbp!]
 \begin{center}
 \includegraphics[width=\textwidth]{simplePT.eps}
 \caption{A simple phylogenetic tree}
@@ -58,15 +58,14 @@ The Age-Area hypothesis (henceforth the AAH) concerns the location in which this
 \end{figure}
 
 There are a large number of other possibilities as well, even though the structure of the tree constrains some sorts of events. For example, an additional plausible sequence of migratory events would be for an initial migratory episode from C to A, followed by another from C to B, followed by yet another migration from C to D or E.
-
-\begin{figure}
-\begin{center} 
+\begin{figure}[htbp!]
+\begin{center} \label{fig}
 \includegraphics[width=\textwidth]{simpleMR.eps}
 \caption{Potential migratory routes among a language stock consisting of five groups, following the Phylogenetic Tree in figure.}
-\end{center} \label{fooar}
+\end{center} 
 \end{figure}
 
-These two possible migratory routes are presented in figure \ref{fooar}.
+These two possible migratory routes are presented in figure \ref{fig}.
 
 The age area hypothesis suggests that the second sequence of events is somehow less likely than the sequence of events described by the first. Why? For a variety of reasons - one might simply appeal to Occam's razor - the events on the left-hand side of figure \ref{fig2} require only one migratory chain, while the events on the right-hand side require three separate expansions: an initial migration from A to C, followed by another from A to B. A third migratory event begins from C continues to D, and then to E. We can now pose our question as follows: if we believe these migratory events to be rare, and we wish to conserve them in explaining historical migrations, what sort of model would accomplish this?
 

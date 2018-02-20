@@ -1,0 +1,26 @@
+This is 8-bit Big BibTeX version 0.99c
+Implementation:  WIN32 Console, BaKoMa TNS bound.
+Release version: 3.71 (18 Aug 1996)
+
+The top-level auxiliary file: AgeArea.aux
+The style file: apalike.bst
+Database file #1: bibfile.bib
+Name 1 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
+while executing---line 1019 of file apalike.bst
+Name 1 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
+while executing---line 1019 of file apalike.bst
+Name 2 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
+while executing---line 1019 of file apalike.bst
+Name 1 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
+while executing---line 1094 of file apalike.bst
+Name 2 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
+while executing---line 1094 of file apalike.bst
+
+Here's how much of BibTeX's memory you used:
+ Cites:                 2 out of 7500
+ Fields:               11 out of 125000
+ Hash table:        34872 out of 35000
+ Strings:             482 out of 30000
+ String pool:        3921 out of 750000
+ Wizard functions:   1935 out of 10000
+(There were 5 error messages)
