@@ -7,7 +7,6 @@
 \usepackage{graphicx}
 \usepackage[left=1.4in,right=1.4in,top=1in,bottom=1in,includeheadfoot]{geometry}
 \usepackage{setspace}
-\usepackage{natbib}
 
 \newtheorem{theorem}{Theorem}
 
@@ -53,7 +52,7 @@ The Age-Area hypothesis (henceforth the AAH) concerns the location in which this
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\textwidth]{AncillaryFiles//figure1.eps}
+\includegraphics[width=\textwidth]{simplePT.eps}
 \caption{A simple phylogenetic tree} \label{fig1}
 \end{center} 
 \end{figure}
@@ -62,7 +61,7 @@ There are a large number of other possibilities as well, even though the structu
 
 \begin{figure}
 \begin{center} 
-\includegraphics[width=\textwidth]{AncillaryFiles//figure2.eps} 
+\includegraphics[width=\textwidth]{simpleMR.eps} 
 \caption{Potential migratory routes among a language stock consisting of five groups, following the Phylogenetic Tree in figure.} \label{fig2}
 \end{center} 
 \end{figure}
@@ -70,84 +69,63 @@ There are a large number of other possibilities as well, even though the structu
 These two possible migratory routes are presented in figure \ref{fig2}. The AAH suggests that the second sequence is a less likely migratory history than the sequence. Why? For a variety of reasons - one might simply appeal to Occam's razor - the events on the left-hand side of figure \ref{fig2} require only one migratory chain, while the events on the right-hand side require three separate expansions: an initial migration from A to C, followed by another from A to B. A third migratory event is sufficient to take care of the last two groups: it begins from C continues to D, and then to E. We can now pose our question as follows: if we believe these migratory events to be rare, and we wish to conserve them in explaining historical migrations, what sort of model would accomplish this? But can one make this operational in a more formal setting? Can one characterize parsimony in a meaningful mathematical and probabilistic way? 
 
 \section{A model}
-In addition to providing a foundation for the age-area hypothesis, we might lean on some additional principles that we wish to encapsulate in the theory. We might like the model to conserve on estimation of parameters, and we might also like the model to have a consistent internal logic. A simple model with transparent machinery also creates the possibility of expansion and further development. While the assumptions listed below are restrictive, one can see how they might be relaxed in future work.
 
-\subsection{Tree Basics}
- 
+In addition to providing a foundation for the age-area hypothesis, we might lean on some additional principles that we wish to encapsulate in the theory. We might like the model to conserve on estimation of parameters, and we might also like the model to have a consistent internal logic. A simple model with transparent machinery also creates the possibility of expansion and further development. While the assumptions listed below are restrictive, one can see how they might be relaxed in future work. 
 
-Along these lines, assume that we observe the entire phylogenetic tree, and that there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, and all other nodes have a single parent. All the interior nodes have two children, and all terminal nodes (leaves) have zero children. Figure \ref{fig2} is an example of such a tree. 
+Along these lines, assume that we observe the entire phylogenetic tree, and that there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, and all other nodes have a single parent. All the interior nodes have two children, and all terminal nodes (leaves) have zero children. Figure \ref{fig2} is an example of such a tree.  
 
-The most important fact about full binary trees that we employ is that if a binary tree has $n$ leaves, then it has $n-1$ internal nodes. Importantly, this also applies to subtrees, which means that if a node has $k$ ancestors, then it is followed by $k-1$ nodes.
-
-\subsection{Migratory Chains}
- 
-We flesh out a model by introducing a \textit{migratory chain}. Roughly speaking, a migratory chain is defined as a directed path from the root of the tree to an end node, which, once traversed, divides the tree into subtrees. Positing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. For example, consider figure     
+We flesh out a model of migration following definition of a migratory chain. 
 \begin{enumerate}
 \item Migratory chains are unique in the sense that each is governed by its own parameters. 
 \item  A migratory chain can begin with any location that is currently occupied. \item The location where the chain appeared generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
 \item The group emitting the mass-migration also loses its propensity to migrate. This propensity to migrate is carried off with the mass-migrating group to its new location. 
 \end{enumerate}
 
-In other instances, one might learn know the structure of the tree but not the exact times at which events have occurred. That is, the parameters of any Exponential/Poisson distribution can be concentrated out of the likelihood, and this makes the workings of the model clear in that one can easily see how and why it would posit that the first sequence of events on figure \ref{fig2} are more likely.
+One good thing about this model is that it can be easily concentrated, and also easily expanded or contracted depending on the evidence available the researcher. In some situations, for example, one has information about the exact times at which splits have occurred. If times are known, one can use an exponential distribution to govern the splits, while if times are not known, one can use a Poisson distribution. In either case, the parameters of the model can be concentrated to leave a simple probability that the observed culture group originated at each point. 
 
-To see the basic idea, I  develop a comparison of the two scenarios described in figure \ref{fig2}. The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is transitioned to location $B$. After time $t_1$, $B$ emits the migratory bug to $C$ and is then dormant, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug but never emits. The result of this is that over the entire time span of the tree, there have been exactly 4 migratory events through the one migratory chain. The probability of this happening can the be written as
-\begin{equation} \label{l1}
-P_a = \frac{(\lambda\ T)^4
-e^{-4T}}{4!}\end{equation} 
-Which is labelled as $P_a$ because it is effectively the probability of this one migratory chain occurring.\footnote{Note that there is a slight abuse of notation here. One might argue that we should include the probability of migratory events in general occurring, or write the above as a conditional probability where we are really talking about $P(a|N_m=1)$.} The log-likelihood associated with the above is:
-\begin{equation} \label{l2}
-\ln P_a  = 4\ln(\lambda T) -4T-\ln(4!)
-\end{equation} 
-Differentiating \ref{l2} with respect to $\lambda$, and solving gives $\lambda^*=\frac{4}{T}$, and substituting this back into the objective function gives the concentrated or profile likelihood:
-\begin{equation}  \label{l3}
-P_a=\frac{4^4e^{-4}}{4!}
+In other instances, one might learn know the structure of the tree but not the exact times at which events have occurred. That is, the parameters of any exponential distribution can be concentrated out of the likelihood, and this makes the workings of the model clear in that one can easily see how and why it would posit that the first sequence of events on figure \ref{fig2} are more likely.
+
+To see the basic idea, let's develop a comparison of the two scenarios described in figure \ref{fig2}. The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is transitioned to location $B$. After time $t_1$, $B$ emits the migratory bug to $C$ and is then dormant, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug but never emits.
+
+This is the only migratory episode needed to explain the positioning of the groups in the tree, and given the assumption that discharges are exponential, suppose our events are described by the distribution $\textrm{Exp}(\lambda)$. Then, we have the likelihood of point $A$ being the point of origin as:
+\begin{equation} \label{e1}
+P_A = \lambda e^{-\lambda t_0}\lambda e^{-\lambda t_1}\lambda e^{-\lambda t_2}\lambda e^{-\lambda t_3}e^{-\lambda t_8}
+\end{equation}
+or
+\begin{equation} \label{e2}
+P_A = \lambda^4 e^{-\lambda (t_0+t_1+t_2+t_3+t_8)}
 \end{equation}
 
+There are a couple of points of interest for equation (\ref{e1}). First, since only one migratory path is needed to explain the events, only one
+exponential parameter is needed for the whole process. Also, since a migratory event after $t_8$ is never observed, we have $1-F(t_8,\lambda) = e^{-\lambda t_8}$; there is only one such ``operational branch'' when our observation period ends.
 
-There are a couple of points of interest about equation (\ref{l3}). First, since only one migratory chain is needed to explain the sequence of events, only one parameter is needed for the whole process. In this sense, this a parsimonious - it requires only one distribution and one parameter. 
+Since the migration parameter is not of as great of interest as the probability, we can take the log of equation $\ref{e2}$ and maximize the result with respect to $\lambda$, and substitute the result back in to concentrated likelihood, giving us a closed-form expression for the probability that $A$ is the point of origin:
+\begin{equation} \label{e2}
+P_A = \frac{4^4e^{-4}}{(t_0+t_1+t_2+t_3+t_8)^4}
+\end{equation}
+Of course, this is not all that meaningful without a point of comparison. So, by way of comparison, according to this model, what is the likelihood that the point of origin is $C$?
 
-Contrast this with the case in which we posit that $C$ is the initial location of the culture area. To maintain consistency with the linguistic or genetic analysis, we require 1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which results in a likelihood of:
-\begin{equation} \label{l4}
-P_{c}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
-\frac{(\lambda_3(t-t_0-t_1))^2e^{-\lambda_3(t-t_0-t_1)}}{2!}
-\end{equation} 
-Maximizing $P_c$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
-\begin{equation} \label{l4}
-P_{c}=\frac{1^1e^{-}}{1!}\frac{1^1e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
-\frac{2^2e^{-4}}{2!}
-\end{equation} 
+In this case, the process begins with a migration after $t_0$ from $C$ to $A$. Subsequently, no additional migrations occur from $A$, so $A$ remains active. Then, after time $t_1$ a second migratory event arises leading from $C$ to $B$, after which nothing further occurs on this branch. Then, a migratory event leads from $C$ to $D$ over time $t_2$, and then from $D$ to $E$ over time $t_3$, at which point nothing more happens.
 
-According to this model, we now see that the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_A /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. If for some reason we had restricted things to these two possibilities, the relative probability that $A$ was the point of origin would be \884\%. 
+The key thing about this explanation is that there are three separate migratory events needed to explain things, so we need three exponential parameters in the model. Another key thing is that we have more branches that are ``alive'' at the end of the process. These might suggest intuitively that this explanation is less likely than the previous, and this is indeed the case under the model. Forming the likelihood in the
+same way as we did above, we have:
+\begin{equation} \label{e3}
+P_C = \lambda_1e^{-\lambda_1(t_0+t_4)} \lambda_2 e^{-\lambda_2 (t_1+t_5)}\lambda_3^2 e^{-\lambda_3 (t_2+t_3+t_8)}
+\end{equation}
+So, here we have a three-parameter model, which is how the increased complexity of the explanation (the anti-Occam's razor effect) is manifest in the probability. Concentrating \ref{e3} as above gives the result:
+\begin{equation} \label{e4}
+\frac{2^2e^{-4}}{(t_0+t_4)(t_1+t_5)(t_2+t_3+t_5)}
+\end{equation}
 
-Generically speaking, the function 
-\begin{equation*}
-a(n)=\frac{n^n}{n!}
-\end{equation*}
-is convex in $n$, which implies breaking up a migratory chain into two smaller chains results in a less believable or likely explanation. That is, for any  $k \in (1,n-1)$, it is true that:
-\begin{equation*}
-a(n) > a(n-k)a(k)
-\end{equation*} 
+ We can form the ratio of this and the previous expression and see which tree is more likely under which configuration of the parameters. The intuition behind the explanation can be written as:
+ \begin{equation*}
+ LR = 4\left({1-\frac{t_0}{T}}\right)4^2\left(1-\frac{t_o+t_1}{T}\right)^2
+ \end{equation*}
+So we see that unless the branches $t_0$ and $t_1$ constitute a (very) large span of the tree, our model claims that $A$ is the most likely place of origin.
 
-In context, this means that breaking up a migratory chain into migratory chains results in an explanation of events that is always less likely. There are a few details that need to be worked out, but the above example illustrates most of the inner workings of the model. The biggest detail that needs to be worked out is how the above theory that longer migratory chains are more parsimonious and therefore more likely relates to a measure of linguistic divergence. This task and others is taken up in the next section.
+\section{Theorems}
 
-\section{The Age-Area Theorem}
-
-There are many measures of divergence, and the exact approach one takes to measuring divergence of language are irrevelant here, although to fix ideas it is useful to present a brief list of popular approaches. Some are more complex than others, and some involve glottochronology, lexicostatistics, etc. Ultimately, we take as given a full, rooted, binary tree, $\mathcal{T}$, which has $N$ terminal nodes which represent our $i=1,2,3,\hdots,N$ cultural groups. As was established in the previous section, $\mathcal{T}$ has  $N-1$ internal nodes and branches. 
-
-Along with this tree, we imagine that there is some dissimilarity matrix surrounding the  constituents $ \mathcal{T}$, in the form of pairwise distance. That is:
-\begin{equation*}
-D=\left[\begin{array}{ccccc}
-0 & d_{12} & d_{13} & \hdots & d_{1N} \\
-d_{21} & 0 & d_{23} & \hdots &d_{2N} \\
-\vdots &   & \ddots &        &       \\
-d_{N1} &    &      &   & 0
-\end{array}
-\right]
-\end{equation*}
-
-To be clear, this is a linguistic distance matrix, not a physical distance matrix.
-
-\begin{theorem}{\textbf{- The Age-Area theorem}}
+\begin{theorem}{The Age-Area theorem}
 
 Take the route collection $R$ through tree $T$ and apply to it a redirect, calling the result $R'$. Then, compute the concentrated likelihood of the new tree gives $p(R) > p(R')$. 
 \end{theorem}

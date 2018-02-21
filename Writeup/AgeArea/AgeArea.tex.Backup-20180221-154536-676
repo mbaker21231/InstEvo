@@ -53,7 +53,7 @@ The Age-Area hypothesis (henceforth the AAH) concerns the location in which this
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\textwidth]{AncillaryFiles//figure1.eps}
+\includegraphics[width=\textwidth]{AncillaryFiles//figure1.png}
 \caption{A simple phylogenetic tree} \label{fig1}
 \end{center} 
 \end{figure}
@@ -62,7 +62,7 @@ There are a large number of other possibilities as well, even though the structu
 
 \begin{figure}
 \begin{center} 
-\includegraphics[width=\textwidth]{AncillaryFiles//figure2.eps} 
+\includegraphics[width=\textwidth]{simpleMR.eps} 
 \caption{Potential migratory routes among a language stock consisting of five groups, following the Phylogenetic Tree in figure.} \label{fig2}
 \end{center} 
 \end{figure}
@@ -117,13 +117,11 @@ P_{c}=\frac{1^1e^{-}}{1!}\frac{1^1e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \frac{2^2e^{-4}}{2!}
 \end{equation} 
 
-According to this model, we now see that the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_A /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. If for some reason we had restricted things to these two possibilities, the relative probability that $A$ was the point of origin would be \884\%. 
-
-Generically speaking, the function 
+According to this model, we now see that the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_A /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. Generically speaking, the function 
 \begin{equation*}
 a(n)=\frac{n^n}{n!}
 \end{equation*}
-is convex in $n$, which implies breaking up a migratory chain into two smaller chains results in a less believable or likely explanation. That is, for any  $k \in (1,n-1)$, it is true that:
+is convex in $n$, and increases at an increasing rate.  One consequence of this is that for any  $k \in (1,n-1)$, it is true that:
 \begin{equation*}
 a(n) > a(n-k)a(k)
 \end{equation*} 
