@@ -1,21 +1,3 @@
-@Article{nrs85,
-	author = {A. G. Nobile and L. M. Ricciardi and L. Sacerdote},
-	title = {Exponential trends of first-passage-time densities for a class of diffusion processes with steady-state distribution},
-	journal = {Journal of Applied Probability},
-	year = 1985,
-	volume = 22,
-	number = 3,
-	pages = {611-618}
-}
-@Article{rdgn99,
-	author = {L. M. Ricciardi and A. Di Crescenzo and V. Giorno and A. G. Nobile},
-	title = {An outline of theoretical and algorithmic approaches to first passage time problems with applications to biological modeling},
-	journal = {Mathematica Japonica},
-	year = 1999,
-	volume = 50,
-	number = 2,
-	pages = {247-322}
-}
 @Book{manski08,
 	author = {Charles F. Manski},
 	title = {Identification for Prediction and Decision},

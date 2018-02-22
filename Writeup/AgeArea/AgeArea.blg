@@ -17,10 +17,10 @@ Name 2 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a 
 while executing---line 1094 of file apalike.bst
 
 Here's how much of BibTeX's memory you used:
- Cites:                 2 out of 7500
+ Cites:                 4 out of 7500
  Fields:               11 out of 125000
- Hash table:        34872 out of 35000
- Strings:             482 out of 30000
- String pool:        3921 out of 750000
+ Hash table:        34867 out of 35000
+ Strings:             496 out of 30000
+ String pool:        4363 out of 750000
  Wizard functions:   1935 out of 10000
 (There were 5 error messages)

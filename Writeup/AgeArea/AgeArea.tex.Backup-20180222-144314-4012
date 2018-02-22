@@ -2,7 +2,6 @@
 \documentclass[11pt]{article}
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{amsthm}
 \usepackage{pst-all}
 \usepackage{newicktree}
 \usepackage{graphicx}
@@ -11,9 +10,6 @@
 \usepackage{natbib}
 
 \newtheorem{theorem}{Theorem}
-\newtheorem{corr}{Corollary}
-
-\DeclareMathOperator*{\argmax}{arg\,max} 
 
 \frenchspacing
 \linespread{1.25}
@@ -149,58 +145,17 @@ d_{N1} &    &      &   & 0
 \right]
 \end{equation*}
 
-To be clear, this is a linguistic distance matrix, not a physical distance. Also, define average to be the distance of a given society from all others; this is equivalent to computing the row sum in the above matrix and dividing by $n-1$. So, we write:
-\begin{equation*}
-D_i=\frac{1}{N-1}\sum_{j\neq i}d_{ij}
-\end{equation*} 
+To be clear, this is a linguistic distance matrix, not a physical distance matrix.
 
-\begin{theorem}[Age-Area Theorem]
+\begin{theorem}{\textbf{- The Age-Area theorem}}
 
-Suppose that the above model of chain migration as rare events holds and that phylogenetic distance is proportional to separation time. Then 
-\begin{equation*}
-D_i \geq D_j \Longleftrightarrow p_i\geq p_k
-\end{equation*}
-\begin{proof}
-The basic of the proof stems from the fact that there is a relationship between the length of migratory chains, likelihood, and the average distance from a bunch of ancestors. In fact, this is obvious so let's move on. 
-\end{proof} 
+Take the route collection $R$ through tree $T$ and apply to it a redirect, calling the result $R'$. Then, compute the concentrated likelihood of the new tree gives $p(R) > p(R')$. 
 \end{theorem}
 
-\begin{corr}
 
-\begin{equation*}
-  p_i = \max [p_1,p_2,p_3,\hdots]} \Longleftrightarrow D_i=\max [D_1,D_2,D_3,\\\hdots,D_n]
-\end{equation*}
-\begin{proof}
-Suppose not. Then $p_i$ could be a maximal probability but not have maximal average distance. This would imply that there is a $D_j >\ D_i$, which would contradict the Age-Area Theorem.
-\end{proof}
-\end{corr}
+\section{An algorithm}
 
-\section{Micro foundations}
-
-Pursuant to the theorem, one might ask: what sort of process might produce a model like this of migration? One can actually develop a model that creates random scarcity, which incites mass migration. The trick is developing a theory in such a way so that it preserves migrations. That is, one requires that migrations move forward probabilistically and stops. Here is one way of doing this. 
-
-Imagine that there are a large, nonbinding set of viable locations in the migratory universe. At some an initial point, a new event arrives. This creates a system-wide increase in resources. 
-
-At a particular point in the universe of places, imagine we imagine that income per capita depends upon a resource and also the current number of inhabitants. That is:
-\begin{equation}
-y_t=f(n_t,\theta_t)
-\end{equation} 
-Normalize the subsistence level to unity. Then, in a given instant of time, current population creates additional population so long as their is additional income. That is, we have:
-\begin{equation*}
-n_{t+\Delta}=n_t\left(f(n_t,\theta_t)
--1)\Delta+n_t
-\end{equation*}
-Note that this deterministic model becomes 
-\begin{equation*}
-\frac{dn}{dt}=n(f(n,\theta)-1)
-\end{equation*}
-So at the point $f(n,\theta)=1$, we have no population growth.  We can render this into a stochastic growth model by the methods detailed in \cite{rdgn99}. As is shown in \cite{rdgn99} and \cite{nrs85}, for a stochastic differential equation that has a steady-state distribution, the time to a distant barrier is approximately exponentially distributed. So, we have a foundation for the use of a Poisson/Exponential distribution in the migration model.
-
-
-
-
-
-s is often the case when dealing with estimation over trees, it behooves one to consider an algorithm that works backwards from the branches to the base. The algorithm presented here is essentially a pruning algorithm like Felsenstein's with a hint of dynamic programming. The dynamic programming aspect introduces a sort of continuation maximum likelihood into the tree.
+As is often the case when dealing with estimation over trees, it behooves one to consider an algorithm that works backwards from the branches to the base. The algorithm presented here is essentially a pruning algorithm like Felsenstein's with a hint of dynamic programming. The dynamic programming aspect introduces a sort of continuation maximum likelihood into the tree.
 
 The algorithm works as follows. At termination, the result is a concentrated log-likelihood of each location being the point of origin.  The following is an illustration showing how the algorithm works on the example given above.
 
