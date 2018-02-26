@@ -45,7 +45,7 @@ the point of maximal genetic diversity of populations is closest to the geograph
 
 The lack of a theoretical basis for the  age area hypothesis is also a problem for its use in technical situations. For example, suppose one wished to include an ancient migratory path in a statistical model? Since the hypothesis has no theoretical underpinnings, it is difficult to see how to construct a likelihood for a certain path or migratory history.
 
-In this paper, I develop a theoretical foundation for the age-area hypothesis, and make some of the terms supporting the hypothesis more rigorous. The theory is based upon a particular idea that turns out to correspond with a probabilistic notion of parsimony. The probabilistic foundations, it turns out, can also be grounded in a particular type of shock that incites migration but then stochastically reverts to previous conditions. 
+In this paper, I develop a theoretical foundation for the age-area hypothesis, and make some of the terms supporting the hypothesis more rigorous. The theory is based upon a particular idea that turns out to correspond with a probabilistic notion of parsimony. The probablistic foundations, it turns out, can also be grounded in a particular type of shock that incites migration but then stochastically reverts to previous conditions. 
 
 Finally, using the aforementioned methods, I develop an Age-Area Theorem, which says that a culture that is more distance linguistically from the others in the stock is also more likely to be the point of origin of the stock. 
 \section{Problem Description and Motivation}
@@ -58,7 +58,7 @@ The Age-Area hypothesis (henceforth the AAH) concerns the location in which this
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{AncillaryFiles//figure1.eps}
-\caption{A phylogenetic tree} \label{fig1}
+\caption{A simple phylogenetic tree} \label{fig1}
 \end{center} 
 \end{figure}
 
@@ -79,9 +79,9 @@ In addition to providing a foundation for the age-area hypothesis, we might lean
 \subsection{Tree Basics}
  
 
-Along these lines, assume that we observe the entire phylogenetic tree, and that there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, and all other nodes have a single parent. All the interior nodes have two children, and all terminal nodes (leaves) have zero children. 
+Along these lines, assume that we observe the entire phylogenetic tree, and that there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, and all other nodes have a single parent. All the interior nodes have two children, and all terminal nodes (leaves) have zero children. Figure \ref{fig2} is an example of such a tree. 
 
-The most important fact about full binary trees that we employ is that if a binary tree has $n$ leaves, then it has $n-1$ internal nodes. The tree in \ref{fig1} has five terminal nodes and four internal nodes. Importantly, this also applies to subtrees, which means that if a node has $k$ ancestors, then it is followed by $k-1$ nodes.
+The most important fact about full binary trees that we employ is that if a binary tree has $n$ leaves, then it has $n-1$ internal nodes. Importantly, this also applies to subtrees, which means that if a node has $k$ ancestors, then it is followed by $k-1$ nodes.
 
 \subsection{Migratory Chains}
  
@@ -89,14 +89,12 @@ We flesh out a model by introducing a \textit{migratory chain}. Roughly speaking
 \begin{enumerate}
 \item Migratory chains are unique in the sense that each is governed by its own parameters. 
 \item  A migratory chain can begin with any location that is currently occupied. \item The location where the chain appeared generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
-\item The group emitting the mass-migration loses its propensity to migrate. This propensity to migrate is carried off with the mass-migrating group to its new location. 
+\item The group emitting the mass-migration also loses its propensity to migrate. This propensity to migrate is carried off with the mass-migrating group to its new location. 
 \end{enumerate}
 
-Some additional terminology. We will call a mass-migration history originating at location $i$ $\mathcal{H}_i$, and we will consider only mass-migration histories requiring the minimal number of mass-migrations. As a practical matter, this means that each history will have exactly $n-1$ migrations. Each location for our terminal nodes $i=1,2,3,\hdots I$ then will come along with a $\mathcal{H$_i}$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_i$ as $C_i$. 
+In other instances, one might learn know the structure of the tree but not the exact times at which events have occurred. That is, the parameters of any Exponential/Poisson distribution can be concentrated out of the likelihood, and this makes the workings of the model clear in that one can easily see how and why it would posit that the first sequence of events on figure \ref{fig2} are more likely.
 
-The principal observation of forming a model in this fashion is now to use the ideas in definitions 1 to develop a probability corresponding with a history of migratory chains, and to relate this to some notion of distance between societies to prove an Age Area Theorem, which will come in the form of relationships between $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $i$ is the point of origin for the societies in $I$. 
-
-To preview the basic logic, I  develop a comparison of the two scenarios described in figure \ref{fig2} within the confines of the model. We will begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. But we will start as treating these points as known and then ``integrate them out.'' The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is transitioned to location $B$. After time $t_1$, $B$ emits the migratory bug to $C$ and is then dormant, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug but never emits. The result of this is that over the entire time span of the tree, there have been exactly 4 migratory events through the one necessary migratory chain. These  probability of this happening can then be written as
+To see the basic idea, I  develop a comparison of the two scenarios described in figure \ref{fig2}. The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is transitioned to location $B$. After time $t_1$, $B$ emits the migratory bug to $C$ and is then dormant, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug but never emits. The result of this is that over the entire time span of the tree, there have been exactly 4 migratory events through the one migratory chain. The probability of this happening can the be written as
 \begin{equation} \label{l1}
 P_a = \frac{(\lambda\ T)^4
 e^{-4T}}{4!}\end{equation} 
@@ -136,7 +134,7 @@ a(n) > a(n-k)a(k)
 
 In context, this means that breaking up a migratory chain into migratory chains results in an explanation of events that is always less likely. There are a few details that need to be worked out, but the above example illustrates most of the inner workings of the model. The biggest detail that needs to be worked out is how the above theory that longer migratory chains are more parsimonious and therefore more likely relates to a measure of linguistic divergence. This task and others is taken up in the next section.
 
-\section{ Age-Area Theorem}
+\section{The Age-Area Theorem}
 
 There are many measures of divergence, and the exact approach one takes to measuring divergence of language are irrevelant here, although to fix ideas it is useful to present a brief list of popular approaches. Some are more complex than others, and some involve glottochronology, lexicostatistics, etc. Ultimately, we take as given a full, rooted, binary tree, $\mathcal{T}$, which has $N$ terminal nodes which represent our $i=1,2,3,\hdots,N$ cultural groups. As was established in the previous section, $\mathcal{T}$ has  $N-1$ internal nodes and branches. 
 
@@ -183,52 +181,21 @@ Pursuant to the theorem, one might ask: what sort of process might produce a mod
 
 Imagine that there are a large, nonbinding set of viable locations in the migratory universe. At some an initial point, a new event arrives. This creates a system-wide increase in resources. 
 
-At a particular point in the universe of places, imagine we imagine that income per capita depends upon a resource and also the current number of inhabitants. That is, flow per capita income at a particular location is
+At a particular point in the universe of places, imagine we imagine that income per capita depends upon a resource and also the current number of inhabitants. That is:
 \begin{equation}
 y_t=f(n_t,\theta_t)
 \end{equation} 
-Suppose that when income is above some subsistence level $s$ population increases proportionally. (This can be derived from a standard model). Normalize the subsistence level to unity. Then, in a given instant of time, current population creates additional population so long as their is additional income. That is, we have:
+Normalize the subsistence level to unity. Then, in a given instant of time, current population creates additional population so long as their is additional income. That is, we have:
 \begin{equation*}
-n_{t+\Delta}=n_t\left(f(n_t,\epsilon_{t+\Delta}-\epsilon_{t})
+n_{t+\Delta}=n_t\left(f(n_t,\theta_t)
 -1)\Delta+n_t
 \end{equation*}
-
-Let's further suppose that $f(n_t,\epsilon_t,\epsilon_{t+\Delta})$ can be captured by a first-order Taylor expansion so we get:
+Note that this deterministic model becomes 
 \begin{equation*}
-n_{t+\Delta}=n_t\left(\overline{f}+f_1n_t-s+f_2(\epsilon_{t+\Delta}-\epsilon_t)})
--1)\Delta+n_t
+\frac{dn}{dt}=n(f(n,\theta)-1)
 \end{equation*}
+So at the point $f(n,\theta)=1$, we have no population growth.  We can render this into a stochastic growth model by the methods detailed in \cite{rdgn99}. As is shown in \cite{rdgn99} and \cite{nrs85}, for a stochastic differential equation that has a steady-state distribution, the time to a distant barrier is approximately exponentially distributed. So, we have a foundation for the use of a Poisson/Exponential distribution in the migration model.
 
-If we let $\Delta $ go to zero, and suppose that $\epsilon$ is governed by a standard brownian motion, we can write the above as a stochastic differential equation of the form:
-
-\begin{equation*}
-dn=n(\overline{f}+f_1n-s)+f_2^2n^2dz
-\end{equation*}
-We can reparameterize this by supposing that $\overline{f}=r$, $f_1=\frac{r}{K}$, and $f_2=\sigma$. The result is then a stochastic logistic population growth model:
-
-\begin{equation}
-dn=rn\left(1-\frac{n}{K}\right)+\sigma^2n^2dz
-\end{equation} \label{sde}
-
-The exact parameterization of the model is not necessary; what is important is that the mean-reverting nature of the SDE in equation (\ref{sde}) has a time-independent, stationary distribution, as \cite{rdgn99} note. This distribution is given by:
-\begin{equation*}
-W(n) = \Gamma\left[\frac{2a}{\sigma^2}-1\right]^{-1}\left(\frac{2b}{\sigma^2}\right)^{\frac{2a}{\sigma^2}-1}x^{\frac{2a}{\sigma^2}-2}\exp\left[\frac{2bx}{\sigma^2}\right]
-\end{equation*}
-Note to self. $\sigma$ has the same meaning, and $a=r$, while $b=r / K$. If we plug this in, the above gets quite simple. 
-
-As \cite{rdgn99} and \cite{nrs99} show, the existence of a time-independent steady state density implies that the time to hitting a remote barrier is approximately exponential: that is:
-\begin{equation*}
-g(S,t|n) \sim \frac{1}{t_1(S,y)}\exp\left(-\frac{t}{t_1(S|y}\right) 
-\end{equation*}
-
-Armed with these facts, we can now create a version of the model that produces migratory chains that are approximately exponentially distribution. So, consider the following back story for the model.
-\begin{enumerate}
-\item The landscape is uniform in that all locations have the same initial carrying capacity $K_0$. 
-\item A new migratory chains raises the carrying capacity across all locations to $K_1>$K_0$. 
-\item There is a catch; if the population should ever reach the high boundary $S$, the carrying capacity immediately reverts to $K_0$. 
-\end{enumerate}
-
-The above sequence of events lead to a temporal population surplus. Suppose that a mass-migration requires a certain level of population $\overline{p}$ without which it will not succeed. The
 
 
 
@@ -243,7 +210,7 @@ The algorithm works as follows. At termination, the result is a concentrated log
 \item  Poo I\ can add stuff again! \end{enumerate}
 
 \cite{gildner91}
-\cite{dowd09}\cite{rdgn99}
+\cite{dowd09}
 
 
 
