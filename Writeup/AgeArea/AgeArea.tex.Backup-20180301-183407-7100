@@ -47,7 +47,7 @@ the point of maximal genetic diversity of populations is closest to the geograph
 
 These principles certainly do not apply to language and linguistic drift. While there are many striking parallels between the evolution of language and population genetics, they do not apply in this case. A migratory group does not carry off only a fraction of the grammar, vocabulary, or language structure of its parent! 
 
-The lack of a theoretical basis for the  age area hypothesis is also a problem for its use in technical situations. For example, suppose one wished to include an ancient migratory path in a statistical model of migration, or that one wanted to integrate migration into a larger statistical model. Since the hypothesis has no theoretical underpinnings, it is difficult to see how to construct a likelihood for a certain path or migratory history.
+The lack of a theoretical basis for the  age area hypothesis is also a problem for its use in technical situations. For example, suppose one wished to include an ancient migratory path in a statistical model of migration? Suppose one wanted to use a migratory path as part of a larger statistical model? Since the hypothesis has no theoretical underpinnings, it is difficult to see how to construct a likelihood for a certain path or migratory history.
 
 In this paper, I develop a theoretical foundation for the age-area hypothesis, and make some of the terms supporting the hypothesis more rigorous. The model is micro-founded in the sense that it can be based on microeconomic principles and an associated back story. 
 
@@ -57,10 +57,10 @@ Assembling the aforementioned methods, I then develop an Age-Area Theorem, which
 
 \section{Problem Description and Motivation}
 
-I first describe the basic logic of the theorem within the confines of a simple example. Consider the hypothetical phylogenetic tree displayed in figure \ref{fig1}. The figure depicts the genetic relationship between five related cultures.  In the usual lingo, A is the `most divergent,' with B, C, D, E all being more closely related. D and E are the most closely related cultures. To avoid forming impressions based on evidence that is not part of the hypothesis, we will suppose that the locations of the
-groups have been concealed from us, and that we have no access to archaeological or historical information about the language stock or any information about how the cultural stock came to be in its current locational distribution.
+Consider the hypothetical phylogenetic tree displayed in figure \ref{fig1}. The figure depicts the genetic relationship between five related cultures.  In the usual lingo, A is the `most divergent,' with B, C, D, E all being more closely related. D and E are the most closely related cultures. To avoid forming impressions based on evidence that is not part of the hypothesis, we will suppose that the locations of the
+groups have been concealed from us, and that we have no access to archaeological or historical information about the language stock.
 
-The Age-Area hypothesis (henceforth the AAH) posits that the point of origin of the cultural group was A's current location, as A is the most divergent language from the group.\footnote{It should be mentioned that there are competing definitions of the hypothesis.} If one wanted to push the hypothesis a bit further, or even apply it recursively, one would come up with a hypothetical migratory route: the hypothesis would lead one to believe that the point of origin of the stock was A, at which point there was a migration from A to B, then from B to C, and then from C to either D or E.
+The Age-Area hypothesis (henceforth the AAH) concerns the location in which this group of societies originated, and the times and sequences behind how they subsequently migrated to populate their current locations. The AAH posits that the point of origin was A's location, as A is the most divergent language from the group. If one wanted to push the hypothesis a bit further, or even apply it recursively, one would come up with a hypothetical migratory route: the hypothesis would lead one to believe that the point of origin of the stock was A, at which point there was a migration from A to B, then from B to C, and then from C to either D or E.
 
 \begin{figure}
 \begin{center}
@@ -81,30 +81,29 @@ There are a large number of other possibilities as well, even though the structu
 These two possible migratory routes are presented in figure \ref{fig2}. The AAH suggests that the second sequence is a less likely migratory history than the sequence. Why? For a variety of reasons - one might simply appeal to Occam's razor - the events on the left-hand side of figure \ref{fig2} require only one migratory chain, while the events on the right-hand side require three separate expansions: an initial migration from A to C, followed by another from A to B. A third migratory event is sufficient to take care of the last two groups: it begins from C continues to D, and then to E. We can now pose our question as follows: if we believe these migratory events to be rare, and we wish to conserve them in explaining historical migrations, what sort of model would accomplish this? But can one make this operational in a more formal setting? Can one characterize parsimony in a meaningful mathematical and probabilistic way? 
 
 \section{A model}
+In addition to providing a foundation for the age-area hypothesis, we might lean on some additional principles that we wish to encapsulate in the theory. We might like the model to conserve on estimation of parameters, and we might also like the model to have a consistent internal logic. A simple model with transparent machinery also creates the possibility of expansion and further development. While the assumptions listed below are restrictive, one can see how they might be relaxed in future work.
 
 \subsection{Tree Basics}
+ 
 
-Along these lines, assume that we observe the entire phylogenetic tree, and that there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, and all other nodes have a single parent. In a binary tree, all the interior nodes have two children, and all terminal nodes (leaves) have zero children. 
+Along these lines, assume that we observe the entire phylogenetic tree, and that there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, and all other nodes have a single parent. All the interior nodes have two children, and all terminal nodes (leaves) have zero children. 
 
-A binary tree with $n$ leaves has $n-1$ internal nodes. The tree in figure \ref{fig1} has five terminal nodes and four internal nodes. Importantly, this also applies to subtrees, which means that if a node has $k$ ancestors, then it is followed by $k-1$ nodes.
+The most important fact about full binary trees that we employ is that if a binary tree has $n$ leaves, then it has $n-1$ internal nodes. The tree in \ref{fig1} has five terminal nodes and four internal nodes. Importantly, this also applies to subtrees, which means that if a node has $k$ ancestors, then it is followed by $k-1$ nodes.
 
 \subsection{Migratory Chains}
  
-I build the model around what I call a  \textit{migratory chain}. Roughly speaking, a migratory chain is a directed path from the root of the tree to an end node, which, once traversed, divides the tree into subtrees. Positing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. \begin{assumptions}{Migratory Chains}    
+We flesh out a model by introducing a \textit{migratory chain}. Roughly speaking, a migratory chain is defined as a directed path from the root of the tree to an end node, which, once traversed, divides the tree into subtrees. Positing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. \begin{assumptions}{Migratory Chains}   
 \begin{enumerate}
 \item Migratory chains are unique in the sense that each is governed by its own parameters. 
-\item  A migratory chain can begin with any location that is currently occupied but only one is active at any given location at any given time. 
-\item The location where the chain originates generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
-\item The location emitting the mass-migration also emits its propensity to migrate. Put another way, this propensity to migrate is carried off with the mass-migrating group to its new location. 
+\item  A migratory chain can begin with any location that is currently occupied. \item The location where the chain appeared generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
+\item The group emitting the mass-migration loses its propensity to migrate. This propensity to migrate is carried off with the mass-migrating group to its new location. 
 \end{enumerate}
 \end{assumptions}
-I will call a mass-migration history originating at location $i$ $\mathcal{H}_i$, and we will consider only mass-migration histories requiring the minimal number of mass-migrations needed to explain the current distribution of cultures. As a practical matter, this means that each history will have exactly $n-1$ migrations. Each location for our terminal nodes $i=1,2,3,\hdots I$ then will come along with a $\mathcal{H}_i$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_i$ as $C_i$. 
+Some additional terminology. We will call a mass-migration history originating at location $i$ $\mathcal{H}_i$, and we will consider only mass-migration histories requiring the minimal number of mass-migrations. As a practical matter, this means that each history will have exactly $n-1$ migrations. Each location for our terminal nodes $i=1,2,3,\hdots I$ then will come along with a $\mathcal{H}_i$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_i$ as $C_i$. 
 
 The principal observation of forming a model in this fashion is now to use the ideas in definitions 1 to develop a probability corresponding with a history of migratory chains, and to relate this to some notion of distance between societies to prove an Age Area Theorem, which will come in the form of relationships between $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $i$ is the point of origin for the societies in $I$. 
 
-To preview the basic logic, I  develop a comparison of the two scenarios described in figure \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. But I will start as treating these points as known and then ``integrating them out,'' replacing the Exponential model with a Poisson model. 
-
-The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is passed to location $B$. After time $t_1$, $B$ sends the migratory bug to $C$, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug, which travels no further. The result of this sequence of events is that over the entire time span of the tree, there have been exactly 4 migratory events associated with the one necessary migratory chain. In assumptions 1, this means that only one parameter is required to explain this particular migratory history. The probability of this sequence of events then follows a Poisson distribution with four occurrences over the whole time spanned by the tree $T$:
+To preview the basic logic, I  develop a comparison of the two scenarios described in figure \ref{fig2} within the confines of the model. We will begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. But we will start as treating these points as known and then ``integrate them out.'' The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is transitioned to location $B$. After time $t_1$, $B$ emits the migratory bug to $C$ and is then dormant, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug but never emits. The result of this is that over the entire time span of the tree, there have been exactly 4 migratory events through the one necessary migratory chain. These  probability of this happening can then be written as
 \begin{equation} \label{l1}
 P_a = \frac{(\lambda\ T)^4
 e^{-4T}}{4!}\end{equation} 
@@ -112,35 +111,37 @@ Which is labelled as $P_a$ because it is effectively the probability of this one
 \begin{equation} \label{l2}
 \ln P_a  = 4\ln(\lambda T) -4T-\ln(4!)
 \end{equation} 
-Differentiating \ref{l2} with respect to $\lambda$, and solving gives $\lambda^*=\frac{4}{T}$, and substituting this back into the objective function gives the likelihood as:
+Differentiating \ref{l2} with respect to $\lambda$, and solving gives $\lambda^*=\frac{4}{T}$, and substituting this back into the objective function gives the concentrated or profile likelihood:
 \begin{equation}  \label{l3}
 P_a=\frac{4^4e^{-4}}{4!}
 \end{equation}
 
+
 There are a couple of points of interest about equation (\ref{l3}). First, since only one migratory chain is needed to explain the sequence of events, only one parameter is needed for the whole process. In this sense, this a parsimonious - it requires only one distribution and one parameter. 
 
-Contrast this with the case in which $C$ is the initial location of the culture area. To maintain consistency with the linguistic or genetic analysis, we require 1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which results in a likelihood of:
+Contrast this with the case in which we posit that $C$ is the initial location of the culture area. To maintain consistency with the linguistic or genetic analysis, we require 1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which results in a likelihood of:
 \begin{equation} \label{l4}
 P_{c}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
 \frac{(\lambda_3(t-t_0-t_1))^2e^{-\lambda_3(t-t_0-t_1)}}{2!}
 \end{equation} 
 Maximizing $P_c$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
-\begin{equation} \label{l5}
+\begin{equation} \label{l4}
 P_{c}=\frac{1^1e^{-}}{1!}\frac{1^1e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \frac{2^2e^{-4}}{2!}
 \end{equation} 
 
-According to equation (\ref{l5}), the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_a /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. If for some reason we had restricted things to these two possibilities, the relative probability that $A$ was the point of origin would then be 84\%. 
-A key feature of the previous analysis is the function 
+According to this model, we now see that the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_A /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. If for some reason we had restricted things to these two possibilities, the relative probability that $A$ was the point of origin would be 84\%. 
+
+Generically speaking, the function 
 \begin{equation*}
 a(n)=\frac{n^n}{n!}
 \end{equation*}
-which is convex in $n$. This convexity, which owes to the structure of the Poisson distribution, implies that one is better off with explanations that require fewer parameters and that lump migratory events into longer chains. Hence, in a very precise sense parsimonious explanations are deemed more likely. Conversely, breaking up a migratory chain into two smaller chains eschews this convexity, and results in a less believable or less likely explanation. That is, for any  $k \in (1,n-1)$, it is true that:
+is convex in $n$, which implies breaking up a migratory chain into two smaller chains results in a less believable or likely explanation. That is, for any  $k \in (1,n-1)$, it is true that:
 \begin{equation*}
 a(n) > a(n-k)a(k)
 \end{equation*} 
 
-There are a details that need to be fleshed out, but the above example illustrates the essentials of the model. The biggest detail that needs to be worked out is how the above theory that longer migratory chains are more parsimonious and therefore more likely relates to a measure of linguistic divergence. This task and others is taken up in the next section.
+In context, this means that breaking up a migratory chain into migratory chains results in an explanation of events that is always less likely. There are a few details that need to be worked out, but the above example illustrates most of the inner workings of the model. The biggest detail that needs to be worked out is how the above theory that longer migratory chains are more parsimonious and therefore more likely relates to a measure of linguistic divergence. This task and others is taken up in the next section.
 
 \begin{definition}{Divergence:}
 Let $N^*$ denote the maximum number of migratory events that can be touched off from a location $i$, and let $C^*$ denote the minimum total number of chain migrations needed to explain all current locations if $i$ is the location of origin. Then, define Divergence of language $i$ :
@@ -170,6 +171,8 @@ p_i=\prod_{i=1}^{C_i} a(N_i)
 \end{equation*} 
 The proof is virtually completed by the convexity of $a(N)$, as breaking any chain into two smaller chains is a losing proposition, 
 \end{proof} 
+
+
 
 \section{Micro foundations}
 
