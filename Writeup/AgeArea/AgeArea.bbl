@@ -1,19 +1,28 @@
 \begin{thebibliography}{}
 
-\bibitem[Dowd et~al., 2014]{dowd09}
-Dowd, B.~E., Greene, W.~H., and Norton, E.~C. (2014).
-\newblock Computation of standard errors.
-\newblock {\em Health Services Research}, 49(2):731--50.
-
-\bibitem[Gildner, 1991]{gildner91}
-Gildner, G.~M. (1991).
-\newblock {\em The Chickasaw Bayou Campaign (Master's Thesis)}.
-\newblock U. S. Army and General Staff College, Leavenworth, Kansas.
+\bibitem[Dimmendaal, 2011]{dimmendaal11}
+Dimmendaal, G.~J. (2011).
+\newblock {\em Historical Linguistics and the comparative study of african
+  Languages}.
+\newblock John Benjamins Publishing Company, Amsterdam and Philadelphia.
 
 \bibitem[Ricciardi et~al., 1999]{rdgn99}
 Ricciardi, L.~M., Crescenzo, A.~D., Giorno, V., and Nobile, A.~G. (1999).
 \newblock An outline of theoretical and algorithmic approaches to first passage
   time problems with applications to biological modeling.
 \newblock {\em Mathematica Japonica}, 50(2):247--322.
+
+\bibitem[Sapir, 1949]{sapir16}
+Sapir, E. (1949).
+\newblock Time perspective in aboriginal american culture: A study in method.
+\newblock In Mandelbaum, D.~G., editor, {\em Selected Writings of Edward Sapir
+  in Language, Culture, and Personality.}, Geological Survey, Memoir 90,
+  Anthropological Series. Canada: Department of Mines. University of California
+  Press, Berkeley, California.
+
+\bibitem[Trask, 2000]{trask00}
+Trask, R.~L. (2000).
+\newblock {\em The Dictionary of Historical and Comparative Linguistics}.
+\newblock Fitzroy Dearborn Publishers, Chicago and London.
 
 \end{thebibliography}

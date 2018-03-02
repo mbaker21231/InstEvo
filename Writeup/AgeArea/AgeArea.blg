@@ -6,22 +6,14 @@ The top-level auxiliary file: AgeArea.aux
 The style file: apalike.bst
 Database file #1: bibfile.bib
 Warning--I didn't find a database entry for "nrs99"
-Name 1 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
-while executing---line 1019 of file apalike.bst
-Name 1 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
-while executing---line 1019 of file apalike.bst
-Name 2 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
-while executing---line 1019 of file apalike.bst
-Name 1 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
-while executing---line 1094 of file apalike.bst
-Name 2 in "Dowd, Bryan E., and Greene, William H., and Norton, Edward C." has a comma at the end for entry dowd09
-while executing---line 1094 of file apalike.bst
+Warning--I didn't find a database entry for "gildner91"
+Warning--I didn't find a database entry for "dowd09"
 
 Here's how much of BibTeX's memory you used:
- Cites:                 3 out of 7500
+ Cites:                 4 out of 7500
  Fields:               11 out of 125000
- Hash table:        34869 out of 35000
- Strings:             490 out of 30000
- String pool:        4155 out of 750000
+ Hash table:        34867 out of 35000
+ Strings:             500 out of 30000
+ String pool:        4506 out of 750000
  Wizard functions:   1935 out of 10000
-(There were 5 error messages)
+(There were 3 warnings)

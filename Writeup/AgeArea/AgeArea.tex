@@ -55,6 +55,14 @@ The theory can then be rendered in such a fashion that it turns out with a proba
 
 Assembling the aforementioned methods, I then develop an Age-Area Theorem, which says that a culture that is more linguistically divergent from the others in the stock is also more likely to be the point of origin of the stock. I then present a computational algorithm which relies upon backwards traversal of the tree, along with some extensions of the model. I conclude by discussing some applications.
 
+\section{Related Literature}
+
+\cite[p.12]{trask00} attributes the (Linguistic) Age-Area Hypothesis - also called the center-of-gravity principle, the genetic diversity principle, and Sapir's principle - to the work of Latham (1851, 1862) and Sapir (1916). He also notes that Mallory (1997) and Nichols (1997a) have qualified it in various ways.   \citet[p.336]{dimmendaal11} expresses some doubts about the exact origins of the AAH, referring to it as the ``principle of least effort'', and going on to note that ``This principle probably was applied first by the scholars working no Amerindian Languages, e.g. \cite{sapir16} and Dyen (1956)
+
+The AAH attended to in this paper shouldn't be confused with the Sapir-Whorf Hypothesis or what could be called the Cultural Age Area Hypothesis. 
+
+
+
 \section{Problem Description and Motivation}
 
 I first describe the basic logic of the theorem within the confines of a simple example. Consider the hypothetical phylogenetic tree displayed in figure \ref{fig1}. The figure depicts the genetic relationship between five related cultures.  In the usual lingo, A is the `most divergent,' with B, C, D, E all being more closely related. D and E are the most closely related cultures. To avoid forming impressions based on evidence that is not part of the hypothesis, we will suppose that the locations of the
@@ -126,7 +134,7 @@ P_{c}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{
 \end{equation} 
 Maximizing $P_c$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
 \begin{equation} \label{l5}
-P_{c}=\frac{1^1e^{-}}{1!}\frac{1^1e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
+P_{c}=\frac{1^1e^{-}}{1!}\frac{1^{1}e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \frac{2^2e^{-4}}{2!}
 \end{equation} 
 
