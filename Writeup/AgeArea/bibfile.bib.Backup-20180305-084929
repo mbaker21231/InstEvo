@@ -1,0 +1,72 @@
+@InCollection{sapir16,
+	author = {Edward Sapir},
+	editor = {David G. Mandelbaum},
+	title = {Time Perspective in aboriginal American culture: A study in method.},
+	publisher = {University of California Press},
+	year = 1949,
+	booktitle = {Selected Writings of Edward Sapir in Language, Culture, and Personality.},
+	address = {Berkeley, California},
+	series = {Geological Survey, Memoir 90, Anthropological Series. Canada: Department of Mines.}
+}
+@Book{dimmendaal11,
+	author = {Gerrit Jan Dimmendaal},
+	editor = {},
+	title = {Historical Linguistics and the comparative study of african Languages},
+	publisher = {John Benjamins Publishing Company},
+	year = 2011,
+	address = {Amsterdam and Philadelphia}
+}
+@Book{trask00,
+	author = {R. L. Trask},
+	editor = {},
+	title = {The Dictionary of Historical and Comparative Linguistics},
+	publisher = {Fitzroy Dearborn Publishers},
+	year = 2000,
+	address = {Chicago and London}
+}
+@InProceedings{pagel00,
+	author = {Mark Pagel},
+	editor = {Colin Renfrew and April McMahon and Larry Trask},
+	title = {Maximum-likelihood models for glottochronology and for reconstructing linguistic phylogenies},
+	chapter = 9,
+	pages = {189-207},
+	publisher = {McDonald Institute for Archaeological Research},
+	year = 2000,
+	volume = 1,
+	address = {Cambridge, England},
+	booktitle = {Time Depth in Historical Linguistics}
+}
+@Book{crowley10,
+	author = {Terry Crowley and Claire Bowern},
+	editor = {},
+	title = {An Introduction to Historical Linguistics, 4th Edition.},
+	publisher = {Oxford University Press},
+	year = 2010,
+	address = {New York, New York}
+}
+@Book{ruhlen94,
+	author = {Merritt Ruhlen},
+	editor = {},
+	title = {The Origin of Language: Tracing the Evolution of the Mother Tongue},
+	publisher = {John Wily and Sons, Inc.},
+	year = 1994,
+	address = {New York, New York}
+}
+@Article{nrs85,
+	author = {A. G. Nobile and L. M. Ricciardi and L. Sacerdote},
+	title = {Exponential trends of first-passage-time densities for a class of diffusion processes with steady-state distribution},
+	journal = {Journal of Applied Probability},
+	year = 1985,
+	volume = 22,
+	number = 3,
+	pages = {611-618}
+}
+@Article{rdgn99,
+	author = {L. M. Ricciardi and A. Di Crescenzo and V. Giorno and A. G. Nobile},
+	title = {An outline of theoretical and algorithmic approaches to first passage time problems with applications to biological modeling},
+	journal = {Mathematica Japonica},
+	year = 1999,
+	volume = 50,
+	number = 2,
+	pages = {247-322}
+}
