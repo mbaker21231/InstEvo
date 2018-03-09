@@ -42,7 +42,8 @@ A - perhaps ``the'' - key contributor to the world-wide distribution of cultures
 
 From a different perspective, much fruitful research has been done in the area of fleshing out the economic foundations of common models of Anthropology. See, for example, Baker (2003). 
 
-A critical tool in understanding the timing and sequence of events behind these world-shaping mass migrations is the so-called Age-Area Hypothesis (henceforth AAH) - evidently first developed and applied by \cite{sapir16} in his study of the origins of the Native American Athabaskan language group. It is often invoked when linguistic evidence is used to develop or support hypotheses about where different sorts of cultures originated, how they evolved over time, and how they came to be located where they are today.\footnote{One must be careful in invoking ``the'' Age-Area Hypothesis. As I will elaborate below, this paper concerns what might be called the Linguistic Age-Area Hypothesis - not the related Age-Area Hypothesis that posits the wider the distribution of a cultural trait, the older it likely is.} The AAH provides a critical link between geography and linguistic phylogenies. While one can find many different definitions in the literature, briefly stated, the hypothesis says that the geographic area where a phylogeny originated is most likely the place where the component languages of the phylogeny are most divergent, or maximally differentiated.
+A critical tool in understanding the timing and sequence of events behind these world-shaping mass migrations is the so-called Age-Area Hypothesis (henceforth AAH) - evidently first developed and applied by \cite{sapir16} in his study of Native American Languages and cultures. It is often invoked when linguistic
+evidence is used to develop or support hypotheses about where different sorts of cultures originated, how they evolved over time, and how they came to be located where they are today.\footnote{One must be careful in invoking ``the'' Age-Area Hypothesis. As I will elaborate below, this paper concerns what might be called the Linguistic Age-Area Hypothesis - not the related Age-Area Hypothesis that posits the wider the distribution of a cultural trait, the older it likely is.} The AAH provides a critical link between geography and linguistic phylogenies. While one can find many different definitions in the literature, briefly stated, the hypothesis says that the geographic area where a phylogeny originated is most likely the place where the component languages of the phylogeny are most divergent, or maximally differentiated.
 
 Examples of the application of the linguistic age-area hypothesis abound and cross many disciplines. \cite{sapir16} himself used these arguments to suggest that the so-called Na-Dene linguistic grouping originated in and around the North West Coast of North America, not near the center of geography of the component cultures (Central Canada), as was sometimes suggested. \cite{atkinson03}, following the original ideas in \cite{dogolpolsky88}, couple computational linguistics with the AAH to suggest that the Indo-European languages originated in Anatolia, not, as has sometimes been argued, as in for example , on the steppes of Siberia. Further applications of the idea - either implicit or explicit  are too numerous to mention. A brief list includes \cite{ruhlen94} who uses the AAH to flesh out debates about the origins of the Na-Dene cultures, the Bantu expansion in Africa, and the peopling of the South Pacific. \cite{ehret01} Makes extensive and efficient use in hit sweeping account of how and when the cultures of Africa found their current locations.
 
@@ -93,50 +94,42 @@ These two possible migratory routes are presented in figure \ref{fig2}, and to r
 
 \subsection{Tree Basics}
 
-To begin developing a theory, some basic assumptions are necessary. I throughout assume that the entire phylogenetic tree is known, so the universe of migratory events that needs to be explained is observed. I assume The tree is a full, rooted, binary tree, meaning that there is a single origin node and branch, all other nodes have a single parent, all interior nodes have exactly two children, and all terminal nodes have zero children. 
+To begin developing a theory, some ground-laying assumptions are necessary. Ithroughout assume that the entire phylogenetic tree, so there are no unobserved migratory events. The tree is assumed to be a full, rooted, binary tree, meaning that there is a single origin node and branch, all other nodes have a single parent, all interior nodes have exactly two children, and all terminal nodes have zero children. 
 
-A binary tree with $n$ leaves has $n-1$ internal nodes. The tree in figure \ref{fig1}, for example,  has five terminal nodes and four internal nodes. Note this also applies to subtrees, which means that if a node has $k$ successors (children and childrens' children, etc.), then it is followed by $k-1$ nodes.
+A binary tree with $n$ leaves has $n-1$ internal nodes. The tree in figure \ref{fig1}, for example,  has five terminal nodes and four internal nodes. Importantly, this also applies to subtrees, which means that if a node has $k$ successors (children and childrens' children, etc.), then it is followed by $k-1$ nodes.
 
 \subsection{Migratory Chains}
  
-I build the model around what I call a  \textit{migratory chain}. Roughly speaking, a migratory chain is a directed path from the root of the tree to an end node. Hypothesizing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. 
-
-\begin{assumptions}{Migratory Chains}    
+I build the model around what I call a  \textit{migratory chain}. Roughly speaking, a migratory chain is a directed path from the root of the tree to an end node, which, once traversed, divides the tree into subtrees. Positing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. \begin{assumptions}{Migratory Chains}    
 \begin{enumerate}
-\item Each occupied location has a propensity to emigrate. 
-\item When a location generates an emigration, the migratory chain passes to the new location and continues.
-\item Once a migratory chain has passed to the new location, a new chain starts in its place, but only one is active at any location at any time. \item The location where the chain originates generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
-\item Each migratory chain is a distinct sequence of events and has its own parameters.  
+\item Migratory chains are unique in the sense that each is governed by its own parameters. 
+\item  A migratory chain can begin with any location that is currently occupied but only one is active at any given location at any given time. 
+\item The location where the chain originates generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
+\item The location emitting the mass-migration also emits its propensity to migrate. Put another way, this propensity to migrate is carried off with the mass-migrating group to its new location. In its place a new chain with a new branching parameter arises. 
 \end{enumerate}
 \end{assumptions}
-I will call a mass-migration history originating at location $l$ $\mathcal{H}_l$, and will assume that only mass-migration histories requiring the minimal number of events to explain the current distribution of cultures. As a practical matter, this means that \textit{any} history will have exactly $n-1$ migrations. For example, the migratory events like those in figure \ref{fig2} following from the tree in figure \ref{fig1} will all have exactly 4 arrows between nodes, regardless of where they have started and how many chains are needed to explain things. Each location for our terminal nodes $l=1,2,3,\hdots L$ then will come along with a $\mathcal{H}_l$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_l$ as $C_l$. 
+I will call a mass-migration history originating at location $i$ $\mathcal{H}_i$, and we will consider only mass-migration histories requiring the minimal number of mass-migrations needed to explain the current distribution of cultures. As a practical matter, this means that \textit{any} history will have exactly $n-1$ migrations. For example, migratory events like those in figure \ref{fig2} following from the tree in figure \ref{fig1} will all have exactly 4 arrows between nodes.  Each location for our terminal nodes $i=1,2,3,\hdots I$ then will come along with a $\mathcal{H}_i$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_i$ as $C_i$. 
 
-The principal observation of forming a model in this fashion is now to use the ideas in definitions 1 to develop a probability corresponding with a history $\matchcal{H}$, and to relate this to some notion of distance between societies to prove an Age Area Theorem. This Theorem will come in the form of relationships between $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $l$ is the point of origin for the locations/cultures in $L$. 
+The principal observation of forming a model in this fashion is now to use the ideas in definitions 1 to develop a probability corresponding with a history of migratory chains, and to relate this to some notion of distance between societies to prove an Age Area Theorem, which will come in the form of relationships between $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $i$ is the point of origin for the societies in $I$. 
 
-To preview the basic logic, I  develop a comparison of the two scenarios described in figures \ref{fig1} and \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. But I will start as treating these points as known and then ``integrating them out;'' that is, replacing the Exponential model with a Poisson model. 
+To preview the basic logic, I  develop a comparison of the two scenarios described in figure \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. But I will start as treating these points as known and then ``integrating them out,'' replacing the Exponential model with a Poisson model. 
 
 The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is passed to location $B$. After time $t_1$, $B$ sends the migratory bug to $C$, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug, which travels no further. The result of this sequence of events is that over the entire time span of the tree, there have been exactly 4 migratory events associated with the one necessary migratory chain. In assumptions 1, this means that only one parameter is required to explain this particular migratory history. The probability of this sequence of events then follows a Poisson distribution with four occurrences over the whole time spanned by the tree $T$:
-\begin{equation} \label{e1}
-P_a = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
+\begin{equation} \label{l1}
+P_a = \frac{(\lambda\ T)^4
+e^{-4T}}{4!}\end{equation} 
+Which is labelled as $P_a$ because it is effectively the probability of this one migratory chain occurring.\footnote{Note that there is a slight abuse of notation here. One might argue that we should include the probability of migratory events in general occurring, or write the above as a conditional probability where we are really talking about $P(a|N_m=1)$.} The log-likelihood associated with the above is:
+\begin{equation} \label{l2}
+\ln P_a  = 4\ln(\lambda T) -4T-\ln(4!)
 \end{equation} 
-I have labelled this group of chains $P_a$ because it is the probability of this migratory history emanating from location $A$ occurring.\footnote{Note that there is a slight abuse of notation here. One might argue that we should include the probability of migratory events in general occurring, or write the above as a conditional probability where we are really talking about $P(a|N_m=1)$.} 
-
-In writing (\ref{e1}), I have perhaps been a bit more expansive than necessary, as all the terms raised to the $0$th power are irrelevant, as they are all equal one. I have included them in the expression to illustrate that they in some sense represent degenerate, dormant chains. That is, (\ref{e1}) could be written as:
-\begin{equation} \label{e2}
-P_a = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}e^{-\lambda_2t_6}e^{-\lambda_3t_7}e^{-4t_8}
-\end{equation} 
-The log-likelihood associated with equation (\ref{e2}) is:
-\begin{equation} \label{e3}
-\ln P_a  = 4\ln(\lambda_1 T) -4\lambda_1T-\ln(4!)-\lambda_2t_6-\lambda_3t_7-\lambda_4t_8
-\end{equation} 
-With an eye toward concentrating the likelihood, I seek to find the values of $\lambda_i$ that maximize (\ref{e3}).  From the above, it is clear that $\lambda_2=\lambda_3=\lambda_4=0$ is required to maximize the above. Since these chains never go further than their current locations, the maximum likelihood estimate is that they are all zero in value. The derivative of (\ref{e3}) with respect to $\lambda_1$, however, is not degenerate, and solving the associated first order condition gives $\lambda_1^*=\frac{4}{T}$. Substituting this and other optimal values back into the objective function gives the (concentrated) likelihood as:
+Differentiating \ref{l2} with respect to $\lambda$, and solving gives $\lambda^*=\frac{4}{T}$, and substituting this back into the objective function gives the likelihood as:
 \begin{equation}  \label{l3}
 P_a=\frac{4^4e^{-4}}{4!}
 \end{equation}
 
-There are a couple of points of interest about equation (\ref{l3}). First, since only one migratory chain is needed to explain the sequence of events, only one nondegenerate parameter is needed to parameterize the migratory history. In this sense, this a parsimonious explanation for the current distribution of cultures. 
+There are a couple of points of interest about equation (\ref{l3}). First, since only one migratory chain is needed to explain the sequence of events, only one parameter is needed for the whole process. In this sense, this a parsimonious - it requires only one distribution and one parameter. 
 
-Contrast this with the case in which $C$ is the initial location of the culture area. To maintain consistency with the linguistic or genetic analysis, we require 1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which, omitting degenerate parameters, results in a likelihood of:
+Contrast this with the case in which $C$ is the initial location of the culture area. To maintain consistency with the linguistic or genetic analysis, we require 1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which results in a likelihood of:
 \begin{equation} \label{l4}
 P_{c}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
 \frac{(\lambda_3(t-t_0-t_1))^2e^{-\lambda_3(t-t_0-t_1)}}{2!}
@@ -148,20 +141,19 @@ P_{c}=\frac{1^1e^{-}}{1!}\frac{1^{1}e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \end{equation} 
 
 According to equation (\ref{l5}), the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_a /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. If for some reason we had restricted things to these two possibilities, the relative probability that $A$ was the point of origin would then be 84\%. 
-
-The critical feature of the model is thus A key feature of the previous analysis is the function: 
+A key feature of the previous analysis is the function 
 \begin{equation*}
 a(n)=\frac{n^n}{n!}
 \end{equation*}
-which is convex in $n$. This convexity, which owes to the structure of the Poisson-Exponential distribution, implies that one is better off with explanations that require fewer non-degenerate parameters, or, equivalently, more degenerate parameters, which have the effect of lumping migratory events into longer chains. Breaking up a migratory chain into two smaller chains eschews this convexity, and results in a less believable or less likely explanation under the model. That is, for any  $k \in (1,n-1)$, it is true that:
+which is convex in $n$. This convexity, which owes to the structure of the Poisson distribution, implies that one is better off with explanations that require fewer parameters and that lump migratory events into longer chains. Hence, in a very precise sense parsimonious explanations are deemed more likely. Conversely, breaking up a migratory chain into two smaller chains eschews this convexity, and results in a less believable or less likely explanation. That is, for any  $k \in (1,n-1)$, it is true that:
 \begin{equation*}
 a(n) > a(n-k)a(k)
 \end{equation*} 
 
-This example illustrates the essentials of the model. The biggest detail that needs to be worked out is how migratory chains that are more parsimonious and therefore more likely relate to a measure of linguistic divergence. 
+There are a details that need to be fleshed out, but the above example illustrates the essentials of the model. The biggest detail that needs to be worked out is how the above theory that longer migratory chains are more parsimonious and therefore more likely relates to a measure of linguistic divergence. This task and others is taken up in the next section.
 
-\begin{definition}{\textbf{Divergence}:}
-Let $N^*$ denote the maximum number of migratory events that can be touched off from a location $l$, and let $C^*$ denote the minimum total number of chain migrations needed to explain all current locations if $i$ is the location of origin. Then, define the \textbf{Divergence} of language $i$ :
+\begin{definition}{Divergence:}
+Let $N^*$ denote the maximum number of migratory events that can be touched off from a location $i$, and let $C^*$ denote the minimum total number of chain migrations needed to explain all current locations if $i$ is the location of origin. Then, define Divergence of language $i$ :
 \begin{equation*}
 D_i=\frac{N^*}{C^*}
 \end{equation*}
@@ -171,7 +163,7 @@ D_i=\frac{N^*}{C^*}
 \section{ Age-Area Theorem}
 
 \begin{theorem}[Age-Area Theorem]
-Suppose that Assumptions 1 hold, and define Divergence as in definition 1. Then  
+Suppose that the above model of chain migration as rare events holds described in Assumptions 1 holds, and define linguistic divergence as above in Definition 1. Then,  
 \begin{equation*}
 D_i \geq D_j \Longleftrightarrow p_i\geq p_k
 \end{equation*}
@@ -186,26 +178,22 @@ Observe first that the probability that $i$ is the point of origin is a product 
 \begin{equation*}
 p_i=\prod_{i=1}^{C_i} a(N_i)
 \end{equation*} 
-The proof is virtually completed by the convexity of $a(N)$, as breaking any chain into two smaller chains is a losing proposition.  
+The proof is virtually completed by the convexity of $a(N)$, as breaking any chain into two smaller chains is a losing proposition, 
 \end{proof} 
-
-The Age-Area theorem basically says that lumping larger sequences of events together at once increases the measure of divergence and through the {{Poisson effect, creates larger branches. One thing that is interesting about the theorem is that making the tree finer does not really impact the result. 
-
-Pursuant to this idea, let's introduce the idea of a \textit{refinement} to a tree, this is something that very often happens when one is doing research on this stuff. This is because a refinement of a tree basically adds to the advantage of the above 
 
 \section{Micro foundations}
 
-What sort of process might produce a model like this of migration? One can actually develop a model that creates random scarcity, which incites mass migration. The trick is developing a theory in such a way so that it preserves migrations, but that they only propagate under singular circumstances. That is, one requires that migrations move forward, probabilistically, but then stop. The idea is that there is some shock that is common to all locations, and fixed costs to migration. Thus, Any people that currrently occupy a place have no incentive to move. But a local superabundance then is realized, at which point some fraction of the population desires to leave and move to a new point. Pursuant to this idea, imagine the following highly-stylized scenario: there are a population of friendly birds, which populate the entire landscape but taste terrible. But at some point, someone discovers how to correctly prepare the friendly birds, leading to an abundance of food and a population explosion. Population adjusts to the high level of delicious bird consumption, and while the birds are fairly robust and plentiful, if the population of humans should creep to high, the local bird population will eventually collapse. Thus, the large local population is suddenly deprived of an important food source and if the entire population stays put, the result will be a substantial utility loss. At this point, some segment of the population realizes that it could migrate to a new location where the birds are plentiful, and finds it in its interests to do so given the localized population collapse. The population splits into a migratory group and a remaining group according to an arbitrage condition, and the migratory group randomly selects a new location.\footnote{The location does not actually have to be random. The minimum cost reachable location is in fact the best, as is discussed in the section on model extensions.}
+Pursuant to the theorem, one might ask: what sort of process might produce a model like this of migration? One can actually develop a model that creates random scarcity, which incites mass migration. The trick is developing a theory in such a way so that it preserves migrations. That is, one requires that migrations move forward probabilistically and stops. Here is one way of doing this. 
 
+Imagine that there are a large, nonbinding set of viable locations in the migratory universe. At some an initial point, a new event arrives. This creates a system-wide increase in resources. 
 
-
-To make these ideas concrete,  imagine that income per capita depends upon a resource level and also the current number of inhabitants. That is, flow per capita income at a particular location is
+At a particular point in the universe of places, imagine we imagine that income per capita depends upon a resource and also the current number of inhabitants. That is, flow per capita income at a particular location is
 \begin{equation}
 y_t=f(n_t,\theta_t)
 \end{equation} 
-Suppose that when income is above some subsistence level $s$ population increases proportionally, according to a Malthusian model of population growth in which people have the optimal number of children (see Baker or Gal-or). (This can be derived from a standard model). Normalize the subsistence level to unity. Then, in a given instant of time, current population creates additional population so long as their is additional income. That is, we have:
+Suppose that when income is above some subsistence level $s$ population increases proportionally. (This can be derived from a standard model). Normalize the subsistence level to unity. Then, in a given instant of time, current population creates additional population so long as their is additional income. That is, we have:
 \begin{equation*}
-n_{t+\Delta}=n_t\left(f(n_t,\epsilon_{t+\Delta }-\epsilon_{t})
+n_{t+\Delta}=n_t\left(f(n_t,\epsilon_{t+\Delta}-\epsilon_{t})
 -1)\Delta+n_t
 \end{equation*}
 
@@ -220,27 +208,26 @@ If we let $\Delta $ go to zero, and suppose that $\epsilon$ is governed by a sta
 \begin{equation*}
 dn=n(\overline{f}+f_1n-s)+f_2^2n^2dz
 \end{equation*}
-Re-parameterize the model so that  $\overline{f}=r$, $f_1=\frac{r}{K}$, and $f_2=\sigma$. The result is then a stochastic logistic population growth model:
+We can reparameterize this by supposing that $\overline{f}=r$, $f_1=\frac{r}{K}$, and $f_2=\sigma$. The result is then a stochastic logistic population growth model:
 
 \begin{equation}
 dn=rn\left(1-\frac{n}{K}\right)+\sigma^2n^2dz
 \end{equation} \label{sde}
 
-The exact parameterization in terms of a stochastic logistic growth model is not the critical fact of the matter; what is important is that the mean-reverting nature of the SDE in equation (\ref{sde}) implies the existence of a time-independent, initial-condition-independent stationary distribution, as \cite{rdgn99} prove. This distribution is given by:
+The exact parameterization of the model is not necessary; what is important is that the mean-reverting nature of the SDE in equation (\ref{sde}) has a time-independent, stationary distribution, as \cite{rdgn99} note. This distribution is given by:
 \begin{equation*}
 W(n) = \Gamma\left[\frac{2a}{\sigma^2}-1\right]^{-1}\left(\frac{2b}{\sigma^2}\right)^{\frac{2a}{\sigma^2}-1}x^{\frac{2a}{\sigma^2}-2}\exp\left[\frac{2bx}{\sigma^2}\right]
 \end{equation*}
+Note to self. $\sigma$ has the same meaning, and $a=r$, while $b=r / K$. If we plug this in, the above gets quite simple. 
 
-
-As \cite{rdgn99} and \cite{nrs85} show, the existence of a time-independent steady state-density implies that the time to hitting a remote barrier is approximately exponential. That is, the distribution of hitting times to the barrier $S$ is independent of initial population and is given by:
+As \cite{rdgn99} and \cite{nrs99} show, the existence of a time-independent steady state density implies that the time to hitting a remote barrier is approximately exponential: that is:
 \begin{equation*}
 g(S,t|n) \sim \frac{1}{t_1(S,y)}\exp\left(-\frac{t}{t_1(S|y}\right) 
 \end{equation*}
 
-Armed with these facts, I can now buttress the model so that migratory chains with an approximate exponential distribution are produced. So, consider the following back story for the model.
+Armed with these facts, we can now create a version of the model that produces migratory chains that are approximately exponentially distribution. So, consider the following back story for the model.
 \begin{enumerate}
 \item The landscape is uniform in that all locations have the same initial carrying capacity $K_0$. 
-
 \item A new migratory chains raises the carrying capacity across all locations to $K_1>$K_0$. 
 \item There is a catch; if the population should ever reach the high boundary $S$, the carrying capacity immediately reverts to $K_0$. 
 \end{enumerate}
@@ -284,26 +271,6 @@ As \cite[p. 81]{sapir16} writes:
 A particularly neat instance of the ofttimes conclusive nature of linguistic evidence for the determinatino of a movement of populatino is that of the distribution of the Athabaskan languages. As is well known, these languages are spoken in three geographically isolated areas, a very large northern area (interior of Alaskato near Hudson Bay), a Pacific area (southwestern Oregon and Northwestern California), and a southern area (Arizona, New Mexico, and western Texas). As long as it is assumed, as is generally done on purely geographical grounds, that these three dialectic groups represent the equivalent major divisions of Athabaskan, there is no pressing reason of a linguistic nature for considering one rather than another as the historical center of distribution. As a matter of fact, however, while the southern and Pacific dialectic groups are each of them clearly homogeneous and cntrast with other groups of Athabaskan dialects, I do not see that any evidence has been given to indicate that the Northern dialects form a single group equivalent to these. Though these dialects have not yet been satisfactorily classified, it seems at least probable to me that they may ultimately be grouped into two or more major divisions, each equivalent in differential value to the southern group. Thus, I\ do not see that the divergence between, say, Carrier and Loucheux is less profound that that which obtains between, say, Chipewyan and Navaho. This being so, it would seem that the historical center of gravity lies rather in the north than in either of the other two regions and that the occupation of these latter was due to a southward movement of Athabaskan-speaking tribes. It is important to observe that the argument is not in any way dependent on the fact that the northern tribes cover a much vaster territory that those of the other two groups or even directly on the fact hat probably a larger number of distinct dialects are spoken in the north than elsewhere. The argument for the northern provenience of the Athabaskan tribes is clinched by a further linguistic fact, namely that the Athabaskan dialects from one of the three major divisions of the Na-dene stock, the other two being Haida and Tlingit. The fact that the latter are spoken in the northwest coast area so emphatically locates the historical center of gravity of the stock in the north that it becomes completely impossible to think of the Athabaskan tribes as having spread north from California or the southwest. 
 \end{quote}
 
-\section{Extensions}
-
-There are many ways in which the model can be extended. As alluded to above, when equipped with a model producing a likelihood, one can bind this to other components of a likelihood. 
-
-For example, one possible idea is to interpret the likelihood presented in the previous few pages as a conditional likelihood, and incorporate it into a joint estimation procedure. For example, if one has a means of computing the likelihood of a particular tree, one can then think about the joint distribution of a likelihood and a tree at the same time using the simple probabilistic relationship:
-$$
-P(\mathcal{T},\mathcal{H})=P(\mathcal{H}|\mathcal{T})P(\mathcal{T})
-$$
-This is important because th
-ere are so many methods for computing the likelihood of a given linguistic tree. This allows one to consider a migratory route as part of the estimation process, rather than just something loosely implied by the structure of the tree. One can also form a picture of the distribution of trees and roots once one is equipped with a likelihood function. 
-
-Another important facet is the ability to include information for other sources, as in a Bayesian analysis. 
-
-\section{Appendix}
-In the following I demonstrate an application of the algorithm in calculating the likelihood of a more complex tree. A Python implementation of the algorithm, along with some supporting materials, can be found on the project website. The following presents a detailed application of how to calculate the (concentrated) likelihood that any given location is the point of origin of the linguistic stock. 
-
-
-
-
-\newpage
 \bibliographystyle{apalike}
 \bibliography{bibfile}
 

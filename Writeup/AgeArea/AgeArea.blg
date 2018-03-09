@@ -5,16 +5,15 @@ Release version: 3.71 (18 Aug 1996)
 The top-level auxiliary file: AgeArea.aux
 The style file: apalike.bst
 Database file #1: bibfile.bib
-Warning--I didn't find a database entry for "nrs99"
 Warning--I didn't find a database entry for "gildner91"
 Warning--I didn't find a database entry for "dowd09"
 Warning--there's a number but no volume in atkinson03
 
 Here's how much of BibTeX's memory you used:
- Cites:                17 out of 7500
+ Cites:                18 out of 7500
  Fields:              297 out of 125000
- Hash table:        34846 out of 35000
- Strings:             580 out of 30000
- String pool:        6144 out of 750000
+ Hash table:        34845 out of 35000
+ Strings:             586 out of 30000
+ String pool:        6352 out of 750000
  Wizard functions:   1935 out of 10000
-(There were 4 warnings)
+(There were 3 warnings)
