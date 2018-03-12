@@ -75,7 +75,7 @@ The AAH attended to in this paper shouldn't be confused with the Sapir-Whorf Hyp
 I first describe the basic logic of the theorem within the confines of a simple example. Consider the hypothetical phylogenetic tree displayed in figure \ref{fig1}. The figure depicts the phylogenetic relationship between cultures, which has perhaps been obtained through a careful analysis of the languages of the cultures. A is evidently the most divergent culture in that the last time at which the cultures had a common ancestor is further in the past than it is for any of B, C, D, E, all of whom are closer relatives to one another. D and E are the most closely related cultures. To avoid forming impressions based on evidence that is not part of the hypothesis, we will suppose that the locations of the
 groups have been concealed from us, and that we have no access to archaeological or historical information about the constitutuent cultures of the phylogenetic tree came to be in their current locations.
 
-The Age-Area hypothesis (AAH) posits that the point of origin of the  stock was A's current location, as A is the most divergent language from the group.\footnote{It should be mentioned that there are competing definitions of the hypothesis.} Recursive application of the AAH would lead one to a most likely migratory route: the stock originated at A, there was then a migration from A's location to B's location, then from B to C, and then from C to either D or E.  
+The Age-Area hypothesis (AAH) posits that the point of origin of the  stock was A's current location, as A is the most divergent language from the group.\footnote{It should be mentioned that there are competing definitions of the hypothesis.} Recursive application of the AAH would lead one to a most likely migratory route: the stock originated at A, there was then a migration from A's location to B's location, then from B to C, and then from C to either D or E. 
 
 \begin{figure}
 \begin{center}
@@ -99,35 +99,33 @@ These two possible migratory routes are presented in figure \ref{fig2}, and to r
 
 \subsection{Tree Basics}
 
-I throughout assume that the entire phylogenetic tree is known, so the universe of migratory events that needs to be explained is observed. I assume The tree is a full, rooted, binary tree, meaning that there is a single origin node and branch, all other nodes have a single parent, all interior nodes have exactly two children, and all terminal nodes have zero children. 
+To begin developing a theory, some basic assumptions are necessary. I throughout assume that the entire phylogenetic tree is known, so the universe of migratory events that needs to be explained is observed. I assume The tree is a full, rooted, binary tree, meaning that there is a single origin node and branch, all other nodes have a single parent, all interior nodes have exactly two children, and all terminal nodes have zero children. 
 
 A binary tree with $n$ leaves has $n-1$ internal nodes. The tree in figure \ref{fig1}, for example,  has five terminal nodes and four internal nodes. Note this also applies to subtrees, which means that if a node has $k$ successors (children and childrens' children, etc.), then it is followed by $k-1$ nodes.
 
 \subsection{Migratory Chains}
  
-I build the model around what I refer to as \textit{migratory chains}. Roughly speaking, a migratory chain is a directed path from the root of the tree to an end node. I call a  collection of migratory chains that completely span the tree history a \textit{migratory history}. Hypothesizing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. I assume that a migratory chain has the following properties.
+I build the model around what I call a  \textit{migratory chain}. Roughly speaking, a migratory chain is a directed path from the root of the tree to an end node. Hypothesizing that a particular culture or society is the point of origin of the tree amounts to positing some sequence of migratory chains through the phylogenetic tree. 
 
 \begin{assumptions}{Migratory Chains}    
 \begin{enumerate}
-\item Each chain passes through only one node at a time. 
-\item When a location generates an emigration, the migratory chain continues to the new location.
-\item Once a migratory chain has moved on to the next location or node, if the node is interior, a new chain appears in place of the old one. \item Migratory chains move from location to location at times according to an exponential density.
-\item Each migratory chain is distinct in that each has its own exponential parameter.
+\item Each occupied location has a propensity to emigrate. 
+\item When a location generates an emigration, the migratory chain passes to the new location and continues.
+\item Once a migratory chain has passed to the new location, a new chain starts in its place, but only one is active at any location at any time. \item The location where the chain originates generates a mass-migration at time $t$ according to an exponential distribution with parameter $\lambda$.
+\item Each migratory chain is a distinct sequence of events and has its own parameters.  
 \end{enumerate}
 \end{assumptions}
-I will call a mass-migration history originating at location $l$ $\mathcal{H}_l$, and will assume that only mass-migration histories requiring the minimal number of events to explain the current distribution of cultures. This  means that \textit{any} history will have exactly $n-1$ migrations to span the tree. For example, the migratory events like those in figure \ref{fig2} following from the tree in figure \ref{fig1} will all have exactly 4 arrows between nodes, regardless of where they have started and how many chains are needed to explain things. Each location for our terminal nodes $l=1,2,3,\hdots L$ then will come along with a set of migratory histories $\mathcal{H}_l$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_l$ as $C_l$. 
+I will call a mass-migration history originating at location $l$ $\mathcal{H}_l$, and will assume that only mass-migration histories requiring the minimal number of events to explain the current distribution of cultures. As a practical matter, this means that \textit{any} history will have exactly $n-1$ migrations. For example, the migratory events like those in figure \ref{fig2} following from the tree in figure \ref{fig1} will all have exactly 4 arrows between nodes, regardless of where they have started and how many chains are needed to explain things. Each location for our terminal nodes $l=1,2,3,\hdots L$ then will come along with a $\mathcal{H}_l$. We will refer to the number of migratory chains corresponding with $\mathcal{H}_l$ as $C_l$. 
 
-These ideas can now be applied to develop a likelihood associated with any particular history, and then, using the histories, develop a measure of divergence that relates probability and divergence, which can be stated as an `Age-Area Theorem' which relates $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $l$ is the point of origin for the locations/cultures in $L$. In this context, parsimony or Occam's razor suggests that simpler explanations - those with smaller $\mathcal{C}$'s - have higher probabilities and this is in indeed true under Assumptions 1, owing to the shape of the exponential distribution.
+The principal observation of forming a model in this fashion is now to use the ideas in definitions 1 to develop a probability corresponding with a history $\matchcal{H}$, and to relate this to some notion of distance between societies to prove an Age Area Theorem. This Theorem will come in the form of relationships between $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $l$ is the point of origin for the locations/cultures in $L$. 
 
-To preview the basic logic, I  develop a comparison of the two scenarios described in figures \ref{fig1} and \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. The points can be treated as known but can be `integrated out' by replacing the Exponential model with a Poisson model. 
+To preview the basic logic, I  develop a comparison of the two scenarios described in figures \ref{fig1} and \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. But I will start as treating these points as known and then ``integrating them out;'' that is, replacing the Exponential model with a Poisson model. 
 
-The first migratory history described on figure \ref{fig2} requires an initial migratory chain to start at the root of the tree, and then proceed from location $A$, to $B$, then to $C$ and then finally to $D$ or $E$.\footnote{In the next subsection, I will describe a more intricate example in which a decision must be made among multiple possibilities}. But each time the migratory chain proceeds to a new location, by Assumptions 1 a new one must start in its place. Importantly, all of these new chains never go anywhere and proceed directly to leafs or terminal nodes. 
-
-The probability of observing this sequence of events can now be written as follows, combining the densities of the components of  $H$:
+The first scenario requires an initial migratory event to start after time $t_0$ from point $A$. At this point, according to the model assumptions, $A$ is dormant, and the migratory bug is passed to location $B$. After time $t_1$, $B$ sends the migratory bug to $C$, followed by $C$'s emission and subsequent dormancy, and then $D$'s. Finally, $E$ retains the bug, which travels no further. The result of this sequence of events is that over the entire time span of the tree, there have been exactly 4 migratory events associated with the one necessary migratory chain. In assumptions 1, this means that only one parameter is required to explain this particular migratory history. The probability of this sequence of events then follows a Poisson distribution with four occurrences over the whole time spanned by the tree $T$:
 \begin{equation} \label{e1}
 P_a = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
 \end{equation} 
-I have labelled this expression $P_a$ because it is the probability of this migratory history emanating from location $A$ occurring.
+I have labelled this group of chains $P_a$ because it is the probability of this migratory history emanating from location $A$ occurring.\footnote{Note that there is a slight abuse of notation here. One might argue that we should include the probability of migratory events in general occurring, or write the above as a conditional probability where we are really talking about $P(a|N_m=1)$.} 
 
 In writing (\ref{e1}), I have perhaps been a bit more expansive than necessary, as all the terms raised to the $0$th power are irrelevant, as they are all equal one. I have included them in the expression to illustrate that they in some sense represent degenerate, dormant chains. That is, (\ref{e1}) could be written as:
 \begin{equation} \label{e2}
@@ -137,16 +135,14 @@ The log-likelihood associated with equation (\ref{e2}) is:
 \begin{equation} \label{e3}
 \ln P_a  = 4\ln(\lambda_1 T) -4\lambda_1T-\ln(4!)-\lambda_2t_6-\lambda_3t_7-\lambda_4t_8
 \end{equation} 
-What values of $\lambda_i$ maximize the likelihood in (\ref{e3})? Importantly,  it is clear that $\lambda_2=\lambda_3=\lambda_4=0$. Since these chains never go further than their current locations, the maximum likelihood estimate suggests that they are degenerate. 
-
-The derivative of (\ref{e3}) with respect to $\lambda_1$, however, is not degenerate, and solving the associated first order condition gives $\lambda_1^*=\frac{4}{T}$. Substituting this and other optimal values back into the objective function gives the (concentrated) likelihood for $P_a$ as:
+With an eye toward concentrating the likelihood, I seek to find the values of $\lambda_i$ that maximize (\ref{e3}).  From the above, it is clear that $\lambda_2=\lambda_3=\lambda_4=0$ is required to maximize the above. Since these chains never go further than their current locations, the maximum likelihood estimate is that they are all zero in value. The derivative of (\ref{e3}) with respect to $\lambda_1$, however, is not degenerate, and solving the associated first order condition gives $\lambda_1^*=\frac{4}{T}$. Substituting this and other optimal values back into the objective function gives the (concentrated) likelihood as:
 \begin{equation}  \label{l3}
 P_a=\frac{4^4e^{-4}}{4!}
 \end{equation}
 
-A point of interest about equation (\ref{l3}) is that it reflects that only one nongenerate migratory chain is really needed to explain the whole tree. In this sense, this a parsimonious explanation for the current distribution of cultures. 
+There are a couple of points of interest about equation (\ref{l3}). First, since only one migratory chain is needed to explain the sequence of events, only one nondegenerate parameter is needed to parameterize the migratory history. In this sense, this a parsimonious explanation for the current distribution of cultures. 
 
-Contrast this with the case in which $C$ is posited to be the origin point of the constituent cultures of the tree. To maintain consistency with the linguistic or genetic analysis, the requirements are:  1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). Degenerate chains start at location $C$ and $D$ (or $E$). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which, omitting degenerate chains, gives:
+Contrast this with the case in which $C$ is the initial location of the culture area. To maintain consistency with the linguistic or genetic analysis, we require 1) a migratory chain that starts at $C$ and goes to $A$, 2) a migratory chain that starts at $C$ and goes to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). According to the model, each of these chains requires its own Poisson/exponential distribution and parameter, which, omitting degenerate parameters, results in a likelihood of:
 \begin{equation} \label{l4}
 P_{c}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
 \frac{(\lambda_3(t-t_0-t_1))^2e^{-\lambda_3(t-t_0-t_1)}}{2!}
@@ -157,9 +153,9 @@ P_{c}=\frac{1^1e^{-}}{1!}\frac{1^{1}e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \frac{2^2e^{-4}}{2!}
 \end{equation} 
 
-Suppose that the origin point was known to be one of these two locations. According to equation (\ref{l5}), the likelihood that $A$ is the point of origin relative to $C$ depends upon $P_a /(P_a+P_c$); a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$, so the relative probability  $A$ is the point of origin would then be 84\%. 
+According to equation (\ref{l5}), the relative likelihood that $A$ is the point of origin relative to $C$ depends upon $P_a /(P_a+P_c$), which, roughly put is a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$. If for some reason we had restricted things to these two possibilities, the relative probability that $A$ was the point of origin would then be 84\%. 
 
-A key feature of the previous analysis is the function: 
+The critical feature of the model is thus A key feature of the previous analysis is the function: 
 \begin{equation*}
 a(n)=\frac{n^n}{n!}
 \end{equation*}
