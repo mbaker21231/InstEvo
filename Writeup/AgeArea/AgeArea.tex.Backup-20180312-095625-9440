@@ -45,6 +45,12 @@ A - perhaps ``the'' - key contributor to the world-wide distribution of cultures
 
 A critical tool in understanding the timing and sequence of events behind these world-shaping mass migrations is the so-called Age-Area Hypothesis (henceforth AAH). While the exact origins of the idea are unclear, a leading early development and application of the idea is \cite{sapir16}, a study of the geographical origins of the North American Na-Dene language group. The AAH is often invoked when linguistic evidence is used to develop or support hypotheses about where groups of related  cultures originated, how they evolved over time, and how the current geographical distribution of the cultures came to be.\footnote{One must be careful in invoking ``the'' Age-Area Hypothesis. As I will elaborate below, this paper concerns what might be called the Linguistic Age-Area Hypothesis - not the related Age-Area Hypothesis that posits the wider the distribution of a cultural trait, the older it likely is.} The AAH provides a critical link between geography and linguistic phylogenies. While one can find competing and sometimes contrary definitions in the literature, briefly stated, the hypothesis says that the geographic area where a phylogeny originated is most likely the place where the component languages of the phylogeny are most divergent, or maximally differentiated.
 
+Examples of the application of the linguistic age-area hypothesis abound and cross many disciplines. \cite{sapir16} wrote:
+
+\begin{quote}
+ As is well known, [Athabaskan] languages are spoken in three geographically isolated areas, a very large northern area (interior of Alaskato near Hudson Bay), a Pacific area (southwestern Oregon and Northwestern California), and a southern area (Arizona, New Mexico, and western Texas)...it would seem that the historical center of gravity lies rather in the north than in either of the other two regions and that the occupation of these latter was due to a southward movement of Athabaskan-speaking tribes. It is important to observe that the argument is not in any way dependent on the fact that the northern tribes cover a much vaster territory that those of the other two groups or even directly on the fact that probably a larger number of distinct dialects are spoken in the north than elsewhere. The argument for the northern provenience of the Athabaskan tribes is clinched by a further linguistic fact, namely that the Athabaskan dialects from one of the three major divisions of the Na-dene stock, the other two being Haida and Tlingit. The fact that the latter are spoken in the northwest coast area so emphatically locates the historical center of gravity of the stock in the north that it becomes completely impossible to think of the Athabaskan tribes as having spread north from California or the southwest. 
+\end{quote}
+
 Additional examples of this sort of thinking abound. \cite{atkinson03}, following the original ideas in \cite{dogolpolsky88}, couple computational linguistics with the AAH to suggest that the Indo-European languages originated in Anatolia, not, as has sometimes been argued, on the steppes of Siberia. \cite{ruhlen94} uses the AAH and also provides overviews of debates about the origins of the Na-Dene cultures, the Bantu expansion in Africa, and the peopling of the South Pacific. \cite{ehret01} Makes extensive and efficient use in hit sweeping account of how and when the cultures of Africa found their current locations.
 
 In spite of its widespread use and usefulness, there is little theoretical basis for the hypothesis. In fact, the AAH itself is a bit nebulous, in that different authors state it in different ways, that are not altogether consistent with one another, or the basic underlying ideas that inspired it. 
@@ -60,13 +66,9 @@ The model can be used to formulate an likelihood function for migratory patterns
 
 \cite[p.12]{trask00} attributes the (Linguistic) Age-Area Hypothesis - also called the center-of-gravity principle, the genetic diversity principle, and Sapir's principle - to the work of Latham (1851, 1862) and Sapir (1916). He also notes that Mallory (1997) and Nichols (1997a) have qualified it in various ways.   \citet[p.336]{dimmendaal11} expresses some doubts about the exact origins of the AAH, referring to it as the ``principle of least effort'', and going on to note that ``This principle probably was applied first by the scholars working no Amerindian Languages, e.g. \cite{sapir16} and Dyen (1956)
 
- \cite{sapir16} wrote:
-
-\begin{quote}
- As is well known, [Athabaskan] languages are spoken in three geographically isolated areas, a very large northern area (interior of Alaskato near Hudson Bay), a Pacific area (southwestern Oregon and Northwestern California), and a southern area (Arizona, New Mexico, and western Texas)...it would seem that the historical center of gravity lies rather in the north than in either of the other two regions and that the occupation of these latter was due to a southward movement of Athabaskan-speaking tribes. It is important to observe that the argument is not in any way dependent on the fact that the northern tribes cover a much vaster territory that those of the other two groups or even directly on the fact that probably a larger number of distinct dialects are spoken in the north than elsewhere. The argument for the northern provenience of the Athabaskan tribes is clinched by a further linguistic fact, namely that the Athabaskan dialects from one of the three major divisions of the Na-dene stock, the other two being Haida and Tlingit. The fact that the latter are spoken in the northwest coast area so emphatically locates the historical center of gravity of the stock in the north that it becomes completely impossible to think of the Athabaskan tribes as having spread north from California or the southwest. 
-\end{quote}
-
 The AAH attended to in this paper shouldn't be confused with the Sapir-Whorf Hypothesis or what could be called the Cultural Age Area Hypothesis. 
+
+
 
 \section{Problem Description and Motivation}
 
@@ -78,7 +80,7 @@ The Age-Area hypothesis (AAH) posits that the point of origin of the  stock was 
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{AncillaryFiles//figure1.eps}
-\caption{A Phylogenetic tree} \label{fig1}
+\caption{A phylogenetic tree} \label{fig1}
 \end{center} 
 \end{figure}
 
@@ -123,7 +125,7 @@ The first migratory history described on figure \ref{fig2} requires an initial m
 
 The probability of observing this sequence of events can now be written as follows, combining the densities of the components of  $H$:
 \begin{equation} \label{e1}
-P_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
+P_a = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
 \end{equation} 
 I have labelled this expression $P_a$ because it is the probability of this migratory history emanating from location $A$ occurring.
 
@@ -201,80 +203,8 @@ The Age-Area theorem basically says that lumping larger sequences of events toge
 
 Pursuant to this idea, let's introduce the idea of a \textit{refinement} to a tree, this is something that very often happens when one is doing research on this stuff. This is because a refinement of a tree basically adds to the advantage of the above 
 
-\subsection{Additional Examples and Discussion}
-
-Consider as an additional example the hypothetical tree described in figure \ref{ex1}.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{AncillaryFiles//example1.eps}
-\caption{Two hypothetical migratory histories through a given Phylogenetic Tree. The picture on the left takes location $E$ as the point of origin, while that on the right takes point $I$ as the origin. } \label{ex11}
-\end{center} 
-\end{figure}
-
-The figure shows a phylogenetic tree, which I picture as being derived by some method from a Phylogenetic analysis of language. Dashed lines are branches that result from a migratory chain passing through the node, and for which no subsequent migrations are observed. Hence, these branches have Poisson parameters equal to zero. The point of origin of the left-hand figure is posited to be point $E$, which necessitates a migratory history with two migratory chains.  The first is a jump from $I$ to location $D$, from $D$ to $A$, from $A$ to $B$, and finally from $A$ to $C$. This history is traced out in green on the figure. A second migratory chain (traced in red) must be used to explain the sequence of events leading to the upper half of the tree. This chain begins at $E$ again, and then moves on to $F$, then $I$, then $H$, and finally to point $G$. Note that the total likelihood of thse events is then:
-
-\begin{equation*}
-P^*_E =  \frac{4^4e^{-4}}{4!}\frac{4^4e^{-4}}{4!} =\left(\rigth\frac{4^4}{4!}\right)^2e^{-8}
-\end{equation*}
-
-This reflects the two required, non-degenerate migratory chains to explain the sequence of events. If we consider location $I$ to be the point of origin, we need more migratory chains. The first chain is again traced out in green, mimicking the case in which $E$ is the point of origin. But to explain how a group got to point $E$ given $I$ was the starting point, we need a single migratory chain consisting of a sole migratory event. We also need another single migratory chain to explain how a group got to point $F$. Finally, a fourth migratory chain going from $I$, and then to $H$, and finally on to $G$ is needed. The likelihood of these events is then:
-
-\begin{equation*}
-P^*_I =\frac{4^4e^{-4}}{4!}\frac{1^1e^{-1}}{1!}\frac{1^e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=\frac{4^4}{4!}\frac{2^2}{2!}e^{-8}
-\end{equation*} 
-
-So, once again, we see the role that convexity and degeneracy plays in driving differences in likelihood. If we were to compare the probability of these two locations to get a relative likelihood, we get $P^*_E/(P^*_I+P^*_E)
-=.84. 
-
-
-\subsection{Known branch lengths}
-
-If branch lengths are known, one can use exponential probabilities, although one requires an additional assumption - that none of the branches are too short. With exact knowledge of the branch lengths, everything now follows an exponential distribution. For example, returning to figure  \ref{fig1}, we see that, with branch lengths treated as known the likelihood is now governed by a collection of exponential distributions:
-
-\begin{equation} \label{b1}
-P_A = \lambda_1^4e^{-\lambda_1T}\lambda_2^0e^{-\lambda_2t_6}\lambda_3^0e^{-\lambda_3t_7}\lambda_4 ^0e^{-4t_8}
-\end{equation} 
-
-While there are still degenerate branches, in that the probability in equation \ref{b1} is maximized where $\lambda_2=\lambda_3=\lambda_4=0$, we now find $\lambda_1^*=\frac{4}{T}$, so the profile likelihood is:
-
-\begin{equation} \label{b2}
-P_A=\left(\frac{4}{T}\right)^4e^{-4}
-\end{equation}
-
-The likelihood for $C$ is:
-
-\begin{equation} \label{b3}
-P_{C}=\lambda_1^1e^{-\lambda_1T}\lambda_2^1e^{-\lambda_2(T-t_1)}
-\lambda_3^2e^{-\lambda_3(T-t_0-t_1)}
-\end{equation}
-
-The profile likelihood associated with equation (\ref{b3}) is 
-
-\begin{equation} \label{b4}
-\frac{1}{T}\frac{1}{T-t_1}\left(\frac{2}{T-t_1-T_2}\right)^2
-\end{equation}
-
-So, as before, we still have a basic race between a rapidly increasing denominator and a slower-increasing denominator. The danger for the age-area theorem is that the branches will be very small, which will lead to the denominator being very large. However, if we impose a minimum branch length on the branches, we get the same convexity of the concentrated function as before, so we have:
-
-\begin{theorem}[Age-Area Theorem  - known branch lengths]
-Suppose that Assumptions 1 hold, and define Divergence as in definition 1. Also, suppose that branches are not too short and are greater than some constant $C$. Then  
-\begin{equation*}
-D_i \geq D_j \Longleftrightarrow p_i\geq p_k
-\end{equation*}
-and in particular
-\begin{equation*}
-i=\argmax\left[D_1,D_2,D_3,\hdots,D_n\right] \Longleftrightarrow i=\argmax\left[p_1,p_2,p_3,\hdots,p_n\right]
-\end{equation*}
-\end{theorem}
-
-\begin{proof}
-Under the assumptions, the concentrated likelihood remains convex. Hence, fewer and more expansive chains are always more likely. 
-\end{proof}
-
 \section{Micro foundations}
 
-The previous section relies heavily on the properties of the Exponential/Poisson distribution. Can one formulate a justification for this sort of model?\ 
 What sort of process might produce a model like this of migration? One can actually develop a model that creates random scarcity, which incites mass migration. The trick is developing a theory in such a way so that it preserves migrations, but that they only propagate under singular circumstances. That is, one requires that migrations move forward, probabilistically, but then stop. The idea is that there is some shock that is common to all locations, and fixed costs to migration. Thus, Any people that currrently occupy a place have no incentive to move. But a local superabundance then is realized, at which point some fraction of the population desires to leave and move to a new point. Pursuant to this idea, imagine the following highly-stylized scenario: there are a population of friendly birds, which populate the entire landscape but taste terrible. But at some point, someone discovers how to correctly prepare the friendly birds, leading to an abundance of food and a population explosion. Population adjusts to the high level of delicious bird consumption, and while the birds are fairly robust and plentiful, if the population of humans should creep to high, the local bird population will eventually collapse. Thus, the large local population is suddenly deprived of an important food source and if the entire population stays put, the result will be a substantial utility loss. At this point, some segment of the population realizes that it could migrate to a new location where the birds are plentiful, and finds it in its interests to do so given the localized population collapse. The population splits into a migratory group and a remaining group according to an arbitrage condition, and the migratory group randomly selects a new location.\footnote{The location does not actually have to be random. The minimum cost reachable location is in fact the best, as is discussed in the section on model extensions.}
 
 
@@ -336,38 +266,36 @@ The above sequence of events lead to a temporal population surplus. Suppose that
 \end{figure}
 
 
-\section{Computational Algorithm}
+s is often the case when dealing with estimation over trees, it behooves one to consider an algorithm that works backwards from the branches to the base. The algorithm presented here is essentially a pruning algorithm like Felsenstein's with a hint of dynamic programming. The dynamic programming aspect introduces a sort of continuation maximum likelihood into the tree.
 
-In previous sections, we have desribed how oftentimes there are multiple routes that are possible when a particular point of origin is posited. In this section, I show how one can couple choice of the optimal path through a tree by working recursively back through the tree, effectively employing a dynamic programming algorithm to obtain the probability that all points in the tree were the geographic point of origin of the tree. We first imagine that we have enumerated the interior branches of the tree in depth-first order, so we will work backwards through the Phylogenetic tree. 
-We label all the points in our tree as $i=1,2,3,\hdots,I$, and the interior nodes (deeper nodes are lower numbers) as $k=1,2,3,\hdots K$. 
+The algorithm works as follows. At termination, the result is a concentrated log-likelihood of each location being the point of origin.  The following is an illustration showing how the algorithm works on the example given above.
 
-We can now recursively develop an expression for the probability that location $i$ is the origin after having traversed the $k$th node. We will begin by treating the case in which branch lengths are known, as the case in which they are not known can be handled by appropriate normalization of branch lengths. 
+\begin{enumerate}
+\item[0.] Initialization: a ``active'' vector of zeros $A=[0,0,0,0,0]$, a vector of exponential parameters that start with zero, $E=[0,0,0,0,0]$, and a continuation likelihood $L=[-t_4,-t_5,-t_6,-t_7,-t_8]$
+\item  Select an interior node and pick out its branches.
+\item  Poo I\ can add stuff again! \end{enumerate}
 
-Let $P^*_{i,k}$ denote the likelihood that $i$ is the point of origin after considering the subtree spanned by node $k$. Let $t_{ik}$ denote the length of a chain starting at $k$ and moving on from $i$, and let $\delta_{ik}$ denote a dummy variable for whether or not any other chains have started from node $i$.   
+\cite{gildner91}
+\cite{dowd09}\cite{rdgn99}
+\cite{blazek13}
 
-At $k=0$, which is at the start of the algorithm, we start with $P_{i,0} =1$, $t_{i,0}=t_i$, and $n_i = 0$, and $\delta_{i,0}=0$. Define the children of a node as $A_k$ and define $A_{k,-i}$ as all the ancestors of node excepting ancestor $i$. Along with numbering the interior branches from $k$, we also attach $k$ to the interior branches of the tree leading into the node. 
-Now, we are in a position to describe how the algorithm works. 
+\section{Quotes}
 
-\begin{equation} \label{ca1}
-\ln\left[ P^*_{i,k}\right]=\max_{j \in J_{ik}}\{{(\ln \left[f(n_j+1,t_j+t_{ij})\right]\delta_i+(1-\delta_i)\ln \left[P^*_{i,k-1}\right]\}
-\end{equation}
-subject to:
-\begin{equation*}
-s_t, \delta_t = 
-\end{equation*}
+Bellwood, page 2:``  In the historical record, the main mechanism behind their large-scale and long-distance spreads and their establishments as the long-term vernaculars of whole populations, not just elites, has always been migration of their speakers.''
 
-\subsection{An example}
+Bellwood, page 2:`` For the purposes of the prehistoric and early historical record of human affairs described in this book, migration was simply the permanent movement of all or part of a population to inhabit a new territory, separate from that in which it was previously based.''
 
+Bellwood, page 8: story of the helveti ``...would have taken them into the relatively new Roman province in southern Gaul (Provence, as it is still called today), a move which Caesar opposed. So they switched to a more northerly route across the upper Rhone valley into central Gaul, where they faced the pro-Roman Aedui. The Helvetii lost in their conflict with the Romans and their allies, but Caesar’s description of their behavior is most illuminating: …they determined to prepare for emigration by buying up all the draught cattle and wagons they could, sowing as much land as possible in order to secure an adequate supply  for the journey, and establishing peaceful and friendly relations with their  neighbors. They thought two years would suffice for completing these preparations [during which time their leader Orgetorix died, but the Helvetii did not give up]…As soon as they  considered themselves ready, they burnt all their twelve towns and four hundred villages…and also the whole of their grain, except what they intended to take with them; for they thought that, if there was no possibility of returning home, they would be more willing to face all the perils that awaited them (Handford 1951: 29–30).''
 
+Page 23: ``Nicholas Ostler in his survey of major language histories across the world during the past 4500 years: The most eminent judgment to emerge from our global survey is that migrations of peoples , the first force in history to spread languages, dominates to this day. (Ostler 2005: 534)''
+
+As \cite[p. 81]{sapir16} writes:
+\begin{quote}
+A particularly neat instance of the ofttimes conclusive nature of linguistic evidence for the determinatino of a movement of populatino is that of the distribution of the Athabaskan languages. As is well known, these languages are spoken in three geographically isolated areas, a very large northern area (interior of Alaskato near Hudson Bay), a Pacific area (southwestern Oregon and Northwestern California), and a southern area (Arizona, New Mexico, and western Texas). As long as it is assumed, as is generally done on purely geographical grounds, that these three dialectic groups represent the equivalent major divisions of Athabaskan, there is no pressing reason of a linguistic nature for considering one rather than another as the historical center of distribution. As a matter of fact, however, while the southern and Pacific dialectic groups are each of them clearly homogeneous and cntrast with other groups of Athabaskan dialects, I do not see that any evidence has been given to indicate that the Northern dialects form a single group equivalent to these. Though these dialects have not yet been satisfactorily classified, it seems at least probable to me that they may ultimately be grouped into two or more major divisions, each equivalent in differential value to the southern group. Thus, I\ do not see that the divergence between, say, Carrier and Loucheux is less profound that that which obtains between, say, Chipewyan and Navaho. This being so, it would seem that the historical center of gravity lies rather in the north than in either of the other two regions and that the occupation of these latter was due to a southward movement of Athabaskan-speaking tribes. It is important to observe that the argument is not in any way dependent on the fact that the northern tribes cover a much vaster territory that those of the other two groups or even directly on the fact hat probably a larger number of distinct dialects are spoken in the north than elsewhere. The argument for the northern provenience of the Athabaskan tribes is clinched by a further linguistic fact, namely that the Athabaskan dialects from one of the three major divisions of the Na-dene stock, the other two being Haida and Tlingit. The fact that the latter are spoken in the northwest coast area so emphatically locates the historical center of gravity of the stock in the north that it becomes completely impossible to think of the Athabaskan tribes as having spread north from California or the southwest. 
+\end{quote}
 
 \section{Extensions}
 
-\subsection{Approximations}
-
-Using Stirling's approximation, one can write the likelihood very simply, which relates the jump method to simple counting. 
-
-
-\subsection{Expanded likelihoods}
 There are many ways in which the model can be extended. As alluded to above, when equipped with a model producing a likelihood, one can bind this to other components of a likelihood. 
 
 For example, one possible idea is to interpret the likelihood presented in the previous few pages as a conditional likelihood, and incorporate it into a joint estimation procedure. For example, if one has a means of computing the likelihood of a particular tree, one can then think about the joint distribution of a likelihood and a tree at the same time using the simple probabilistic relationship:
@@ -378,13 +306,6 @@ This is important because th
 ere are so many methods for computing the likelihood of a given linguistic tree. This allows one to consider a migratory route as part of the estimation process, rather than just something loosely implied by the structure of the tree. One can also form a picture of the distribution of trees and roots once one is equipped with a likelihood function. 
 
 Another important facet is the ability to include information for other sources, as in a Bayesian analysis. 
-
-\subsection{Including additional information about migrations}
-
-Part of the optimization relationship can also include additional information about what routes are more likely. As one example, one might include a matrix of physical distances or travel costs between points. This matrix might even reflect.\footnote{If one is interested, computational algorithms and extensions can be found on the project site:} 
-
-\section{Applications}
-
 
 \section{Appendix}
 In the following I demonstrate an application of the algorithm in calculating the likelihood of a more complex tree. A Python implementation of the algorithm, along with some supporting materials, can be found on the project website. The following presents a detailed application of how to calculate the (concentrated) likelihood that any given location is the point of origin of the linguistic stock. 

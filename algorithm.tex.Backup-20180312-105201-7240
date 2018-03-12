@@ -1,8 +1,6 @@
-%
 \documentclass[11pt]{article}
 \usepackage{amsmath}
 \begin{document}
-
 Algorithm:
 \begin{tiny}
 \begin{verbatim}
