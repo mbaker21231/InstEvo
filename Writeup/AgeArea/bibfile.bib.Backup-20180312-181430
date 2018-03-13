@@ -1,12 +1,3 @@
-@Book{mace05,
-	author = {},
-	title = {The Evolution of Cultural Diversity: A Phylogenetic Approach},
-	journal = {},
-	year = 2005,
-	editor = {Ruth Mace and Claire J. Holden and Stephen Shennan},
-	publisher = {Left Coase Press},
-	address = {Walnut Creek, CA}
-}
 @Article{dogolpolsky88,
 	author = {Aron Dolgopolsky},
 	title = {The Indo-european homeland and lexical contacts of proto-indo-european with other languages},

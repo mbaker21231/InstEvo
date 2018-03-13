@@ -1,10 +1,8 @@
-@Book{mace05,
-	author = {},
+@InCollection{mace05,
 	title = {The Evolution of Cultural Diversity: A Phylogenetic Approach},
-	journal = {},
-	year = 2005,
-	editor = {Ruth Mace and Claire J. Holden and Stephen Shennan},
-	publisher = {Left Coase Press},
+	year = {},
+	editor = {Ruth Mace and Clare J. Holden and Stephen Shennan},
+	publisher = {Left Coast Press},
 	address = {Walnut Creek, CA}
 }
 @Article{dogolpolsky88,

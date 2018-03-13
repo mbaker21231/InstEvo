@@ -8,10 +8,10 @@ Database file #1: bibfile.bib
 Warning--there's a number but no volume in atkinson03
 
 Here's how much of BibTeX's memory you used:
- Cites:                17 out of 7500
- Fields:              297 out of 125000
- Hash table:        34849 out of 35000
- Strings:             576 out of 30000
- String pool:        6148 out of 750000
+ Cites:                18 out of 7500
+ Fields:              319 out of 125000
+ Hash table:        34848 out of 35000
+ Strings:             581 out of 30000
+ String pool:        6296 out of 750000
  Wizard functions:   1935 out of 10000
 (There was 1 warning)
