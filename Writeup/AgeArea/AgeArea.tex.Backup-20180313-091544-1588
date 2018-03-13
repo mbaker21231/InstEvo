@@ -28,7 +28,7 @@
 
 \maketitle
 \begin{abstract}
-\noindent A commonly-used tool in explaining the origins, geographical dispersion, and relatedness between cultures is the Age-Area Hypothesis advanced by \cite{sapir16}. The hypothesis posits that the origin point of a group of related cultures or a linguistic stock is most likely where the languages comprising the stock are most divergent. While compelling and often-corroborated, the Age-Area Hypothesis has never been founded in basic principles, and this lack of structure limits its use. I describe a micro-founded model of the Age-Area Hypothesis based on mass migration, develop a measure of divergence between cultures based on phylogenetic trees, and develop an Age-Area Theorem. The model allows computation of probabilities that different locations are the origin points for the constituents of a linguistic stock. The model also provides a probabilistic explanation of Occam's razor: migratory paths explaining the geographical dispersion of related cultures that are simpler are  more likely. The paper concludes with applications to the origins of the Na-Dene and Afro-Asiatic Ethno-linguistic groups. 
+\noindent Historical mass migrations have played a seminal role in shaping the global distribution of cultures. A commonly-used tool in theorizing about the nature and origins of mass migrations is the so-called Age-Area Hypothesis advanced by \cite{sapir16}. The Age-Area hypothesis posits that the origin point of a linguistic stock or phylogeny is most likely where the languages comprising the stock are most divergent. While compelling and often corroborated, the Age-Area Hypothesis has never been founded in basic principles, and this lack of structure limits its use. I describe a micro-founded model of the Age-Area Hypothesis, and develop an Age-Area Theorem. The model allows computation of probabilities that different locations are the origin points for the constituents of a linguistic stock. The model also provides a probabilistic explanation of Occam's razor: migratory paths that are simpler in a well-defined sense explanations are also more likely. The paper concludes with applications to the origins of the Na-Dene and Afro-Asiatic Ethno-linguistic groups. 
 \end{abstract}
 \newpage
 
@@ -57,7 +57,7 @@ It is worth emphasizing that the model can be used to formulate an likelihood fu
 
 \section{Background Literature}
 
-One of the dominant means of describing how closely-related cultures are is through language and linguistic drift, which turns out to be a fairly reliable guide to how far in the past two similar cultures began to drift apart after some event - often a large-scale migration - lead to their geographical separation. The AAH is a primary tool linking geography with cultural drift. \citet[p.12]{trask00} attributes the (Linguistic) Age-Area Hypothesis - also called the center-of-gravity principle, the genetic diversity principle, and Sapir's principle - to the work of Latham (1851, 1862) and \cite{sapir16}. \cite{trask00} further notes that Mallory (1997) and Nichols (1997a) have employed and qualified the AAH in various ways.   \citet[p.336]{dimmendaal11} expresses some doubts about the exact origins of the AAH, referring to it as the ``principle of least effort'', and notes that ``This principle probably was applied first by the scholars working on Amerindian Languages, e.g. \cite{sapir16} and Dyen (1956)''.
+\citet[p.12]{trask00} attributes the (Linguistic) Age-Area Hypothesis - also called the center-of-gravity principle, the genetic diversity principle, and Sapir's principle - to the work of Latham (1851, 1862) and \cite{sapir16}. \cite{trask00} further notes that Mallory (1997) and Nichols (1997a) have employed and qualified the AAH in various ways.   \citet[p.336]{dimmendaal11} expresses some doubts about the exact origins of the AAH, referring to it as the ``principle of least effort'', and notes that ``This principle probably was applied first by the scholars working on Amerindian Languages, e.g. \cite{sapir16} and Dyen (1956)''.
 
 In what seems to be the initial application of the idea, \cite{sapir16} writes:
 
@@ -77,7 +77,7 @@ As a note of caution, there are other, related ideas that are also often invoked
 Consider the hypothetical phylogenetic tree displayed in figure \ref{fig1}. For clarity, the figure depicts the phylogenetic relationship between cultures, which has perhaps been obtained through a careful analysis of the languages of the cultures so that one can deduce the times at which the cultures seem to have separated. A is evidently the most divergent culture in that the last time at which the cultures had a common ancestor is further in the past than it is for any of B, C, D, E, all of whom are closer relatives to one another. D and E are the most closely related cultures. To avoid forming impressions based on evidence that is not part of the hypothesis, we will suppose that the locations of the
 groups have been concealed from us, and that we have no access to archaeological or historical information about the constituent cultures of the phylogenetic tree came to be in their current locations.
 
-The AAH asserts that the point of origin of the  stock was A's current location, as A is, evidently, the most divergent culture from the group. Recursive application of the AAH would lead one to a most likely migratory route: the stock originated at A's location. There was then a migration from A's location to B's location, then from B to C, and then from C to either D or E.  
+The AAH asserts that the point of origin of the  stock was A's current location, as A is, evidently, the most divergent culture from the group.\footnote{It should be mentioned that there are competing definitions of the hypothesis.} Recursive application of the AAH would lead one to a most likely migratory route: the stock originated at A's location. There was then a migration from A's location to B's location, then from B to C, and then from C to either D or E.  
 
 \begin{figure}
 \begin{center}
@@ -261,7 +261,7 @@ The profile likelihood associated with equation (\ref{b3}) is
 \frac{1}{T}\frac{1}{T-t_1}\left(\frac{2}{T-t_1-T_2}\right)^2
 \end{equation}
 
-So, as before, we still have a basic race between a rapidly increasing denominator and a slower-decreasing denominator; in expression (\ref{b4}), the decreasing length of the branches spanned in the denominator fulfills the role of the factorial term in the denominator of the Poisson model. The danger for the age-area theorem is that the branches will be very small, which will lead to the denominator being very large. However, if we impose a minimum branch length on the branches, we get the same convexity of the concentrated function as before, so we have:
+So, as before, we still have a basic race between a rapidly increasing denominator and a slower-decreasing denominator. The danger for the age-area theorem is that the branches will be very small, which will lead to the denominator being very large. However, if we impose a minimum branch length on the branches, we get the same convexity of the concentrated function as before, so we have:
 
 \begin{theorem}[Age-Area Theorem  - known branch lengths]
 Suppose that Assumptions 1 hold, and define Divergence as in definition 1. Also, suppose that branches are not too short and are greater than some constant $C$. Then  
@@ -280,12 +280,15 @@ Under the assumptions, the concentrated likelihood remains convex. Hence, fewer 
 
 \section{Microeconomic foundations}
 
-The previous sections have leaned on properties of the Exponential/Poisson distribution. What justifies the faith in this particular model? One would like a model in which migrations move forward probabilistically, but at the same time, the impetus for the migration is expelled when the migration occurs. 
-Suppose that a shock that is common to all potential locations occurs, which creates an abundance of resources throughout the system. The shock is such that a natural carrying-capacity parameter increases, but that this extra carrying capacity can be exhausted. If the population ever reaches some relatively high barrier level $\overline{b}$\ in a location, the carrying capacity immediately reverts to its pre-shock level of $\overline{u}$. At this point in time, there are now a superabundance of people in the given area, and some mass of these people may migrate to a new location.\footnote{A parable: each of a discrete set of islands has a population of friendly birds. While plump, these birds taste terrible. But by accident, a is discovered that makes the birds palatable, leading to an abundance of food. Human population adjusts to the newfound resource, and while the birds are plentiful, there are no problems. But one year, an unusually good crop pushes the human population higher than it usually is. The additional population strains the bird population leading to a collapse. Half of the population leaves for a new island, where birds are still plentiful. }
+The previous sections have leaned to some degree on the properties of the Exponential/Poisson distribution. What  justifies the faith in this particular model? One would like a model in which migrations move forward probabilistically, but at the same time, the impetus for the migration is expelled when the migration occurs. 
 
+The idea here is that there is some shock that is common to all locations, and fixed costs to migration. The shock is such that a natural carrying-capacity parameter increases in all viable locations, but this carrying capacity can be exhausted stochastically. That is, if the population ever reaches some barrier level $\overline{b}$\ in a location, the carrying capacity immediately reverts to a lower level of say $\overline{u}$, which has a new critical carrying capacity. 
 
+If a mass migration requires a minimal number of people to occur, no one will ever leave the current location unless the barrier is hit and there is a superabundance of population relative to the resource as the carrying capacity reverts to its lower level.
 
-According to an arbitrage condition, a segment of the population realizes that it could migrate to a new location where the birds are plentiful even if migration is costly, and finds it in its interests to do so given the localized collapse of the bird population. The population splits into a migratory group based on arbitrage, the migratory group randomly selects a new location, and emigrates.\footnote{The location does not actually have to be random. The minimum cost reachable location is in fact the best, as is discussed in the section on model extensions.}
+For an intuitive explanation, imagine the following: there are a discrete set of liveable locations, each with a population of stylized, friendly birds. While plump, these stylized birds taste terrible. But by pure accident, someone discovers a spice that makes the birds palatable, leading to an abundance of food across the birds' range. Human population adjusts to the newfound resource, and while the birds are plentiful, there are no problems. But if the population of humans creeps to a critical level, the local bird population collapses. The local population suddenly far too large relative to the carrying capacity of the land, and if everyone stays put, the result will be a substantial utility loss. 
+
+According to an arbitrage condition, a segment of the population realizes that it could migrate to a new location where the birds are plentiful even if migration is costly, and finds it in its interests to do so given the localized collapse of the bird population. The population splits into a migratory group based on arbitrage, the migratory group randomly selects a new location, and leaves.\footnote{The location does not actually have to be random. The minimum cost reachable location is in fact the best, as is discussed in the section on model extensions.}
 
 
 
@@ -293,45 +296,35 @@ To make these ideas concrete,  imagine that income per capita depends upon a res
 \begin{equation}
 y_t=f(n_t,\theta_t)
 \end{equation} 
-We imagine that $f(n,\theta)$ is bounded above at some reasonable level. Individuals gain utility from consumption $x_t$ and children $k_t$ and children according to a Bernoulli utility function $u=\left(x_tk_t\right)^\frac{1}{2}$. Raising a child costs $\kappa$ units of the consumption good, so individuals face the budget constraint $y_t=x_t+\kappa k_t$. This leads to $k_t^*=\frac{y_t}{2\kappa}$, and $x_t^*=\frac{y_t}{2}$. Equilibrium population growth is $n_tk^*_t$ and equilibrium indirect utility is $v(y,\kappa)=\frac{y_t}{2\kappa} $
-
-
-
-Suppose that when income is above some subsistence level, population increases proportionally, according to a Malthusian model of population growth in which people have the optimal number of children. Normalizing the subsistence level to unity. Then, in a given instant of time, current population creates future population according to the following relationship:
+Suppose that when income is above some subsistence level, population increases proportionally, according to a Malthusian model of population growth in which people have the optimal number of children. As in Baker\ (2008), this can be derived from a standard utility-maximization framework. Normalizing the subsistence level to unity. Then, in a given instant of time, current population creates future population according to the following relationship:
 \begin{equation*}
-n_{t+\Delta}=n_tf(n_t,\epsilon_{t+\Delta }-\epsilon_{t},\Delta)+n_t(1- \delta\Delta)
+n_{t+\Delta}=n_t\left(f(n_t,\epsilon_{t+\Delta }-\epsilon_{t})
+-1)\Delta+n_t
 \end{equation*}
 
 Suppose that $f(n_t,\epsilon_t,\epsilon_{t+\Delta})$ can be captured by a first-order Taylor expansion so we get:
 \begin{equation*}
-n_{t+\Delta}=n_t\left(\overline{f}-f_1n_t-\delta)\Delta+f_2(\epsilon_{t+\Delta}-\epsilon_t)n_{t}}+n_t
+n_{t+\Delta}=n_t\left(\overline{f}+f_1n_t-s+f_2(\epsilon_{t+\Delta}-\epsilon_t)})
+-1)\Delta+n_t
 \end{equation*}
-This can be rewritten as:
-\begin{equation*}
-n_{t+\Delta}-n_t
-=n_t(\overline{f}-\delta-f_1n_t)+f_{2}(\epsilon_{t+\Delta}-\epsilon_t)n_t\end{equation*}
 
-
-Letting $\Delta $ go to zero, and assuming that $\epsilon$ is governed by a standard Brownian motion, the above can be rewritten as a stochastic differential equation:
+Letting $\Delta $ go to zero, and assuming that $\epsilon$ is governed by a standard Brownian motion, we can write the above can be rewritten as a stochastic differential equation of the form:
 
 \begin{equation*}
-dn=n(\overline{f}-\delta+f_1n)+f_2^2n^2dz
+dn=n(\overline{f}+f_1n-s)+f_2^2n^2dz
 \end{equation*}
-Re-parameterizing so that  $\overline{f}-\delta =r$, $f_1=\frac{r}{K}$, and $f_2=\sigma$. The result is then a stochastic logistic population growth model:
+Re-parameterize so that  $\overline{f}=r$, $f_1=\frac{r}{K}$, and $f_2=\sigma$. The result is then a stochastic logistic population growth model:
 
 \begin{equation}
 dn=rn\left(1-\frac{n}{K}\right)+\sigma^2n^2dz
 \end{equation} \label{sde}
 
-Here, our carrying-capacity parameter $K$ is where the shock can be built into the model. That is, once a shock occurs, $K=\overline{K}$ across the discrete locations in the system. But once population approaches some value close to the carrying capacity, like $\rho K$, for example, $K$ is reset at a level $\underline{K}$, with $\overline{K}>\underline{K}$.\footnote{Details need to be worked out, but this concept works. A fixed number of people to have a viable migration, along with assumptions on how large $K$ is, should be sufficient.} 
-
-The exact parameterization in terms of a sto
-chastic logistic growth model is not the critical fact of the matter. What is crucial is the mean-reverting nature of the stochastic differential equation (\ref{sde}). \cite{rdgn99} show that the above process has a time-independent, initial-condition-independent stationary distribution given by:
+The exact parameterization in terms of a stochastic logistic growth model is not the critical fact of the matter. What is crucial is the mean-reverting nature of the stochastic differential equation (\ref{sde}). \cite{rdgn99} show that the above process has a time-independent, initial-condition-independent stationary distribution given by:
 \begin{equation*}
-W(n) = \left( \Gamma\left[\frac{2r}{\sigma^2}-1\right]\right)^{-1}\left(\frac{2r}{K\sigma^2}\right)^{\frac{2r}{\sigma^2}-1}x^{\frac{2r}{\sigma^2}-2}\exp\left[\frac{2rx}{K\sigma^2}\right]
+W(n) = \Gamma\left[\frac{2a}{\sigma^2}-1\right]^{-1}\left(\frac{2b}{\sigma^2}\right)^{\frac{2a}{\sigma^2}-1}x^{\frac{2a}{\sigma^2}-2}\exp\left[\frac{2bx}{\sigma^2}\right]
 \end{equation*}
 
-As \cite{rdgn99} and \cite{nrs85} show, the existence of a time-independent steady state-density implies that the first passage time to a large barrier is approximately exponential. If That is, the distribution of hitting times to the barrier $\overline{b}$ is independent of initial population and is given by:
+As \cite{rdgn99} and \cite{nrs85} show, the existence of a time-independent steady state-density implies that the time to hitting a large barrier is approximately exponential. That is, the distribution of hitting times to the barrier $\overline{b}$ is independent of initial population and is given by:
 \begin{equation*}
 g(\overline{b},t|n) \sim \frac{1}{t_1(\overline{b},y)}\exp\left(-\frac{t}{t_1(\overline{b}|y)}\right) 
 \end{equation*}
