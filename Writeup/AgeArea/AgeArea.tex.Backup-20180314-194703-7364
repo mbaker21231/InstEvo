@@ -117,57 +117,57 @@ I build the model around \textit{migratory chains}, which can be thought of as s
 \item Each migratory chain is distinct in that it has its own parameterized probability densiity.
 \end{enumerate}
 \end{assumptions}
-I will call a migratory history originating at location $k$ $H_k$, and will assume that only mass-migration histories requiring the minimal number of events to explain the current distribution of cultures. This  means that\textit{any} history will need exactly $n-1$ mass migrations to span the tree. The migratory events shown in figure \ref{fig2} following from the tree in figure \ref{fig1} has  exactly 4 arrows between nodes, and this will be true regardless of where the migratory history is started. Each location where a society or culture represented by a terminal node resides  $k=1,2,3,\hdots K$ can be coupled with a set of migratory histories $\mathcal{H}_k$. There is typically more than one migratory history that is possible if the origin point is $k$. Each migratory history has some count of the total number of migratory events required, which I refer to as  $C_k$.{} 
+I will call a migratory history originating at location $l$ $\mathcal{H}_l$, and will assume that only mass-migration histories requiring the minimal number of events to explain the current distribution of cultures. This  means that\textit{any} history will need exactly $n-1$ mass migrations to span the tree. The migratory events shown in figure \ref{fig2} following from the tree in figure \ref{fig1} has  exactly 4 arrows between nodes, and this will be true regardless of where the migratory history is started. Each location where a society or culture represented by a terminal node resides  $l=1,2,3,\hdots L$ can be coupled with a set of migratory histories $\mathcal{H}_l$. I refer to the number of migratory chains corresponding with $\mathcal{H}_l$ as $C_l$.\footnote{This is bad notation - we need to have a different symbol for the set of histories and a history that is the element of the set.} 
 
-These ideas can be applied to develop a likelihood associated with any particular history, and then using the histories, develop a measure of divergence that relates probability and divergence, which can be stated as an `Age-Area Theorem' which relates histories, counts of migratory events, and probabilities. Let the likelihood that point $l$ is the point of origin for the locations/cultures in be denoted by $L_{k}$. In this context, parsimony or Occam's razor suggests that simpler explanations - those with smaller $C$'s - have higher probabilities and this is in indeed true under Assumptions 1, owing to the shape of the exponential distribution.
+These ideas can be applied to develop a likelihood associated with any particular history, and then, using the histories, develop a measure of divergence that relates probability and divergence, which can be stated as an `Age-Area Theorem' which relates $\mathcal{H}$, $\mathcal{C}$, and $\mathcal{P}$, the probability that point $l$ is the point of origin for the locations/cultures in $L$. In this context, parsimony or Occam's razor suggests that simpler explanations - those with smaller $\mathcal{C}$'s - have higher probabilities and this is in indeed true under Assumptions 1, owing to the shape of the exponential distribution.
 
 To preview the basic logic, I  develop a comparison of the two scenarios described in figures \ref{fig1} and \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. The points can be treated as known but can be `integrated out' by replacing the Exponential model with a Poisson model. 
 
-The first migratory history described on figure \ref{fig2} requires an initial migratory chain to start at the root of the tree, which then proceeds from location $A$ to $B$, then from B to $C$ and then finally to $D$ or $E$.\footnote{In the next subsection, I will describe a more intricate example in which a decision must be made among multiple possibilities.} But each time the migratory chain proceeds to a new location, by Assumption 1, a new one starts in its place. Importantly, in the example in figures \ref{fig1} and \ref{fig2}, these new chains never create migratory events and only lead to terminal nodes. 
+The first migratory history described on figure \ref{fig2} requires an initial migratory chain to start at the root of the tree, which then proceeds from location $A$ to $B$, then from B to $C$ and then finally to $D$ or $E$.\footnote{In the next subsection, I will describe a more intricate example in which a decision must be made among multiple possibilities} But each time the migratory chain proceeds to a new location, by Assumption 1, a new one starts in its place. Importantly, in the example in figures \ref{fig1} and \ref{fig2}, these new chains never create migratory events and only lead to terminal nodes. 
 
 Given these observations, the probability of observing this sequence of events can be written by combining the densities of the components of  $H_A$:
 \begin{equation} \label{e1}
-L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
+P_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
 \end{equation} 
-I have labelled this expression $L_A$ because it is the likelihood of this migratory history conditional on emanating from location $A$.
+I have labelled this expression $P_A$ because it is the probability of this migratory history conditional on emanating from location $A$.
 
-Equation (\ref{e1}) is perhaps more expansive than necessary, as all the terms raised to the $0$th power are degenerate in the sense that their optimizing values should be equal to one. Taking into account this fact, te probability in equation (\ref{e1}) could also be written as:
+Equation (\ref{e1}) is perhaps more expansive than necessary, as all the terms raised to the $0$th power are equal to one. I have included them in the expression to illustrate that they in some sense represent degenerate migratory chains. That is, the probability in equation (\ref{e1}) could also be written as:
 \begin{equation} \label{e2}
-L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}e^{-\lambda_2t_6}e^{-\lambda_3t_7}e^{-4t_8}
+P_a = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}e^{-\lambda_2t_6}e^{-\lambda_3t_7}e^{-4t_8}
 \end{equation} 
 The log-likelihood associated with equation (\ref{e2}) is:
 \begin{equation} \label{e3}
-\ln L_A  = 4\ln(\lambda_1 T) -4\lambda_1T-\ln(4!)-\lambda_2t_6-\lambda_3t_7-\lambda_4t_8
+\ln P_a  = 4\ln(\lambda_1 T) -4\lambda_1T-\ln(4!)-\lambda_2t_6-\lambda_3t_7-\lambda_4t_8
 \end{equation} 
 What values of $\lambda_i$ maximize the likelihood in (\ref{e3})? First, $\lambda_2=\lambda_3=\lambda_4=0$ at the optimum. Since these chains never go further than their current locations, the maximum likelihood estimate suggests that they are degenerate with rate parameter equal zero. 
 
-The derivative of (\ref{e3}) with respect to $\lambda_1$, however, generates a meaningful parameter estimate. Differentiating with respect to $\lambda_1$ and solving the first-order condition gives $\lambda_1^*=\frac{4}{T}$. Substituting this and other optimal values back into the objective function gives the (concentrated) likelihood for $L_A$ as:
+The derivative of (\ref{e3}) with respect to $\lambda_1$, however, generates a meaningful parameter estimate. Differentiating with respect to $\lambda_1$ and solving the first-order condition gives $\lambda_1^*=\frac{4}{T}$. Substituting this and other optimal values back into the objective function gives the (concentrated) likelihood for $P_a$ as:
 \begin{equation}  \label{l3}
-L_A=\frac{4^4e^{-4}}{4!}
+P_A=\frac{4^4e^{-4}}{4!}
 \end{equation}
 
 A point of interest about equation (\ref{l3}) is that it reflects that only one non-degenerate migratory chain is needed to explain the whole tree, given that the migratory history starts at $A$. In this sense, this a parsimonious explanation for the current distribution of cultures. 
 
 Contrast this with the case in which $C$ is posited to be the origin point of the constituent cultures of the tree. To maintain consistency with the linguistic or genetic analysis, the requirements are:  1) a migratory chain starting at $C$ leading to $A$, 2) another migratory chain starting at $C$ going to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). Degenerate chains start at location $C$ and $D$ (or $E$). According to the model, each of these chains requires its own Poisson/Exponential parameter, which, omitting degenerate chains, gives:
 \begin{equation} \label{l4}
-L_{C}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
+P_{C}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
 \frac{(\lambda_3(t-t_0-t_1))^2e^{-\lambda_3(t-t_0-t_1)}}{2!}
 \end{equation} 
-Maximizing $L_{}_{C}$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
+Maximizing $P_{}_{C}$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
 \begin{equation} \label{l5}
-L_{C}=\frac{1^1e^{-}}{1!}\frac{1^{1}e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
+P_{C}=\frac{1^1e^{-}}{1!}\frac{1^{1}e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \frac{2^2e^{-4}}{2!}
 \end{equation} 
 
-Suppose that the origin point was known to be one of these two locations. According to equation (\ref{l5}), the likelihood that $A$ is the point of origin relative to $C$ depends upon $L_{A} /(L_A+L_C)$; a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$, so the relative probability  $A$ is the point of origin would then be 84\%. 
+Suppose that the origin point was known to be one of these two locations. According to equation (\ref{l5}), the likelihood that $A$ is the point of origin relative to $C$ depends upon $P_A /(P_A+P_C)$; a race between the functions $\frac{4^4}{4!}$ and $\frac{2^2}{2!}$, so the relative probability  $A$ is the point of origin would then be 84\%. 
 
 A key feature of the previous analysis is the function: 
 \begin{equation*}
-h(n)=\frac{n^n}{n!}
+a(n)=\frac{n^n}{n!}
 \end{equation*}
 which is convex in $n$. This convexity, which owes to the structure of the Poisson-Exponential distribution, implies that one is better off with explanations that require fewer non-degenerate parameters, or, equivalently, more degenerate parameters, which have the effect of lumping migratory events into longer chains. Breaking up a migratory chain into two smaller chains eschews this convexity, and results in a less likely explanation. That is, for any  $k \in (1,n-1)$, it is true that:
 \begin{equation*}
-h(n) > h(n-k)h(k)
+a(n) > a(n-k)a(k)
 \end{equation*} 
 
 This example illustrates the essentials of the model. The biggest detail that needs to be worked out is how migratory chains that are more parsimonious and therefore more likely relate to a measure of linguistic divergence. 
@@ -185,16 +185,16 @@ D_i=\frac{N^*}{C^*}
 \begin{theorem}[Age-Area Theorem]
 Suppose that Assumptions 1 hold, and define Divergence as in definition 1. Then  
 \begin{equation*}
-D_i \geq D_j \Longrightarrow p_i\geq p_k
+D_i \geq D_j \Longleftrightarrow p_i\geq p_k
 \end{equation*}
 and in particular
 \begin{equation*}
-i=\argmax\left[D_1,D_2,D_3,\hdots,D_n\right] \Longrightarrow i=\argmax\left[p_1,p_2,p_3,\hdots,p_n\right]
+i=\argmax\left[D_1,D_2,D_3,\hdots,D_n\right] \Longleftrightarrow i=\argmax\left[p_1,p_2,p_3,\hdots,p_n\right]
 \end{equation*}
 \end{theorem}
 \begin{proof}
 
-The probability that $i$ is the point of origin is a product of the functions $a$, which are convex in the number of migrations covered by a migratory chain. Thus, if $C_i$ chains are required, the length of each are $N_i$, we may write:
+Observe first that the probability that $i$ is the point of origin is a product of the functions $a$, which are convex in the number of migrations covered by a migratory chain. Thus, if $C_i$ chains are required, the length of each are $N_i$, we may write:
 \begin{equation*}
 p_i=\prod_{i=1}^{C_i} a(N_i)
 \end{equation*} 
@@ -217,7 +217,7 @@ Consider as an additional example the hypothetical tree described in figure \ref
 I have superimposed hypothetical migratory paths on figure \ref{ex1} based on different points of origin. The point of origin of the left-hand figure is posited to be point $E$, which necessitates a best migratory history with two migratory chains.  The first is one that starts at $E$ and goes to $D$'s location, and then from $D$'s location to $A$'s, from $A$'s to $B$'s, and finally from $B$'s to $C$. This history is traced out in green on the figure. A second migratory chain (traced in red) must then be invoked to explain the sequence of events leading to the upper half of the tree. This chain begins at $E$'s location again, and then moves on to $F$'s, then $I$'s, then $H$'s, and finally to $G$'s location. Under the model, the likelihood of this sequence of events is:
 
 \begin{equation*}
-L^*_E =  \frac{4^4e^{-4}}{4!}\frac{4^4e^{-4}}{4!} =\left(\rigth\frac{4^4}{4!}\right)^2e^{-8}
+P^*_E =  \frac{4^4e^{-4}}{4!}\frac{4^4e^{-4}}{4!} =\left(\rigth\frac{4^4}{4!}\right)^2e^{-8}
 \end{equation*}
 
 This reflects the two required, non-degenerate migratory chains to explain the sequence of events. 
@@ -225,10 +225,10 @@ This reflects the two required, non-degenerate migratory chains to explain the s
 If $I$'s location is  to be the point of origin, more migratory chains need to be invoked. The first chain is again traced out in green, mimicking the case in which $E$ is the point of origin. But to explain how a group got to point $E$ given $I$ was the starting point, we need a single migratory chain consisting of a sole migratory event. We also need another migratory chain to explain how a group got to point $F$. Finally, a fourth migratory chain going from $I$, and then to $H$, and finally on to $G$ is needed. The likelihood of these events is then:
 
 \begin{equation*}
-L^*_I =\frac{4^4e^{-4}}{4!}\frac{1^1e^{-1}}{1!}\frac{1^e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=\frac{4^4}{4!}\frac{2^2}{2!}e^{-8}
+P^*_I =\frac{4^4e^{-4}}{4!}\frac{1^1e^{-1}}{1!}\frac{1^e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=\frac{4^4}{4!}\frac{2^2}{2!}e^{-8}
 \end{equation*} 
 
-So, once again, we see the role that convexity and degeneracy plays in driving differences in likelihood. If we were to compare the probability of these two locations to get a relative likelihood, we get $L^*_E/(L^*_I+L^*_E)
+So, once again, we see the role that convexity and degeneracy plays in driving differences in likelihood. If we were to compare the probability of these two locations to get a relative likelihood, we get $P^*_E/(P^*_I+P^*_E)
 =.84.
 
 One issue that has been masked so far is the case in which there are multiple migratory chains that are possible from a given location. These pose no difficulty for the basic concepts, as we can simply select the most likely chain from the group. In fact, below in discussing a dynamic-programming algorithm, I\ show how one can build optimality into the algorithm for computing probabilities that different locations are the points of origin.  
@@ -245,13 +245,13 @@ P_A = \lambda_1^4e^{-\lambda_1T}\lambda_2^0e^{-\lambda_2t_6}\lambda_3^0e^{-\lamb
 While there are still degenerate branches, in that the probability in equation \ref{b1} is maximized where $\lambda_2=\lambda_3=\lambda_4=0$, now $\lambda_1^*=\frac{4}{T}$ maximizes the likelihood, so the profile likelihood becomes:
 
 \begin{equation} \label{b2}
-L_A=\left(\frac{4}{T}\right)^4e^{-4}
+P_A=\left(\frac{4}{T}\right)^4e^{-4}
 \end{equation}
 
 The likelihood for $C$ is:
 
 \begin{equation} \label{b3}
-L_{C}=\lambda_1^1e^{-\lambda_1T}\lambda_2^1e^{-\lambda_2(T-t_1)}
+P_{C}=\lambda_1^1e^{-\lambda_1T}\lambda_2^1e^{-\lambda_2(T-t_1)}
 \lambda_3^2e^{-\lambda_3(T-t_0-t_1)}
 \end{equation}
 
@@ -266,11 +266,11 @@ So, as before, we still have a basic race between a rapidly increasing denominat
 \begin{theorem}[Age-Area Theorem  - known branch lengths]
 Suppose that Assumptions 1 hold, and define Divergence as in definition 1. Also, suppose that branches are not too short and are greater than some constant $C$. Then  
 \begin{equation*}
-D_i \geq D_j \Longrightarrow p_i\geq p_k
+D_i \geq D_j \Longleftrightarrow p_i\geq p_k
 \end{equation*}
 and in particular
 \begin{equation*}
-i=\argmax\left[D_1,D_2,D_3,\hdots,D_n\right] \Longrightarrow i=\argmax\left[p_1,p_2,p_3,\hdots,p_n\right]
+i=\argmax\left[D_1,D_2,D_3,\hdots,D_n\right] \Longleftrightarrow i=\argmax\left[p_1,p_2,p_3,\hdots,p_n\right]
 \end{equation*}
 \end{theorem}
 
@@ -325,7 +325,8 @@ dn=rn\left(1-\frac{n}{K}\right)+\sigma^2n^2dz
 
 Here, our carrying-capacity parameter $K$ is where the shock can be built into the model. That is, once a shock occurs, $K=\overline{K}$ across the discrete locations in the system. But once population approaches some value close to the carrying capacity, like $\rho K$, for example, $K$ is reset at a level $\underline{K}$, with $\overline{K}>\underline{K}$.\footnote{Details need to be worked out, but this concept works. A fixed number of people to have a viable migration, along with assumptions on how large $K$ is, should be sufficient.} 
 
-The exact parameterization in terms of a stochastic logistic growth model is not the critical fact of the matter. What is crucial is the mean-reverting nature of the stochastic differential equation (\ref{sde}). \cite{rdgn99} show that the above process has a time-independent, initial-condition-independent stationary distribution given by:
+The exact parameterization in terms of a sto
+chastic logistic growth model is not the critical fact of the matter. What is crucial is the mean-reverting nature of the stochastic differential equation (\ref{sde}). \cite{rdgn99} show that the above process has a time-independent, initial-condition-independent stationary distribution given by:
 \begin{equation*}
 W(n) = \left( \Gamma\left[\frac{2r}{\sigma^2}-1\right]\right)^{-1}\left(\frac{2r}{K\sigma^2}\right)^{\frac{2r}{\sigma^2}-1}x^{\frac{2r}{\sigma^2}-2}\exp\left[\frac{2rx}{K\sigma^2}\right]
 \end{equation*}
@@ -355,36 +356,23 @@ The result of these ideas is something like figure \ref{evo1}. The figure shows 
 \end{figure}
 
 
-\section{Computation}
+\section{Computational Algorithm}
 
-In this section I  show how one can couple choice of the optimal path through a tree by working recursively back through the tree, employing a dynamic programming algorithm to obtain the probability that all points in the tree were the geographic point of origin of the tree. First, imagine that all interior nodes have been enumerated in depth-first order, so that nodes nearer to leaves or taxa carry lower indices. This allows a backwards traversal of the tree via the index. 
+In previous sections, we have described how oftentimes there are multiple routes that are possible when a particular point of origin is posited. Here I show how one can couple choice of the optimal path through a tree by working recursively back through the tree, employing a dynamic programming algorithm to obtain the probability that all points in the tree were the geographic point of origin of the tree. First, imagine that all interior nodes have been enumerated in depth-first order, so that nodes nearer to leaves or taxa carry lower indices. This allows a backwards traversal of the tree via the index. 
 
-Label each location along the tree as  $k=1,2,3,\hdots,K$, and the interior nodes (deeper nodes are lower numbers) as $v=1,2,3,\hdots V$. 
-We can now recursively develop an expression for the probability that location $k$ is the origin after having traversed the $v$th node, and once we reach the root node, there will be a full complement of probabilities. We will begin by treating the case in which branch lengths are known, as the case in which they are not known can be handled by appropriate normalization of branch lengths. 
-Let $L^*_{v,k}$ denote the likelihood that $k$ is the point of origin after considering the subtree spanned by node $v$. Specifically, this is the maximal probability migratory history emanating from group $k$'s location, given the subtree starting at $v $. Let $t_{kv}$ denote the length of a chain starting at node $v$ given it emanated from $k$'s location, and let $\delta_{kv}$ denote a dummy variable for whether or not any other chains have started from node $v$.  It is also useful to introduce the notion of the descendants of node $v$. These are all the terminal nodes that can be reached from a directed path starting at $k$ and proceeding to the roots. A useful function is the function $A(i,v)$ - these are all of the children nodes that were not reachable before node $v$ was considered that are now reachable from node $i$.  
+Label each location along the tree as  $l=1,2,3,\hdots,L$, and the interior nodes (deeper nodes are lower numbers) as $k=1,2,3,\hdots K$. 
+We can now recursively develop an expression for the probability that location $i$ is the origin after having traversed the $k$th node, and once we reach the root node, there will be a full complement of probabilities. We will begin by treating the case in which branch lengths are known, as the case in which they are not known can be handled by appropriate normalization of branch lengths. 
+Let $P^*_{i,k}$ denote the likelihood that $i$ is the point of origin after considering the subtree spanned by node $k$. Specifically, this is the maximal probability migratory history emanating from group $i$'s location, given the subtree starting at $k$. Let $t_{ik}$ denote the length of a chain starting at node $k$ given it emanated from $i$'s location, and let $\delta_{ik}$ denote a dummy variable for whether or not any other chains have started from node $i$.  It is also useful to introduce the notion of the descendants of node $k$. These are all the terminal nodes that can be reached from a directed path starting at $k$ and proceeding to the roots. We 
 
-At $v=0$, which is at the start of the algorithm, we start with $L_{k,0} =1$, $t_{k,0}=t_i$, and $n_{ik} = 0$, and $\delta_{ik}=0$. Along with numbering the interior branches from $k$, we also attach $k$ to the interior branches of the tree leading into the node. 
-Now, I am in a position to describe how the algorithm works. The first thing to do is define some state variables. I define the current tree span as $t_{ik}$, which is the length of the most likely tree starting from node $k$ and running through $i$ . At the same time, we describe $n_{ik}$ as the maximal node starting from the same branch moving through this. Where:
+At $k=0$, which is at the start of the algorithm, we start with $P_{i,0} =1$, $t_{i,0}=t_i$, and $n_i = 0$, and $\delta_{i,0}=0$. Define the children of a node as $A_k$ and define $A_{k,-i}$ as all the ancestors of node excepting ancestor $i$. Along with numbering the interior branches from $k$, we also attach $k$ to the interior branches of the tree leading into the node. 
+Now, we are in a position to describe how the algorithm works. 
 
 \begin{equation} \label{ca1}
-t_{i,k}=t_k +\ t_j^*
-, \quad t_j&*=\argmax_{j\in A(i,k)}\left(t_j:j,f(t_j+t_k,n_i+1\right)
+\ln\left[ P^*_{i,k}\right]=\max_{j \in J_{ik}}\{{(\ln \left[f(n_j+1,t_j+t_{ij})\right]\delta_i+(1-\delta_i)\ln \left[P^*_{i,k-1}\right]\}
 \end{equation}
-and
-\begin{equation*}
-\delta_{ik}=1 \quad \textrm{if} \quad i  \in \set A(i,k)
-\end{equation*}
-and
-\begin{equation*}
-n_{ik+1}=n_{ik}+1
-\end{equation*}
 subject to:
 \begin{equation*}
-\delta_t = 1
-\end{equation*}
-then 
-\begin{equation*}\ln
-L_{ik}^*= \ln L^*_{ik-1} + \ln(f(t_{ik},n_{ik}))
+s_t, \delta_t = 
 \end{equation*}
 
 \subsection{An example}
