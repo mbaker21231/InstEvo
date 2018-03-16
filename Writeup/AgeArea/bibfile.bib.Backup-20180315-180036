@@ -1,10 +1,3 @@
-@Book{renfrew87,
-	author = {Colin Renfrew},
-	title = {Archaeology and Language: The Puzzle of Indo-European Origins},
-	year = 1987,
-	publisher = {Cape},
-	address = {London}
-}
 @Book{mace05,
 	author = {},
 	title = {The Evolution of Cultural Diversity: A Phylogenetic Approach},
