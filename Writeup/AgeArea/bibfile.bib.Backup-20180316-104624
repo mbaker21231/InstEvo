@@ -1,37 +1,3 @@
-@Article{dyen56,
-	author = {Isodore Dyen},
-	title = {Language distribution and migration theory},
-	journal = {Language},
-	year = 1956,
-	pages = {611-626},
-	volume = 32,
-	number = 4
-}
-@Article{nichols97,
-	author = {Johanna Nichols},
-	title = {MOdelling ancient population structures and movements in linguistics},
-	year = 1997,
-	journal = {annual review of anthropology},
-	pages = 26,
-	volume = {359-84}
-}
-@InCollection{mallory97,
-	author = {J. P. Mallory},
-	title = {The homelands of the indo-europeans},
-	booktitle = {Archaeology and Language 1: Theoretical and methodological orientations},
-	publisher = {Routledge},
-	year = 1997,
-	pages = {93-121},
-	editor = {R. Blench and Matthew Spriggs},
-	address = {London}
-}
-@Book{latham51,
-	author = {Robert Gordon Latham},
-	title = {The Ethnology of the British Colonies and Dependencies},
-	year = 1851,
-	publisher = {J. Van Voorst},
-	address = {London}
-}
 @Book{renfrew87,
 	author = {Colin Renfrew},
 	title = {Archaeology and Language: The Puzzle of Indo-European Origins},
