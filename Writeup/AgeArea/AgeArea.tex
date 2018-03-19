@@ -441,41 +441,87 @@ As an example of how the algorithm works, consider the phylogenetic tree depicte
 \end{center} 
 \end{figure}
 
-\newpage
 \begin{table}
-\tiny
-\begin{tabular}{lccccccccc}
-Culture & A & B & C & D & E & F & G & H \\ \hline
-\multicolumn{9}{c}{$k$=0} \\
-$\ln L$ &  0     & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
-$t$     &  $t_A$ & $t_B$  & $t_C$  & $t_D$  & $t_E$  & $t_F$  & $t_G$  & $t_H$   \\
-$n$     & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ 
-\hline
-\multicolumn{9}{c}{$k$=3} \\   
-$\ln L$ &  0     & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
-$t$     &  $t_3+t_B$ & $t_3+t_A$  & $t_C$  & $t_2+t_E$  & $t_2+t_D$  & $t_F$  & $t_1+t_H$  & $t_1+t_G$   \\
-$n$     & 1  & 1  & 0  &1  & 1  & 0  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=4} \\   
-$\ln L$ &  0     & 0  & 0  & f(1,t_2+t_G)  & f(1,t_2+t_H)  & 0  & 0  & 0  \\
-$t$     &  $t_3+t_B$ & $t_3+t_A$  & $t_C$  & $t_4+t_F$  & $t_4+t_F$  & $t_F$  & $t_1+t_H$  & $t_1+t_G$   \\
-$n$     & 1  & 1  & 2  &1  & 1  & 0  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=5} \\   
-$\ln L$ &  $f(1,t_3+t_B)$     & $f(1,t_3+t_A)$  &0   & f(1,t_2+t_E)  & f(1,t_2+t_D)  & 0  & 0  & 0  \\
-$t$     &  $t_5+t_C$ & $t_5+t_C$  & $t_C$  & $t_4+t_F$  & $t_4+t_F$  & $t_F$  & $t_1+t_H$  & $t_1+t_G$   \\
-$n$     & 1  & 1  & 2  &1  & 1  & 2  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=6} \\   
-$\ln L$ &  $f(1,t_3+t_B)$     & $f(1,t_3+t_B)$  $  &0 & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_G) \end{array} & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_D) \end{array}  & f(2,t_4+t_2+t_D ) & 0  & 0  \\
-$t$     &  $t_5+t_C$ & $t_5+t_C$  & $t_5+t_3+t_B$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_H\end{array}$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_G$\end{array}   \\
-$n$     & 3  & 3  & 2  &2  & 2  & 2  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=6} \\   
-$\ln L$ &  $f(1,t_3+t_B)$     & $f(1,t_3+t_B)$  $  &0 & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_G) \end{array} & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_D) \end{array}  & f(2,t_4+t_2+t_D ) & 0  & 0  \\
-$t$     &  $t_5+t_C$ & $t_5+t_C$  & $t_5+t_3+t_B$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_H\end{array}$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_G$\end{array}   \\
-$n$     & 3  & 3  & 2  &2  & 2  & 2  & 1  & 1  \\ \hline
-
-\end{tabular} \caption{The computational algorithm in action}
-
+\begin{center}
+\begin{tabular}{lccc}
+Culture & $t^*_3$ & $n_3$ & $LL_3$ \\
+H& $t_1+t_G$ & 1 & 0 \\ 
+G& $t_1+t_H$ & 1 & 0     \\
+F& $t_F $    & 0 & 0                 \\
+E& $t_2+t_D  & 1 & 0                   \\
+D& $t_2+t_E  & 1 & 0                    \\ 
+C& $t_c$      & 0 & 0                    \\
+B& $t_3+t_A$ & 1 & 0                    \\
+A& $t_3+t_B$ & 1 & 0                
+\end{tabular} \caption{Algorithm at $k=3$}
+\end{center}
 \end{table} 
-\newpage
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lccc}
+Culture & $t^*_3$ & $n_3$ & $LL_3$ \\
+H& $t_1+t_G$ & 1 & 0 \\ 
+G& $t_1+t_H$ & 1 & 0     \\
+F& $t_4+t_2+t_D $    & 2 & 0                 \\
+E& $t_4+t_F  & 1 & $-\ln(t_2+t_E ) $                 \\
+D& $t_4+t_F  & 1 & $-\ln(t_2+t_E)$                    \\ 
+C& $t_5+t_3+t_B$      & 2 & 0                    \\
+B& $t_5+t_C$ & 1 &  $-\ln(t_3+t_A) $                   \\
+A& $t_5+t_C$ & 1 &  $- \ln(t_3+t_B)$                
+\end{tabular} \caption{Algorithm at $k=5$}
+\end{center}
+\end{table} 
+\begin{table}
+\begin{center}
+\begin{tabular}{lccc}
+Culture & $t^*_6$ &$ n_6$ & $LL_6$ \\
+H& $t_6+t_4+t_2+t_D$ & 1 & $-\ln(t_1+t_G)$ \\ 
+G& $t_6+t_4+t_2+t_D$ & 1 & $- \ln(t_1+t_H)$     \\
+F& $t_6+t_1+t_H $    & 2 & $2(\ln2-\ln(t_4+t_2+t_D))$                \\
+E& $t_6+t_1+t_H  & 1 & $-\ln(t_4+t_F)-\ln(t_2+t_D )$                  \\
+D& $t_6+t_1+t_H & 1 & $-\ln(t_4+t_F)-\ln(t_2+t_E)$                    \\ 
+C& $t_5+t_3+t_B$      & 2 & 0                    \\
+B& $t_5+t_C$ & 1 & $ -\ln(t_3+t_A) $                   \\
+A& $t_5+t_C$ & 1 & $ - \ln(t_3+t_B)$                
+\end{tabular} \caption{Algorithm at $k=6$}
+\end{center}
+\end{table} 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lccc}
+Culture  & $t^*_7$ & $n_7$ &$LL_7$ \\
+H& $t_7+t_5+t_3+t_B$ & 3 & $3(\ln3-\ln(t_6+t_4+t_2+t_D))-\ln(t_1+t_G)$ \\ 
+G& $t_7+t_5+t_3+t_B$ & 3 & $3(\ln3-\ln(t_6+t_4+t_2+t_D))- \ln(t_1+t_H)$     \\
+F& $t_7+t_5+t_3+t_B $    & 3 & $2(\ln2-\ln(t_6+t_1+t_H))+2(\ln2-\ln(t_4+t_2+t_D))$                 \\
+E& $t_7+t_5+t_3+t_B$  & 3 & $2(\ln 2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F)-\ln(t_2+t_D )$                  \\
+D& $t_7+t_5+t_3+t_B$ & 3&$2(\ln2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F) -\ln(t_2+t_E)$                    \\ 
+C& $t_7+t_6+t_4+t_2+t_E$      & 4 &$ 2(\ln2-\ln(t_5+t_3+t_B)            $        \\
+B& $t_7+t_6+t_4+t_2+t_E$ & 4 &  $-\ln(t_5+t_C)-\ln(t_3+t_A)  $                  \\
+A& $t_7+t_6+t_4+t_2+t_E$ & 4 &  $-\ln(t_5+t_C)- \ln(t_3+t_B)$                
+\end{tabular} \caption{Algorithm at $k=7$}
+\end{center}
+\end{table} 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{lc}
+Culture & Log-likelihood \\
+H& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B)) + 3(\ln3-\ln(t_6+t_4+t_2+t_D))-\ln(t_1+t_G)$ \\ 
+G& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B))+3(\ln3-\ln(t_6+t_4+t_2+t_D))- \ln(t_1+t_H)$     \\
+F& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B)) +2(\ln2-\ln(t_6+t_1+t_H))+2(\ln2-\ln(t_4+t_2+t_D))$                 \\
+E& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B))+2(\ln 2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F)-\ln(t_2+t_D )$                  \\
+D& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B))+2(\ln2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F) -\ln(t_2+t_E)$                    \\ 
+C& $4(\ln(4)-\ln(t_7+t_6+t_4+t_2+t_E))+ 2(\ln2-\ln(t_5+t_3+t_B)            $        \\
+B& $4(\ln(4)-\ln(t_7+t_6+t_4+t_2+t_E))-\ln(t_5+t_C)-\ln(t_3+t_A)  $                  \\
+A& $4(\ln(4)-\ln(t_7+t_6+t_4+t_2+t_E))-\ln(t_5+t_C)- \ln(t_3+t_B)$              
+\end{tabular} \caption{Algorithm at conclusion, known branch lengths. Poisson model can be recovered by replacing time terms with factorials.}
+\end{center}
+\end{table} 
+
+
 \section{Extensions}
 
 \subsection{Approximations}
