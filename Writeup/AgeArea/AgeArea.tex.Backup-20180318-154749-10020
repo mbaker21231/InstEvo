@@ -21,7 +21,7 @@
 \linespread{1.25}
 \parskip= 2 pt
 
-\title{Foundations of the Age-Area Hypothesis \\ \large{Preliminary and Incomplete - Not for Citation}}
+\title{Foundations of the Age-Area Hypothesis \\ \large{Preliminary - Not for Citation}}
 \author{\textbf{Matthew J. Baker} \\ Department of Economics \\ Hunter College and the Graduate Center, CUNY}
 
 \begin{document}
@@ -62,15 +62,10 @@ In what seems to be the initial application of the idea, \cite{sapir16} writes:
 \end{quote}
 
 
-\citet[p. 623]{dyen56} also cites this passage, and goes a bit further in cleaning up the theory and defining how things work in practice, describing concepts such as migrations and even stating two basic postulates to be employed in assessing homelands for linguistics. Her first postulate is that the area of origin of related languages is continuous. The second postulate, which is more important for the purposes of this paper, is that ``the probabilities of different reconstructed migrations are in inverse relation to the number of language movements that is required.'' \citep[p.613]{dyen56} 
-To some degree, my principle objective in this paper is to clarify and develop Dyen's second postulate, rather than simply asserting that it is true.
+\citet[p. 623]{dyen56} also cites this passage, and goes a bit further in cleaning up the theory and defining how things work in practice, describing concepts such as migrations and even stating two basic postulates to be employed in assessing homelands for linguistics. Her first postulate is that the area of origin of related languages is continuous. The second postulate, which is more important for the purpose of this paper, is that ``the probabilities of different reconstructed migrations are in inverse relation to the number of language movements that is required.'' \citep[p.613]{dyen56} 
+To some degree, my principle objective in this paper is to clarify and develop Dyen's second postulate, rather than simply asserting that it is true. 
 
-As a final note, consider some of the comments made in \cite{greenhill05}, who discuss the peopling of the South Pacific and also present a detailed discussion of quantitative methods in historical linguistics. They develop statistical tests comparing different hypotheses for how the South Pacific came to be settled. They write the following in describing the need for formal modeling and associated hypothesis tests in resolving disputes about migratory routes:
 
-\begin{quote}
-``...many expansion scenarios are little more than plausible narratives. A common feature of these narratives is the assertion that a particular line of evidence (archaeological, linguistic, or genetic) is `consistent with' the scenario. `Consistent with' covers a multitude of sins. Rigorous tests require a measure of exactly how well the data matches the proposed scenario. They also require an explicit evaluation of alternative hypotheses. ...a framework for the rigorous evaluation of these hypotheses is clearly desirable. \citep[p. 31]{greenhill05} 
-\end{quote}
-This statement could easily have been written in describing the reason for the current paper, which creates a method for considering a family of dispersal hypotheses that flow naturally from statement of the model.
 
  
 
@@ -122,22 +117,21 @@ I build the model around \textit{migratory chains}, which can be thought of as s
 \begin{enumerate}
 \item Each migratory chain occupies a single location at any given point in time.
 \item When a chain moves from its current location, a new chain starts in its place at the given location.
-\item Migratory chains move at random times according to an exponential density.
+\item Migratory chains move according to an exponential density.
 \item Each migratory chain is distinct in that it has its own parameterized probability density.
 \end{enumerate}
 \end{assumptions}
-I will call a migratory history originating at location $k$ $H_k$, and will assume that candidate migratory histories require the minimal number of migratory events or moves to explain the current distribution of the member cultures of a phylogeny. In the time dimension, a migratory chain is then a directed path through a sequence of nodes to a leaf node, and in space, a migratory chain appears at a sequence of jumps at randomly distributed times. Collectively, chains comprise a history if the tree is covered by chains. I\ denote the component chains of a history as $C_{jk}$.
+I will call a migratory history originating at location $k$ $H_k$, and will assume that only mass-migration histories requiring the minimal number of events to explain the current distribution of cultures. A migratory chain is then a path through a sequence of nodes, and collectively, these chains comprise a history. I\ denote the component chains of a history as $C_{jk}$.
 
-\textit{Any} history employing the minimum number of moves will need exactly $n-1$ migratory events to span the tree. The events depicted in figure \ref{fig2} following from the tree in figure \ref{fig1} has 4 arrows between nodes, which corresponds with the number of migratory events required. This will be true regardless of where the migratory history is started. 
+\textit{Any} history employing the minimum number of moves will need exactly $n-1$ migratory events to span the tree. The events depicted in figure \ref{fig2} following from the tree in figure \ref{fig1} has 4 arrows between nodes, which corresponds with the number of migratory events required. This will be true regardless of where the migratory history is started. Each location where a society or culture represented by a terminal node resides,  $k=1,2,3,\hdots K;$ can associated with a set of migratory histories $\mathcal{H}_k$. There is typically more than one migratory history that is possible if the origin point is $k$. Each migratory history has some count of the total number of migratory chains required, which I refer to as  $N(H_k$). For the example on figure \ref{fig2}, the first history $N(H_a)=1$, while for the second, $N(H_c)=3$.    I also define a counting function for migratory chains as $n(C)$, which counts the number of nodes spanned by the given chain. 
 
-Each location where a society or culture represented by a terminal node resides,  $k=1,2,3,\hdots K;$ can be associated with a set of migratory histories $\mathcal{H}_k$. The previous statement accentuates the fact that there is typically more than one migratory history that is possible from origin point $k$. Each migratory history has some count of the total number of migratory chains required, which I refer to as  $N(H_k$). For the example on figure \ref{fig2}, the first history $N(H_a)=1$, while for the second, $N(H_c)=3$.    I also define a counting function for specific migratory chains as $n(C)$, which counts the number of migratory events in the chain, which is also a count of the nodes spanned by the given chain. 
+These ideas can be applied to develop a likelihood associated with any particular history, and a related measure of divergence that relates probability and divergence, which can be stated as an `Age-Area Theorem' relating  migratory histories, counts of migratory events, and likelihood. Let the likelihood that point $l$ is the point of origin for the locations/cultures in be denoted by $L_{k}$. Parsimony or Occam's razor suggests that simpler explanations - those with smaller values for $C$'s - have higher probabilities and this is in indeed true under Assumptions 1, owing to the shape of the exponential distribution, as I now show.
 
-These ideas can be applied to develop a likelihood associated with any particular history, and a related measure of divergence which I\ refer to as ``Dyen Divergence.' The Dyen Divergence relates phylogenetic distance and probability precisely, so I  can state and prove an `Age-Area Theorem' that relates  migratory histories, counts of migratory chains, counts of events in each chain, and likelihood. Parsimony or Occam's razor suggests that simpler explanations - those with smaller values for $C$'s - have higher probabilities and this is in indeed true under Assumptions 1, owing to the shape of the exponential distribution, as I now show in a preview of the logic used to state the theorem.
- I  develop a comparison of the two scenarios described in figures \ref{fig1} and \ref{fig2} within the confines of the model. Let the likelihood that $k$ is the point of origin be denoted by $L_k$. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. The points can be treated as known but can be `integrated out' by replacing the Exponential model with a Poisson model. 
+To preview the basic logic, I  develop a comparison of the two scenarios described in figures \ref{fig1} and \ref{fig2} within the confines of the model. I begin by assuming that we do not know the exact times at which branching events occur, but instead only know the basic structure of the tree. The points can be treated as known but can be `integrated out' by replacing the Exponential model with a Poisson model. 
 
-The first migratory history described on figure \ref{fig2} requires an initial migratory chain to start at the root of the tree, which then proceeds from location $A$ to $B$, then from $B$ to $C$ and then finally to $D$ or $E$.\footnote{In the next subsection, I will describe a more intricate example in which a decision must be made among multiple possibilities.} But each time the migratory chain proceeds to a new location, by Assumption 1, a new one starts in its place. Importantly, in the example in figures \ref{fig1} and \ref{fig2}, these new chains never create any new migratory events and only lead to terminal nodes of the tree. 
+The first migratory history described on figure \ref{fig2} requires an initial migratory chain to start at the root of the tree, which then proceeds from location $A$ to $B$, then from $B$ to $C$ and then finally to $D$ or $E$.\footnote{In the next subsection, I will describe a more intricate example in which a decision must be made among multiple possibilities.} But each time the migratory chain proceeds to a new location, by Assumption 1, a new one starts in its place. Importantly, in the example in figures \ref{fig1} and \ref{fig2}, these new chains never create migratory events and only lead to terminal nodes of the tree. 
 
-The probability of observing this sequence of events can be written by combining the densities of the components of  $H_A$, which I\ can write as:\footnote{Throughout I shall use numbers to denote interior branches and nodes along a tree, and the labels of endpoints to denote the terminal branches of the tree.}
+Given these observations, the probability of observing this sequence of events can be written by combining the densities of the components of  $H_A$, which I\ can write as:\footnote{Throughout I shall use numbers to denote interior branches and nodes along a tree, and the labels of endpoints to denote the terminal branches of the tree.}
 \begin{equation*}
 L_A=\textrm{Prob}(H_A)=P(C_{1A})P(C_{AA})P(C_{BA})P(C_{CA})P(_{DA})
 \end{equation*}
@@ -145,8 +139,9 @@ Using the form of the distribution for the chains, I have:
 \begin{equation} \label{e1}
 L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
 \end{equation} 
+I have labelled this expression $L_A$ because it is the likelihood of a migratory history conditional on $A$ being the point of origin for the group of cultures.
 
-Equation (\ref{e1}) is perhaps more expansive than necessary, as all the terms raised to the $0$th power are degenerate. The probability in equation (\ref{e1}) could also be written as:
+Equation (\ref{e1}) is perhaps more expansive than necessary, as all the terms raised to the $0$th power are degenerate in the sense that their optimizing values should be equal to one. Taking into account this fact, the probability in equation (\ref{e1}) could also be written as:
 \begin{equation} \label{e2}
 L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}e^{-\lambda_2t_6}e^{-\lambda_3t_7}e^{-\lambda_4t_8}
 \end{equation} 
@@ -161,7 +156,7 @@ The derivative of (\ref{e3}) with respect to $\lambda_1$, however, generates a m
 L_A=\frac{4^4e^{-4}}{4!}
 \end{equation}
 
-Equation (\ref{l3}) is that it reflects that only one non-degenerate migratory chain is needed to explain the whole tree, given that the migratory history starts at $A$. In this sense, this a parsimonious explanation for the current distribution of cultures. 
+A point of interest about equation (\ref{l3}) is that it reflects that only one non-degenerate migratory chain is needed to explain the whole tree, given that the migratory history starts at $A$. In this sense, this a parsimonious explanation for the current distribution of cultures. 
 
 Contrast this with the case in which $C$ is posited to be the origin point. To maintain consistency with the phylogeny, the requirements are:  1) a migratory chain starting at $C$ leading to $A$, 2) another migratory chain starting at $C$ going to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). Degenerate chains start at location $C$ and $D$ (or $E$). According to the model, each of these chains requires its own Poisson/Exponential parameter, which, omitting degenerate chains, gives:
 \begin{equation} \label{l4}
@@ -185,25 +180,22 @@ which is convex in $n$, which is in turn the notation I use for the count of the
 h(n) > h(n-k)h(k)
 \end{equation*} 
 
-This example illustrates the essentials of the model. 
-
-\section{Divergence}
-The biggest detail that needs to be worked out in support of the above argument is how migratory chains that are more parsimonious and therefore more likely relate to a measure of linguistic divergence. For any migratory history $H_k$, there will be some migratory chain that has the largest value of $n$, and accordingly, define:
+This example illustrates the essentials of the model. The biggest detail that needs to be worked out is how migratory chains that are more parsimonious and therefore more likely relate to a measure of linguistic divergence. For any migratory history $H_k$, there will be some migratory chain that has the largest value of $n$, and accordingly, define:
 
 \begin{equation*}
 n_{H_k}^*=\max_{C_{ik} \in H_k} \{n(C_{1k}),n(C_{2k}),\hdots,n(C_{N(H_k)k)} \}
 \end{equation*}
-That is, $n^*_{H_{k}$ is the node count for the longest component chain of history $H_k$. The following couples this definition with the previously-introduced count of migratory chains to develop what I refer to as Dyen divergence, as \cite{dyen56} went far in developing the basic concepts. 
+That is, $n^*_{H_{k}$ is the node count for the longest component chain of history $H_k$. The following couples this definition with the previously-introduced count of migratory chains to develop a measures of divergence. 
 
 
 \begin{definition}{\textbf{Measures of Divergence}:}
-Define a function for a migratory history $D_{H_{k}}=m(n^*_{H_k}$,N(H_k)).$ that is increasing in the first argument and decreasing in the second. Define the \textbf{Dyen Divergence} of culture $k$ in terms of the history $H^*_k$ as:
+Define a function for a migratory history $D_{H_{k}}=m(n^*_{H_k}$,N(H_k)).$ that is increasing in the first argument and decreasing in the second. Define the \textbf{Divergence} of culture $k$ in terms of the history $H^*_k$ as the  language $i$ :
 \begin{equation*}
 D_k=\max \{D_{H_{1k}},D_{H_{2k}},\hdots D_{H_{Ik}} \}
 \end{equation*}
 \end{definition}
 
-The above definition defines not `a' measure of divergence, but a family of such measures. The measure itself is a) increasing in the number of events associated with the largest chain in the history, and b) decreasing in the number of chains in the history. The largest such value is the Dyen Divergence of culture $k$. Using the probability functions and this measure of divergence, one can now show that larger divergences coincide with more likely chains.  
+To elaborate:\ compute a quantity for each possible migratory history starting at point $k$ that is 1. increasing in the number of events associated with the largest chain in the history, and decreasing in the number of chains in the history. Then select the largest such value and call this the Divergence of culture $k$. Using the probability functions and this measure of divergence, one can now show that larger divergences coincide with more likely chains.  
 
 
 \section{ Age-Area Theorem}
@@ -238,11 +230,11 @@ D^2_i=n^*_{H^*_k}-N(H^*_k)}
 
 
 
-the measure of divergence could be constructed in many different ways so long as it is increasing in the length of the longest chain, and decreasing in the number of chains. The above-mentioned functions  are a measure that is easily constructed using any phylogenetic tree.  
+the measure of divergence could be constructed in many different ways so long as it is increasing in the length of the longest chain, and decreasing in the number of chains. The above-mentioned function is a measure that is easily constructed using any phylogenetic tree.  
 
 \subsection{Additional Examples and Discussion}
 
- 
+To see the theorem in action, it is helpful to consider a more complex example, as is depicted in figure \ref{ex1}.  
 \begin{figure}
 \begin{center}
 \includegraphics[width=\textwidth]{AncillaryFiles//example1.eps}
@@ -250,13 +242,13 @@ the measure of divergence could be constructed in many different ways so long as
 \end{center} 
 \end{figure}
 
-For a first example, in the phylogeny in figure 3, I have superimposed hypothetical migratory paths{} o a few different points of origin. The point of origin of the left-hand component figure is posited to be point $E$, which necessitates a migratory history with two migratory chains.  The first history starts at $E$ and goes to $D$'s location, and then from $D$'s location to $A$'s, from $A$'s to $B$'s, and finally from $B$'s to $C$. This history is traced out in green on the figure. A second migratory chain (traced in red) must then be invoked to explain the sequence of events leading to the upper half of the tree. This chain begins at $E$'s location again, and then moves on to $F$'s, then $I$'s, then $H$'s, and finally to $G$'s location. Under the model, the likelihood of this sequence of events is:
+I have superimposed hypothetical migratory paths on figure \ref{ex1} based on different points of origin. The point of origin of the left-hand figure is posited to be point $E$, which necessitates a best migratory history with two migratory chains.  The first is one that starts at $E$ and goes to $D$'s location, and then from $D$'s location to $A$'s, from $A$'s to $B$'s, and finally from $B$'s to $C$. This history is traced out in green on the figure. A second migratory chain (traced in red) must then be invoked to explain the sequence of events leading to the upper half of the tree. This chain begins at $E$'s location again, and then moves on to $F$'s, then $I$'s, then $H$'s, and finally to $G$'s location. Under the model, the likelihood of this sequence of events is:
 
 \begin{equation*}
 L^*_E =  \frac{4^4e^{-4}}{4!}\frac{4^4e^{-4}}{4!} =\left(\rigth\frac{4^4}{4!}\right)^2e^{-8}
 \end{equation*}
 
-This reflects the two required, non-degenerate migratory chains to explain the sequence of events.  If we were to use divergence measure $D_1$, two chains are required, each of which has a maximal length of 4. Hence, $D^1_E=4-2=2$ and D^2_E=4/2=2$ as well.
+This reflects the two required, non-degenerate migratory chains to explain the sequence of events.  If we were to use divergence measure $D_1$, two chains are required, each of which has a maximal length of 4. Hence, $D^1_E=2$ and D^2_E=2$ as well.
 
 If $I$'s location is  to be the point of origin, more migratory chains need to be invoked. The first chain is again traced out in green, mimicking the case in which $E$ is the point of origin. But to explain how a group got to point $E$ given $I$ was the starting point, we need a single migratory chain consisting of a sole migratory event. We also need another migratory chain to explain how a group got to point $F$. Finally, a fourth migratory chain going from $I$, and then to $H$, and finally on to $G$ is needed. The likelihood of these events is then:
 
@@ -267,7 +259,7 @@ L^*_I =\frac{4^4e^{-4}}{4!}\frac{1^1e^{-1}}{1!}\frac{1^e^{-1}}{1!}\frac{2^2e^{-2
 One finds that in this case, the measures of divergence are $D_I^1=1$, and $D^2_I
 =0$. One can see in these examples the roles that convexity and degeneracy plays in driving differences in likelihood. One can also observe that it is not sufficient to pick the location from which the longest chain an be assembled, as both $E$ and $I$ admit chains of length 4. 
 If one wished to compare hypotheses about the two points, one might use the relative likelihood; in this case, the probability that $E$ is the point of origin is $L^*_E/(L^*_I+L^*_E)
-=.84.$ Of course, one would like to have a more rigorous method for computing likelihoods in every settings, and this is described in a subsequent section which presents a computational algorithm.  
+=.84.
 
  
 
@@ -318,27 +310,24 @@ Under the assumptions, the concentrated likelihood remains convex. Proceed as in
 
 \section{Microeconomic foundations}
 
-The previous sections have leaned on properties of the Exponential/Poisson distribution. What justifies the choice of this distribution? One would like a model in which migrations move forward probabilistically, but at the same time, the impetus for the migration resets or takes on a different character once the migration moves on. 
-
-First, suppose that there is a discrete set of habitable locations, and suppose that a shock randomly occurs that applies to all currently unoccupied locations. This creates an abundance of resources at all unoccupied places throughout the system. The shock is such that a natural carrying-capacity parameter increases, but this extra carrying capacity can be exhausted. If the population ever reaches some barrier level $\overline{b}$\ at a particular location, the carrying capacity is exhausted and falls to a level  immediately reverts to a level of $\underline{K}$. Once the population has adjusted, a new value of $\overline{b}$ is drawn, a new shock emerges, and time continues on. 
-
-The key thing is that there are now $\overline{b}$ people at a place where carrying capacity is $\underline{K}$. At this point in time, there are now a superabundance of people in the given area, and some mass of these people may migrate to a new location.\footnote{A parable: a people currently occupy an island with a population of friendly birds, who also populate some unsettled islands. While plump, these birds taste terrible. By accident, one day it is discovered that a spice on the island makes the birds palatable, leading to an abundance of food. Human population adjusts to the newfound resource, and while the birds are plentiful, there are no problems. But one year, an unusually good agricultural crop pushes the human population higher than it usually is. The additional population strains the bird population leading to a collapse. Half of the population leaves for a new island, where birds are still plentiful.}
+The previous sections have leaned on properties of the Exponential/Poisson distribution. What justifies the faith in this particular model? One would like a model in which migrations move forward probabilistically, but at the same time, the impetus for the migration is expelled when the migration occurs. 
+Suppose that a shock that is common to all potential locations occurs, which creates an abundance of resources throughout the system. The shock is such that a natural carrying-capacity parameter increases, but that this extra carrying capacity can be exhausted. If the population ever reaches some relatively high barrier level $\overline{b}$\ in a location, the carrying capacity immediately reverts to its pre-shock level of $\overline{u}$. At this point in time, there are now a superabundance of people in the given area, and some mass of these people may migrate to a new location.\footnote{A parable: each of a discrete set of islands has a population of friendly birds. While plump, these birds taste terrible. But by accident, a is discovered that makes the birds palatable, leading to an abundance of food. Human population adjusts to the newfound resource, and while the birds are plentiful, there are no problems. But one year, an unusually good crop pushes the human population higher than it usually is. The additional population strains the bird population leading to a collapse. Half of the population leaves for a new island, where birds are still plentiful. }
 
 
 
-According to an arbitrage condition, a segment of the population realizes that it could migrate to a new location where the birds are plentiful even if migration is costly, and finds it in its interests to do so given the localized collapse of the bird population. The population splits into a migratory group based on arbitrage, the migratory group randomly selects a new location, and emigrates.\footnote{The location does not actually have to be random. The minimum cost reachable location is in fact the best, as is discussed in the section on model extensions.} After this emigration, the remaining population embarks on the discovery of a new resource.
+According to an arbitrage condition, a segment of the population realizes that it could migrate to a new location where the birds are plentiful even if migration is costly, and finds it in its interests to do so given the localized collapse of the bird population. The population splits into a migratory group based on arbitrage, the migratory group randomly selects a new location, and emigrates.\footnote{The location does not actually have to be random. The minimum cost reachable location is in fact the best, as is discussed in the section on model extensions.}
 
 
 
-To make these ideas concrete,  and see how they explicitly relate to the Exponential distribution, imagine that income per capita depends upon a resource level and also the current number of inhabitants. That is, flow per capita income at a particular location is
+To make these ideas concrete,  imagine that income per capita depends upon a resource level and also the current number of inhabitants. That is, flow per capita income at a particular location is
 \begin{equation}
 y_t=f(n_t,\theta_t)
 \end{equation} 
-I imagine that $f(n,\theta)$ is bounded above at some reasonable level. Individuals gain utility from consumption $x_t$ and children $k_t$ and children according to a Bernoulli utility function $u=\left(x_tk_t\right)^\frac{1}{2}$. Raising a child costs $\kappa$ units of the consumption good, so individuals face the budget constraint $y_t=x_t+\kappa k_t$. This leads to $k_t^*=\frac{y_t}{2\kappa}$, and $x_t^*=\frac{y_t}{2}$. Equilibrium population growth is $n_tk^*_t$ and equilibrium indirect utility is $v(y,\kappa)=\frac{y_t}{2\kappa} $
+We imagine that $f(n,\theta)$ is bounded above at some reasonable level. Individuals gain utility from consumption $x_t$ and children $k_t$ and children according to a Bernoulli utility function $u=\left(x_tk_t\right)^\frac{1}{2}$. Raising a child costs $\kappa$ units of the consumption good, so individuals face the budget constraint $y_t=x_t+\kappa k_t$. This leads to $k_t^*=\frac{y_t}{2\kappa}$, and $x_t^*=\frac{y_t}{2}$. Equilibrium population growth is $n_tk^*_t$ and equilibrium indirect utility is $v(y,\kappa)=\frac{y_t}{2\kappa} $
 
 
 
-A ramification of this is that when income is above some subsistence level, population increases proportionally, according to a Malthusian model of population growth in which people have the optimal number of children. Normalizing the subsistence level to unity. Then, in a given instant of time, current population creates future population according to the following relationship:
+Suppose that when income is above some subsistence level, population increases proportionally, according to a Malthusian model of population growth in which people have the optimal number of children. Normalizing the subsistence level to unity. Then, in a given instant of time, current population creates future population according to the following relationship:
 \begin{equation*}
 n_{t+\Delta}=n_tf(n_t,\epsilon_{t+\Delta }-\epsilon_{t},\Delta)+n_t(1- \delta\Delta)
 \end{equation*}
@@ -364,40 +353,29 @@ Re-parameterizing so that  $\overline{f}-\delta =r$, $f_1=\frac{r}{K}$, and $f_2
 dn=rn\left(1-\frac{n}{K}\right)+\sigma^2n^2dz
 \end{equation} \label{sde}
 
-Here, our carrying-capacity parameter $K$ is where the shock can be built into the model. That is, once a shock occurs, $K=\overline{K}$ across the discrete locations in the system. But once population approaches some value close to the carrying capacity, like $\rho K$, for example, $K$ is reset at a level $\underline{K}$, with $\overline{K}>\underline{K}$.\footnote{Details need to be worked out, but this concept works. A fixed number of people to have a viable migration, along with assumptions on how large $K$ is, should be sufficient.} Once the population has moved on, the process restarts anew.
+Here, our carrying-capacity parameter $K$ is where the shock can be built into the model. That is, once a shock occurs, $K=\overline{K}$ across the discrete locations in the system. But once population approaches some value close to the carrying capacity, like $\rho K$, for example, $K$ is reset at a level $\underline{K}$, with $\overline{K}>\underline{K}$.\footnote{Details need to be worked out, but this concept works. A fixed number of people to have a viable migration, along with assumptions on how large $K$ is, should be sufficient.} 
 
-The exact parameterization in terms of a stochastic logistic growth model is not the critical fact of the matter. What is crucial is the mean-reverting nature of the stochastic differential equation (\ref{sde}). To wit, \cite{rdgn99} show that the above process has a time-independent, initial-condition-independent stationary distribution given by:
+The exact parameterization in terms of a stochastic logistic growth model is not the critical fact of the matter. What is crucial is the mean-reverting nature of the stochastic differential equation (\ref{sde}). \cite{rdgn99} show that the above process has a time-independent, initial-condition-independent stationary distribution given by:
 \begin{equation*}
 W(n) = \left( \Gamma\left[\frac{2r}{\sigma^2}-1\right]\right)^{-1}\left(\frac{2r}{K\sigma^2}\right)^{\frac{2r}{\sigma^2}-1}x^{\frac{2r}{\sigma^2}-2}\exp\left[\frac{2rx}{K\sigma^2}\right]
 \end{equation*}
 
-As \cite{rdgn99} and \cite{nrs85} show, the existence of a time-independent steady state-density implies that the first passage time to a `large' barrier is approximately exponential. That is, let $g()$ denote the distribution of hitting times to a barrier $\overline{b}$ is independent of initial population and is given by:
+As \cite{rdgn99} and \cite{nrs85} show, the existence of a time-independent steady state-density implies that the first passage time to a large barrier is approximately exponential. If That is, the distribution of hitting times to the barrier $\overline{b}$ is independent of initial population and is given by:
 \begin{equation*}
-g(\overline{b},t|y) \sim \frac{1}{t_1(\overline{b})}\exp\left(-\frac{t}{t_1(\overline{b})}\right) 
+g(\overline{b},t|n) \sim \frac{1}{t_1(\overline{b},y)}\exp\left(-\frac{t}{t_1(\overline{b}|y)}\right) 
 \end{equation*}
 
-That is, the distribution of times to which the barrier is attained is approxximately exponential, and independent of the starting state. To review, the Exponential/Poisson distribution foundations for the model can now be justified by the following back story:
+Accordingly, the Exponential/Poisson distribution foundations for the model can now be justified by the following back story:
 \begin{enumerate}
-\item Any migratory chain has implies that unoccupied locations have a carrying capacity $K_k$ and an upper barrier $b_k$.  
+\item The landscape is uniform in that all locations have the same initial carrying capacity $K$. 
 
-\item When a population arrives at the new location, the time at which it hits the barrier is exponential according to the above density.  
-\item Once the barrier population is attained, the carrying capacity crashes until a segment leaves.
+\item A new migratory chains raises the carrying capacity across all locations to $\overline{K}$. 
+\item There is a catch; if the human population should ever reach the high boundary $\overline{b}$, the carrying capacity immediately reverts to $K$.
+\item Populations now face the choice of splitting and engaging in mass migration. 
 \end{enumerate}
 
-The above sequence of events leads to a local superabundance of population, which finds it in its interests to divide and find a new place to live. The idea and its inner workings are shown in figure \ref{evo0}.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{AncillaryFiles//figure25.eps}
-\caption{An illustration of the formation of a phylogenetic tree. The left-hand side of the figure denotes times at which the barrier is hit, triggering mass migrations. Note that the length of the tree corresponds with the length of the path starting at $A$, which is also the same as the sums of the other branches.} \label{evo0}
-\end{center} 
-\end{figure}
-
-
-
-
-
-\footnote{This has yet to be shown and this part of the paper is weak.} The result of these ideas is something like figure \ref{evo1}. The figure shows mean-reverting processes eventually hitting an upper limit, which resets the process and produces a migratory event. This sequence of events continues at the next location. The idea behind the process is illustrated in figure \ref{evo1}.
+The above sequence of events leads to a local superabundance of population, which finds it in its interests to divide and find a new place to live.
+The result of these ideas is something like figure \ref{evo1}. The figure shows mean-reverting processes eventually hitting an upper limit, which resets the process with an emigratory event. This emigratory event continues at the next location, which gradually forms the geographical underpinnings of a phylogenetic tree. 
 
 \begin{figure}
 \begin{center}
@@ -409,85 +387,49 @@ The above sequence of events leads to a local superabundance of population, whic
 
 \section{Computation}
 
-In this section I  show how one can couple choice of the optimal path through a tree by working recursively back through the tree, employing a dynamic programming algorithm to obtain the probability that all points in the tree were the geographic point of origin of the tree. First, imagine that all interior nodes have been enumerated in depth-first order, so that nodes nearer to leaves or taxa carry lower indices. This allows a backwards traversal of the tree via the index. Both the trees in \ref{fig1} and \ref{ex1} have followed this convention. 
+In this section I  show how one can couple choice of the optimal path through a tree by working recursively back through the tree, employing a dynamic programming algorithm to obtain the probability that all points in the tree were the geographic point of origin of the tree. First, imagine that all interior nodes have been enumerated in depth-first order, so that nodes nearer to leaves or taxa carry lower indices. This allows a backwards traversal of the tree via the index. 
 
-Label interior nodes along the tree $v=1,2,3,\hdots,V$, with terminal branches carrying their `names'  $k=1,2,3,\hdots,K$. 
-I can now recursively develop an expression for the probability that location $k$ is the origin for the family of cultures after having traversed the $v$th node, and once the root node is reached, there will be a full complement of probabilities associated with the hypothesis that $k$ was the point of origin. I begin by treating the case in which branch lengths are known, as the case in which they are not known can be handled by appropriate normalization of branch lengths. 
-Let $L^*_{v,k}$ denote the likelihood that $k$ is the point of origin after considering the subtree spanned by node $v$. This is the maximal probability migratory history emanating from group $k$'s location, given the subtree starting at $v $. Let $t_{kv}$ denote the length of a chain starting at node $v$ given it emanated from $k$'s location.  
+Label each location along the tree as  $k=1,2,3,\hdots,K$, and the interior nodes (deeper nodes are lower numbers) as $v=1,2,3,\hdots V$. 
+We can now recursively develop an expression for the probability that location $k$ is the origin after having traversed the $v$th node, and once we reach the root node, there will be a full complement of probabilities. We will begin by treating the case in which branch lengths are known, as the case in which they are not known can be handled by appropriate normalization of branch lengths. 
+Let $L^*_{v,k}$ denote the likelihood that $k$ is the point of origin after considering the subtree spanned by node $v$. Specifically, this is the maximal probability migratory history emanating from group $k$'s location, given the subtree starting at $v $. Let $t_{kv}$ denote the length of a chain starting at node $v$ given it emanated from $k$'s location, and let $\delta_{kv}$ denote a dummy variable for whether or not any other chains have started from node $v$.  It is also useful to introduce the notion of the descendants of node $v$. These are all the terminal nodes that can be reached from a directed path starting at $k$ and proceeding to the roots. A useful function is the function $A(i,v)$ - these are all of the children nodes that were not reachable before node $v$ was considered that are now reachable from node $i$.  
 
+At $v=0$, which is at the start of the algorithm, we start with $L_{k,0} =1$, $t_{k,0}=t_i$, and $n_{ik} = 0$, and $\delta_{ik}=0$. Along with numbering the interior branches from $k$, we also attach $k$ to the interior branches of the tree leading into the node. 
+Now, I am in a position to describe how the algorithm works. The first thing to do is define some state variables. I define the current tree span as $t_{ik}$, which is the length of the most likely tree starting from node $k$ and running through $i$ . At the same time, we describe $n_{ik}$ as the maximal node starting from the same branch moving through this. Where:
 
-I useful introduce the notion of the \textit{descendants} of node $v$. These are all the terminal nodes that can be reached from a directed path starting at node  $v$, proceeding to the roots. A related useful function is the function $A(i,v)$ - these are all of the descendant nodes that were not reachable from $k$ until node $v$ is considered.  
-
-At $v=0$, the algorithm starts with $L_{k,0} =1$, and the two state variables $t_{k,0}=t_i$, and $n_{ik} = 0$, which are, respectively, the length of a branch and the number of jumps given a migratory chain starting at $k$. Now, define:
 \begin{equation} \label{ca1}
 t_{i,k}=t_k +\ t_j^*
-, \quad t_j&*=\argmax_{j\in A(i,k)}\{t_j:j,f(t_j+t_k,n_i+1\right)\}
+, \quad t_j&*=\argmax_{j\in A(i,k)}\left(t_j:j,f(t_j+t_k,n_i+1\right)
 \end{equation}
+and
+\begin{equation*}
+\delta_{ik}=1 \quad \textrm{if} \quad i  \in \set A(i,k)
+\end{equation*}
 and
 \begin{equation*}
 n_{ik+1}=n_{ik}+1
 \end{equation*}
-Further, define the conditional log-likelihood as:
+subject to:
+\begin{equation*}
+\delta_t = 1
+\end{equation*}
+then 
 \begin{equation*}\ln
 L_{ik}^*= \ln L^*_{ik-1} + \ln(f(t_{ik},n_{ik}))
 \end{equation*}
 
 \subsection{An example}
-As an example of how the algorithm works, consider the phylogenetic tree depicted in figure \ref{afig}.
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{AncillaryFiles//algofig.eps}
-\caption{An illustration of the formation of a phylogenetic tree. The left-hand side of the figure denotes times at which the barrier is hit, triggering mass migrations. Note that the length of the tree corresponds with the length of the path starting at $A$, which is also the same as the sums of the other branches.} \label{afig}
-\end{center} 
-\end{figure}
 
-\newpage
-\begin{table}
-\tiny
-\begin{tabular}{lccccccccc}
-Culture & A & B & C & D & E & F & G & H \\ \hline
-\multicolumn{9}{c}{$k$=0} \\
-$\ln L$ &  0     & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
-$t$     &  $t_A$ & $t_B$  & $t_C$  & $t_D$  & $t_E$  & $t_F$  & $t_G$  & $t_H$   \\
-$n$     & 0  & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\ 
-\hline
-\multicolumn{9}{c}{$k$=3} \\   
-$\ln L$ &  0     & 0  & 0  & 0  & 0  & 0  & 0  & 0  \\
-$t$     &  $t_3+t_B$ & $t_3+t_A$  & $t_C$  & $t_2+t_E$  & $t_2+t_D$  & $t_F$  & $t_1+t_H$  & $t_1+t_G$   \\
-$n$     & 1  & 1  & 0  &1  & 1  & 0  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=4} \\   
-$\ln L$ &  0     & 0  & 0  & f(1,t_2+t_G)  & f(1,t_2+t_H)  & 0  & 0  & 0  \\
-$t$     &  $t_3+t_B$ & $t_3+t_A$  & $t_C$  & $t_4+t_F$  & $t_4+t_F$  & $t_F$  & $t_1+t_H$  & $t_1+t_G$   \\
-$n$     & 1  & 1  & 2  &1  & 1  & 0  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=5} \\   
-$\ln L$ &  $f(1,t_3+t_B)$     & $f(1,t_3+t_A)$  &0   & f(1,t_2+t_E)  & f(1,t_2+t_D)  & 0  & 0  & 0  \\
-$t$     &  $t_5+t_C$ & $t_5+t_C$  & $t_C$  & $t_4+t_F$  & $t_4+t_F$  & $t_F$  & $t_1+t_H$  & $t_1+t_G$   \\
-$n$     & 1  & 1  & 2  &1  & 1  & 2  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=6} \\   
-$\ln L$ &  $f(1,t_3+t_B)$     & $f(1,t_3+t_B)$  $  &0 & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_G) \end{array} & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_D) \end{array}  & f(2,t_4+t_2+t_D ) & 0  & 0  \\
-$t$     &  $t_5+t_C$ & $t_5+t_C$  & $t_5+t_3+t_B$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_H\end{array}$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_G$\end{array}   \\
-$n$     & 3  & 3  & 2  &2  & 2  & 2  & 1  & 1  \\ \hline
-\multicolumn{9}{c}{$k$=6} \\   
-$\ln L$ &  $f(1,t_3+t_B)$     & $f(1,t_3+t_B)$  $  &0 & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_G) \end{array} & \begin{array}{c}f(1,t_4+t_F) \\+f(1,t_2+t_D) \end{array}  & f(2,t_4+t_2+t_D ) & 0  & 0  \\
-$t$     &  $t_5+t_C$ & $t_5+t_C$  & $t_5+t_3+t_B$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $t_6+t_1+t_H$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_H\end{array}$  & $\begin{array}{c}t_6+t_4 \\ +t_2+t_G$\end{array}   \\
-$n$     & 3  & 3  & 2  &2  & 2  & 2  & 1  & 1  \\ \hline
 
-\end{tabular} \caption{The computational algorithm in action}
 
-\end{table} 
-\newpage
 \section{Extensions}
 
 \subsection{Approximations}
 
 Using Stirling's approximation, one can write the likelihood very simply, which relates the jump method to simple counting. 
 
-\subsection{Additional information}
-
-One can also modify the model to include explicit information about distance and space. One possibility is to do this in such a way so as to reflect that moving larger distances is less likely, and many analyses commonly include such spatial features.
 
 \subsection{Expanded likelihoods}
-There are many ways in which the model can be extended. Since a dynamic programming algorithm lies at the heart of the analysis, one can in principle include any number of things in the optimization decision.  A prominent possibility  is physical distance. As alluded to above, when equipped with a model producing a likelihood, one can bind this to other components of a likelihood. 
+There are many ways in which the model can be extended. As alluded to above, when equipped with a model producing a likelihood, one can bind this to other components of a likelihood. 
 
 For example, one possible idea is to interpret the likelihood presented in the previous few pages as a conditional likelihood, and incorporate it into a joint estimation procedure. For example, if one has a means of computing the likelihood of a particular tree, one can then think about the joint distribution of a likelihood and a tree at the same time using the simple probabilistic relationship:
 $$
@@ -504,11 +446,11 @@ Part of the optimization relationship can also include additional information ab
 
 \section{Applications}
 
-\subsection{Afroasiatic}
 
-\subsection{Na Dene}
+\section{Appendix}
+In the following I demonstrate an application of the algorithm in calculating the likelihood of a more complex tree. A Python implementation of the algorithm, along with some supporting materials, can be found on the project website. The following presents a detailed application of how to calculate the (concentrated) likelihood that any given location is the point of origin of the linguistic stock. 
 
-\section{Conclusions}
+
 
 
 \newpage

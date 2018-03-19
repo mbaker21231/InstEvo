@@ -1,13 +1,3 @@
-@InCollection{greenhill05,
-	author = {Simon Greenhill and Russell D Gray},
-	title = {Testing population dispersal hypotheses: Pacific settlment, phylogenetic trees, and austronesian languages},
-	booktitle = {The evolution of cultural diversity: a phylogenetic approach},
-	publisher = {Left Coast Press},
-	year = 2005,
-	chapter = 3,
-	editor = {Ruth Mace and Clare J. Holden and Stephen Shennnan},
-	pages = {31-65}
-}
 @Article{dyen56,
 	author = {Isodore Dyen},
 	title = {Language distribution and migration theory},
