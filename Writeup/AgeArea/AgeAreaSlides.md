@@ -1,3 +1,5 @@
+<!-- $theme: default -->
+
 # Foundations of the Age-Area Hypothesis
 ### Matt Baker
 
