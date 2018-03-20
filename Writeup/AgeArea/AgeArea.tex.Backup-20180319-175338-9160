@@ -236,7 +236,7 @@ D^1_i=\frac{n^*_{H^*_k}}{N(H^*_k)}
 \end{equation*}
 another candidate would be the difference:
 \begin{equation*}
-D^2_i=n^*_{H^*_k}-N(H^*_k)
+D^2_i=n^*_{H^*_k}-N(H^*_k)}
 \end{equation*}
 
 
@@ -441,7 +441,6 @@ The algorithm begins by keeping a running tally of the log-likelihood for each l
 \end{center} 
 \end{figure}
 
-<<<<<<< HEAD
 
 
 Initially at $v=0$ , all values in the vectors $LL_v$ and $n_v$ are zero, with the vector $t_v$ holding each culture's terminal branch, so $t_{kv}^*=t_k$ to start. Consider first the three interior nodes 1, 2, and 3. The first node involves groups $H$ and $G$ only. The longest chain that can be constructed from location $H$ at node $1$ has one migratory event, and spans $t_1+t_G$. Similarly, for $G$, the longest chain has 1 event and spans $t_1+t_H$. This logic can be repeated for nodes 2 and 3, so after the first three nodes, the is as depicted in table \ref{t1}.
@@ -466,26 +465,6 @@ Next, consider nodes $v=4$ and $v=5$. Node 4 has descendants $D, E$ and $F$. Whi
 
 
 \begin{table}[!htbp]
-=======
-\begin{table}
-\begin{center}
-\begin{tabular}{lccc}
-Culture & $t^*_3$ & $n_3$ & $LL_3$ \\
-H& $t_1+t_G$ & 1 & 0 \\ 
-G& $t_1+t_H$ & 1 & 0     \\
-F& $t_F $    & 0 & 0                 \\
-E& $t_2+t_D  & 1 & 0                   \\
-D& $t_2+t_E  & 1 & 0                    \\ 
-C& $t_c$      & 0 & 0                    \\
-B& $t_3+t_A$ & 1 & 0                    \\
-A& $t_3+t_B$ & 1 & 0                
-\end{tabular} \caption{Algorithm at $k=3$}
-\end{center}
-\end{table} 
-
-
-\begin{table}
->>>>>>> d5179811ead3b73a91d0336684f2419195901e0c
 \begin{center}
 \begin{tabular}{lccc}
 Culture & $t^*_3$ & $n_3$ & $LL_3$ \\
@@ -497,65 +476,9 @@ D& $t_4+t_F  & 1 & $-\ln(t_2+t_E)$                    \\
 C& $t_5+t_3+t_B$      & 2 & 0                    \\
 B& $t_5+t_C$ & 1 &  $-\ln(t_3+t_A) $                   \\
 A& $t_5+t_C$ & 1 &  $- \ln(t_3+t_B)$                
-<<<<<<< HEAD
 \end{tabular} \caption{Algorithm at $v=5$}\label{t2}
 \end{center}
 \end{table} 
-=======
-\end{tabular} \caption{Algorithm at $k=5$}
-\end{center}
-\end{table} 
-\begin{table}
-\begin{center}
-\begin{tabular}{lccc}
-Culture & $t^*_6$ &$ n_6$ & $LL_6$ \\
-H& $t_6+t_4+t_2+t_D$ & 1 & $-\ln(t_1+t_G)$ \\ 
-G& $t_6+t_4+t_2+t_D$ & 1 & $- \ln(t_1+t_H)$     \\
-F& $t_6+t_1+t_H $    & 2 & $2(\ln2-\ln(t_4+t_2+t_D))$                \\
-E& $t_6+t_1+t_H  & 1 & $-\ln(t_4+t_F)-\ln(t_2+t_D )$                  \\
-D& $t_6+t_1+t_H & 1 & $-\ln(t_4+t_F)-\ln(t_2+t_E)$                    \\ 
-C& $t_5+t_3+t_B$      & 2 & 0                    \\
-B& $t_5+t_C$ & 1 & $ -\ln(t_3+t_A) $                   \\
-A& $t_5+t_C$ & 1 & $ - \ln(t_3+t_B)$                
-\end{tabular} \caption{Algorithm at $k=6$}
-\end{center}
-\end{table} 
-
-\begin{table}
-\begin{center}
-\begin{tabular}{lccc}
-Culture  & $t^*_7$ & $n_7$ &$LL_7$ \\
-H& $t_7+t_5+t_3+t_B$ & 3 & $3(\ln3-\ln(t_6+t_4+t_2+t_D))-\ln(t_1+t_G)$ \\ 
-G& $t_7+t_5+t_3+t_B$ & 3 & $3(\ln3-\ln(t_6+t_4+t_2+t_D))- \ln(t_1+t_H)$     \\
-F& $t_7+t_5+t_3+t_B $    & 3 & $2(\ln2-\ln(t_6+t_1+t_H))+2(\ln2-\ln(t_4+t_2+t_D))$                 \\
-E& $t_7+t_5+t_3+t_B$  & 3 & $2(\ln 2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F)-\ln(t_2+t_D )$                  \\
-D& $t_7+t_5+t_3+t_B$ & 3&$2(\ln2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F) -\ln(t_2+t_E)$                    \\ 
-C& $t_7+t_6+t_4+t_2+t_E$      & 4 &$ 2(\ln2-\ln(t_5+t_3+t_B)            $        \\
-B& $t_7+t_6+t_4+t_2+t_E$ & 4 &  $-\ln(t_5+t_C)-\ln(t_3+t_A)  $                  \\
-A& $t_7+t_6+t_4+t_2+t_E$ & 4 &  $-\ln(t_5+t_C)- \ln(t_3+t_B)$                
-\end{tabular} \caption{Algorithm at $k=7$}
-\end{center}
-\end{table} 
-
-\begin{table}
-\begin{center}
-\begin{tabular}{lc}
-Culture & Log-likelihood \\
-H& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B)) + 3(\ln3-\ln(t_6+t_4+t_2+t_D))-\ln(t_1+t_G)$ \\ 
-G& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B))+3(\ln3-\ln(t_6+t_4+t_2+t_D))- \ln(t_1+t_H)$     \\
-F& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B)) +2(\ln2-\ln(t_6+t_1+t_H))+2(\ln2-\ln(t_4+t_2+t_D))$                 \\
-E& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B))+2(\ln 2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F)-\ln(t_2+t_D )$                  \\
-D& $3(\ln(3)-\ln(t_7+t_5+t_3+t_B))+2(\ln2-\ln(t_6+t_1+t_H)-\ln(t_4+t_F) -\ln(t_2+t_E)$                    \\ 
-C& $4(\ln(4)-\ln(t_7+t_6+t_4+t_2+t_E))+ 2(\ln2-\ln(t_5+t_3+t_B)            $        \\
-B& $4(\ln(4)-\ln(t_7+t_6+t_4+t_2+t_E))-\ln(t_5+t_C)-\ln(t_3+t_A)  $                  \\
-A& $4(\ln(4)-\ln(t_7+t_6+t_4+t_2+t_E))-\ln(t_5+t_C)- \ln(t_3+t_B)$              
-\end{tabular} \caption{Algorithm at conclusion, known branch lengths. Poisson model can be recovered by replacing time terms with factorials.}
-\end{center}
-\end{table} 
-
-
-\section{Extensions}
->>>>>>> d5179811ead3b73a91d0336684f2419195901e0c
 
 Groups $D$ through $H$ are all descendants of node 6, and hence an optimal decision must be taken by each of $H$ and $G$ as how migration proceeds through $D,E,$ and $F$, while another decision must be made about how migration goes from each of $D,E,$ and $F$ through $G$ and $H$. Table \ref{t3} suggests that the former proceeds from $F$, to $E$, to $D$, while the latter goes to $G$ then to $H$.
 
