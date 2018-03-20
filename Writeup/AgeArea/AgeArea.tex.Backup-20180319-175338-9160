@@ -236,7 +236,7 @@ D^1_i=\frac{n^*_{H^*_k}}{N(H^*_k)}
 \end{equation*}
 another candidate would be the difference:
 \begin{equation*}
-D^2_i=n^*_{H^*_k}-N(H^*_k)
+D^2_i=n^*_{H^*_k}-N(H^*_k)}
 \end{equation*}
 
 
