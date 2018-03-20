@@ -145,19 +145,18 @@ L_A=\textrm{Prob}(H_A)=P(C_{1A})P(C_{AA})P(C_{BA})P(C_{CA})P(_{DA})
 \end{equation*}
 Using the form of the distribution for the chains, I have:
 \begin{equation} \label{e1}
-L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}
-\frac{(\lambda_A t_A)^0e^{-\lambda_At_A}} {0!}\frac{(\lambda_B t_B)^0e^{-\lambda_3t_B}}{0!}\frac{(\lambda_C t_C)^0e^{-\lambda_Ct_C}}{0!}\frac{(\lambda_D t_D)^0e^{-\lambda_Dt_D}}{0!}
+L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\frac{(\lambda_2 t_6)^0e^{-\lambda_2t_6}}{0!}\frac{(\lambda_3 t_7)^0e^{-\lambda_3t_7}}{0!}\frac{(\lambda_4 t_8)^0e^{-4t_8}}{0!}
 \end{equation} 
 
 Equation (\ref{e1}) is perhaps more expansive than necessary, as all the terms raised to the $0$th power are degenerate. The probability in equation (\ref{e1}) could also be written as:
 \begin{equation} \label{e2}
-L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}e^{-\lambda_At_A}e^{-\lambda_Bt_B}e^{-\lambda_Ct_C}e^{-\lambda_Dt_D}
+L_A = \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}e^{-\lambda_2t_6}e^{-\lambda_3t_7}e^{-\lambda_4t_8}
 \end{equation} 
 The log-likelihood associated with equation (\ref{e2}) is:
 \begin{equation} \label{e3}
-\ln L_A  = 4\ln(\lambda_1 T) -4\lambda_1T-\ln(4!)-\lambda_At_A-\lambda_Bt_B-\lambda_Ct_C-\lambda_Dt_D
+\ln L_A  = 4\ln(\lambda_1 T) -4\lambda_1T-\ln(4!)-\lambda_2t_6-\lambda_3t_7-\lambda_4t_8
 \end{equation} 
-What values of $\lambda_i$ maximize the likelihood in (\ref{e3})? Evidently, $\lambda_A=\lambda_B=\lambda_C=\lambda_D=0$ at the optimum. Since these chains never go further than their current locations, the maximum likelihood estimate suggests a rate parameter equal to zero. 
+What values of $\lambda_i$ maximize the likelihood in (\ref{e3})? Evidently, $\lambda_2=\lambda_3=\lambda_4=0$ at the optimum. Since these chains never go further than their current locations, the maximum likelihood estimate suggests a rate parameter equal to zero. 
 
 The derivative of (\ref{e3}) with respect to $\lambda_1$, however, generates a meaningful parameter estimate. Differentiating with respect to $\lambda_1$ and solving the first-order condition gives $\lambda_1^*=\frac{4}{T}$. Substituting this and other optimal values back into the objective function gives the (concentrated) likelihood $L_A$ as:
 \begin{equation}  \label{l3}
@@ -167,12 +166,11 @@ L_A=\frac{4^4e^{-4}}{4!}
 Equation (\ref{l3}) is simple in that only one non-degenerate migratory chain is needed to explain the whole tree, given that the migratory history starts at $A$. In this sense, this a parsimonious explanation for the current distribution of cultures. 
 
 Contrast this with the case in which $C$ is posited to be the origin point. To maintain consistency with the phylogeny, the requirements are:  1) a migratory chain starting at $C$ leading to $A$, 2) another migratory chain starting at $C$ going to $B$, and then 3) a migratory chain that starts at $C$ and proceeds to $D$ (or $E$) and then finally to $E$ (or D). Degenerate chains start at location $C$ and $D$ (or $E$). According to the model, each of these chains requires its own Poisson/Exponential parameter, which, omitting degenerate chains, gives:
-\begin{eqnarray} \label{l4}
-L_{C}&=\frac{(\lambda_1(t_4+t_A)^1e^{-\lambda_1(t_4+t_A)}}{1!}\frac{(\lambda_2(t_3+t_B))^1e^{-\lambda_B(t_3+t_B)}}{1!}
-\frac{(\lambda_3(t_2+t_1+t_E))^2e^{-\lambda_3(t_2+t_1+t_E)}}{2!} \nonumber \\
-&\times\frac{(\lambda_Ct_C)^0e^{-\lambda_Ct_C}}{0!}\frac{(\lambda_Dt_D)^0e^{-\lambda_Dt_D}}{0!}
-\end{eqnarray} 
-Maximizing $L_{C}$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, noting that $\lambda_C=\lambda_D=0$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
+\begin{equation} \label{l4}
+L_{C}=\frac{(\lambda_1t)^1e^{-\lambda_1t}}{1!}\frac{(\lambda_2(t-t_0))^1e^{-1}}{1!}
+\frac{(\lambda_3(t-t_0-t_1))^2e^{-\lambda_3(t-t_0-t_1)}}{2!}
+\end{equation} 
+Maximizing $L_{}_{C}$ in (\ref{l4}) with respect to $\lambda_1,\lambda_2$ and $\lambda_3$, and substituting the result back into the right-hand side of (\ref{l4}) gives:
 \begin{equation} \label{l5}
 L_{C}=\frac{1^1e^{-}}{1!}\frac{1^{1}e^{-1}}{1!}\frac{2^2e^{-2}}{2!}=
 \frac{2^2e^{-4}}{2!}
