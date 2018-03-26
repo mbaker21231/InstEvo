@@ -7,3 +7,4 @@
 *.png
 +.ipynb_checkpoints 
 *checkpoint.ipynb
+*.Backup*
