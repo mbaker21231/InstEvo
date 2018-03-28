@@ -33,6 +33,7 @@
 
 ---
 ## Practical Questions: 
+- A sophisticated statistical description of relationships between cultures.
 - What can be said about the Geography of this the Tree? 
 - How did the cultures on the tree come to be where they are?
 - Which related cultures have been in close proximity, and for how long?
@@ -55,13 +56,14 @@
 ---
 
 # On the need or theory...
-Greenhill and Gray (2005) write: "many expansion scenarios are little more than plausible narratives. A common feature of these narratives is the assertion that a particular lineof evidence (archaeological, linguistic, or genetic) is 'consistent with' the scenario. 'Consistent with' covers a multitude of sins. 
+- Greenhill and Gray (2005) write: "many expansion scenarios are little more than plausible narratives. A common feature of these narratives is the assertion that a particular lineof evidence (archaeological, linguistic, or genetic) is 'consistent with' the scenario. 'Consistent with' covers a multitude of sins. 
+- Regressions and Spatial Econometrics - Leave me wondering what the DGP is...
 
 ---
 # So why believe the AAH (or not)?
-- ### Occam's Razor?
-- ### Minimum effort or \# of moves?
-- ### Dyer (1956, p. 613) hits upon the idea of conserving moves of a particular sort: "...the probabilities of different reconstructed migrations are in inverse relation to the number of language movements required."
+- Occam's Razor
+- Minimum effort or \# of moves
+- Dyer (1956, p. 613) hits upon the idea of conserving moves of a particular sort: "...the probabilities of different reconstructed migrations are in inverse relation to the number of language movements required."
 
 ---
 # Problem Preview
@@ -70,7 +72,7 @@ Greenhill and Gray (2005) write: "many expansion scenarios are little more than 
 
 ---
 # Problem Preview
-![](AncillaryFiles/figure2.png)
+![](AncillaryFiles/figure22.png)
 
 ---
 # Candidate Migratory Histories:
@@ -78,12 +80,12 @@ Greenhill and Gray (2005) write: "many expansion scenarios are little more than 
 - C is point of origin - C to A, C to B, C to D to E
 - Both are consistent with observed phylogenetic difference or drift. **The tree tells us which migrations happened first!**  
 - Note "minimum moves" doesn't get us very far. Both have four moves!
-- Actually - somewhat mimics the debate between Ehret (2004) and Bellwood and Diamond (2003) about Afrasan or Afroasiatic cultures/languages.
+- Actually - example approximates the debate between Ehret (2004) and Bellwood and Diamond (2003) about Afrasan or Afroasiatic cultures/languages.
 ---
 
 # Basic Model:
 - Assume a full, rooted binary tree
-   - Tree with $k$ terminal nodes/taxa/cultures will have $k-1$ internal nodes, which are the minimal number of geographic moves needed to span the tree.
+   - $k$ terminal nodes/taxa/cultures, $k-1$ internal nodes. $k-1$ moves needed to span the tree.
 - Current locations coincide with historic locations
 - All constituents of the tree observed	
 ---
@@ -91,14 +93,14 @@ Greenhill and Gray (2005) write: "many expansion scenarios are little more than 
 ## Migratory Event
 A location jump from one location to a new, unoccupied one.
 ## Migratory Chain
-A sequence of "forward moving," jumps in space migratory events that end at a terminal node/taxa/culture.
+A chronological sequence of jumps through connected nodes that end at a terminal node/taxa/culture.
 ## Migratory History
-A collection of chains spanning the whole tree, with a "deepest chain" starting at a given location. 
+A collection of chains spanning the whole tree. 
 
 ---
 # Basic assumptions
 1. A migratory chain occupies one location at a time ("propensity to migrate" passed location to location).
-2. A chain corresponds with a mass population movement. When a chain moves from its location to a new one, a new chain starts in its place.
+2. A chain corresponds with a population movement. When a chain moves from its location to a new one, a new chain starts in its place.
 3. Migratory chains move to new locations at random times, according to an Exponential/Poisson density.
 4. Each migratory chain is unique in that it has its own parameters.
 ---
@@ -156,7 +158,7 @@ Relative likelihood: $P(A|A \text{ or } C)=\frac{\frac{4^4}{4!}}{\frac{4^4}{4!}+
 $$
 h(n) = \frac{n^n}{n!}
 $$
-This kernel is _convex_. Breaking it up into smaller chunks, or spreading $n$ around is a losing proposition. That is: 
+This kernel is _convex_. Breaking it up into smaller chunks reduces likelihood. That is: 
 
 $$
 h(n) > h(n-k)h(k)
@@ -166,6 +168,7 @@ $$
 ---
 
 # Continuing on... 
+- Probabilistic explanation of Occam's Razor in a way that captures Dyen's notion of simplicity.
 - How can these ideas be related to a notion of distance or divergence?
 - How can divergence and probability be tied together formally, as the AAH posits?
 
@@ -268,15 +271,15 @@ $$
 
 - Why would one believe the exponential/Poisson arrival rate story?
 - Idea: stochastic population growth model
-  - Migratory chain corresponds with some superabundance of resources. 
-  - If population in a location reaches a barrier, the superabundance is dissipated. 
-  - Some segment of the population moves on to an uninhabited area.
-  - Once the population has moved on, a new superabundance parameter is drawn in the location.
+  - Chain is propelled by a positive resource/technology shock. 
+  - If population in a location reaches a barrier, the shock dissipates. 
+  - Population splits and some fraction moves on to a new area.
+  - A new shock parameter is drawn in the location.
 
 ---
-# Formal approach (like Baker, 2008):
-- Utility, children, and (net) income are all the same in current location: 
-- Suppose income has a fixed component, a congestion component, and a stochastic component: $y_t=1+r(1-\frac{p_t}{K})+\sigma (\epsilon_{t+\Delta}-\epsilon_t)$ 
+# Formal approach (Baker, 2008):
+- Utility, children, and (net) income are equal in the current location: 
+- Income has a fixed component, a congestion component, and a stochastic component: $y_t=1+r(1-\frac{p_t}{K})+\sigma (\epsilon_{t+\Delta}-\epsilon_t)$ 
 - Total population next period, $p_{t+\Delta}$ is $p_tk_t$ or:
 $$
 p_{t+\Delta}=p_ty_t=p_t\left[1+r\left(1-\frac{p_t}{K}\right)+\sigma (\epsilon_{t+\Delta}-\epsilon_t)\right]
@@ -284,7 +287,7 @@ $$
 
 ---
 
-# Continuous limit:
+# As $\Delta$ gets small...
 
 $$
 dp = rp\left(1-\frac{p}{K}\right)+\sigma p dz
@@ -297,7 +300,7 @@ Crucial property: _stationary distribution_.
 ---
 
 # Theorem 
-### Nobile, Ricciardi & Sacerdote, 1985
+### Nobile, Ricciardi & Sacerdote (1985)
 If a sde has a stationary distribution, the first passage time to a barrier $B$ given initial population $p_0$, **is approximately exponential**:
 $$
 g(B,t|p_0) \approx \frac{1}{t_1(B|p_0)}e^{-\frac{t}{t_1(B|p_0)}}
@@ -311,11 +314,10 @@ where $t_1$ is the first moment of the distribution of the first passage time di
 2. If $p=B$ is achieved $K$ falls immediately to $K-D$ for the current generation. 
 3. Current generation: Can split and move to a new location?
 4. Upon exit, a new $B,K,D$ combination is drawn.
-5. Stylized friendly birds?
 
 ---
 
-# Parameterization
+# Current Parameterization
 
 - Utility is $1+r(1-\frac{p_t}{K})$. 
 - Assume that $B=K$. 
@@ -347,8 +349,6 @@ Further illustration:
 ---
 
 
-
-
 # Applications
 - Afrasan or Afroasiatic and its point of origin. Arabic and Semitic languages, Ancient Egyptian, and Ethiopiac languages as well. Where did it all begin?
 - NaDene phylogeny and its point of origin. Simulating _spatial and temporal points of origin_.
@@ -376,28 +376,30 @@ Further illustration:
 ---
 # Sampling NaDene History
 
-- Idea: blend known branch lengths, migratory distances, and estimation of a linguistic phylogeny using standard methods. 
+- Idea: blend known branch lengths, migratory distances, and estimation of a linguistic phylogeny using standard methods:
+  - Lexicostatistics/glottochronology
+  - Bayesian Priors on some dates, MCMC sampling (Baker, 2015) 	 
 - Create a probability distribution over histories. 
-- Idea follows Baxter and Ramer (1993), Mace and Pagel(1993) - use the type of first letter for Swadesh lists. 
-- Lexicostatistics/Glottochronology
+- Idea follows Baxter and Ramer (1993), Mace and Pagel (1993) - use the type of first letter for Swadesh lists. 
 
 ---
 ![](AncillaryFiles/gencode.png)
-###### Words: I, you, we, one, two, person, fish, dog, louse, tree, leaf, skin, blood, bone, horn, ear, eye, nose, tooth, tongue, knee, hand, breast, liver, drink, see, hear, die, come, sun, star, water, stone, fire, path, mountain, night, full, new, name.
+### Words: I, you, we, one, two, person, fish, dog, louse, tree, leaf, skin, blood, bone, horn, ear, eye, nose, tooth, tongue, knee, hand, breast, liver, drink, see, hear, die, come, sun, star, water, stone, fire, path, mountain, night, full, new, name.
 ---
 
 
 # Estimation using MCMC methods
 - Density is $P(H|T)P(T)$, coupled with prior on certain split dates and on tree structure.
 - [Simulation from distribution estimated using linguistics](https://s3.amazonaws.com/instevo/CombNaDeneMovie.html)
+- [Backup](https://drive.google.com/open?id=1EePJi_sOUfW3Vkp7U-uq59x1b813Mh95)
 
 ---
 
-# Conclusions:
+# In Conclusion:
 - Recent literature on diversity is getting more sophisticated and multidisciplinary
-- Doesn't mean it should sacrifice rigor.
+- Doesn't mean it should sacrifice rigor
 - An effort to formalize and operationalize some of this
-- In the future: formal models of borrowing, interaction, and cultural evolution. 
+- **In the future:** formal models of borrowing, interaction, and cultural evolution. 
 
 
 
