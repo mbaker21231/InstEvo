@@ -7,7 +7,7 @@
 - The economic basis for indigenous institutions:
   - Baker (2003, 2008), Baker and Miceli (2005), Baker and Jacobsen (2007, 2008).  
 - Exploring the relationship between environment, technology, and institutions. 
-- Fascinating to me, but of limited larger interest...
+- Interesting perhaps, but of limited larger interest...
 
 ---
 
@@ -22,8 +22,8 @@
 
 ---
 # Cultural Phylogenetics
-- Modeling cultural similarities and differences using Phylogenetic tools.
-- Very attractive approach - explicit consideration of path dependency.
+- Modeling cultural evolution using Phylogenetic tools.
+- Attractive and novel approach - explicit consideration of path dependency. Typical Econometric treatment a hammer in search of a nail?
 - Computational linguistics - direct means of phylogeny-building (Mace, 2006)
 - Atkinson and Gray (2006) example: Indo-European Tree.
 
@@ -39,7 +39,8 @@
 
 ---
 # The Age-Area Hypothesis (AAH)
-- Sapir (1916) - *the root of the Phylogenetic tree is the most likely geographical point of origin.*
+- Sapir (1916) - *the root of the Phylogenetic tree is the most likely geographical point of origin.* 
+- Also: maximum divergence, maximum variety, maximum differentiation...
 - Recursive application - migratory routes
 - When coupled with a Phylogeny - times _and_ places.
 - Used to resolve historical debates, but also could be important in creating new theories
@@ -77,11 +78,12 @@ Greenhill and Gray (2005) write: "many expansion scenarios are little more than 
 - C is point of origin - C to A, C to B, C to D to E
 - Both are consistent with observed phylogenetic difference or drift. **The tree tells us which migrations happened first!**  
 - Note "minimum moves" doesn't get us very far. Both have four moves!
+- Actually - somewhat mimics the debate between Ehret (2004) and Bellwood and Diamond (2003) about Afrasan or Afroasiatic cultures/languages.
 ---
 
 # Basic Model:
 - Assume a full, rooted binary tree
-   - Tree with $z$ terminal nodes/taxa/cultures will have $z-1$ internal nodes, which are the minimal number of geographic moves needed to span the tree.
+   - Tree with $k$ terminal nodes/taxa/cultures will have $k-1$ internal nodes, which are the minimal number of geographic moves needed to span the tree.
 - Current locations coincide with historic locations
 - All constituents of the tree observed	
 ---
@@ -94,9 +96,9 @@ A sequence of "forward moving," jumps in space migratory events that end at a te
 A collection of chains spanning the whole tree, with a "deepest chain" starting at a given location. 
 
 ---
-# The Basic Idea - assumptions
-1. A migratory chain occupies one location at a time.
-2. When a chain moves from its location, a new chain starts in its place.
+# Basic assumptions
+1. A migratory chain occupies one location at a time ("propensity to migrate" passed location to location).
+2. A chain corresponds with a mass population movement. When a chain moves from its location to a new one, a new chain starts in its place.
 3. Migratory chains move to new locations at random times, according to an Exponential/Poisson density.
 4. Each migratory chain is unique in that it has its own parameters.
 ---
@@ -110,7 +112,7 @@ L_A &= \frac{(\lambda_1 T)^4e^{-\lambda_1T}}{4!}\times \\
 &\frac{(\lambda_A t_A)^0e^{-\lambda_At_A}} {0!}\frac{(\lambda_B t_B)^0e^{-\lambda_3t_B}}{0!}\frac{(\lambda_C t_C)^0e^{-\lambda_Ct_C}}{0!}\frac{(\lambda_D t_D)^0e^{-\lambda_Dt_D}}{0!}
 \end{aligned}
 $$
-- Seems like overkill, but the degeneracies are important 
+- Seems like overkill, but the degeneracies are important! 
 ---
 ## Log-Likelihood:
 $$\begin{aligned}
@@ -150,11 +152,11 @@ Relative likelihood: $P(A|A \text{ or } C)=\frac{\frac{4^4}{4!}}{\frac{4^4}{4!}+
 
 ---
 
-# Key Feature:
+# Key Feature: 
 $$
 h(n) = \frac{n^n}{n!}
 $$
-"Kernel" is a convex function. Breaking it up into smaller chunks, or spreading $n$ around is a losing proposition. So:
+This kernel is _convex_. Breaking it up into smaller chunks, or spreading $n$ around is a losing proposition. That is: 
 
 $$
 h(n) > h(n-k)h(k)
@@ -165,13 +167,13 @@ $$
 
 # Continuing on... 
 - How can these ideas be related to a notion of distance or divergence?
-- How can divergence and probability be tied together, as the AAH posits?
+- How can divergence and probability be tied together formally, as the AAH posits?
 
 
 
 ---
 # A Start:
-- With each location/culture $k$, there are a family of possible migratory histories $\mathcal{H}_k$ that explain the phylogeny.
+- With each location/culture $k$, there are a family of possible migratory histories $\mathcal{H}_k$ that explain the underlying geography of the phylogeny.
 - For $H_k \in \mathcal{H_k}$, define $N(H_k)$ as a count of the number of (non-degenerate) migratory chains in the history.   
 - Define $n(C)$ as the number of events in a non-degenerate migratory chain, and then define:
 - $n_{H_k}^*=\max_{C_{ik}\in H_k} [n(C_{1k}),n(C_{2k}),...,n(C_{N(H_k)k})]$ - The maximum node count for the chains in $H_k$. 
@@ -202,7 +204,7 @@ k=\arg\max\left[L_1,L_2,L_3,...,L_n\right]
 
 ---
 
-# Proof 
+# Proof (sketch)
 Note likelihood obeys
 $$
 L_k \propto\prod_{j=1}^{N(H^*_k)} h(n_j), \quad \sum n_j=I
@@ -214,7 +216,7 @@ Also, finite ordered sets have a maximum.
 
 ---
 
-# Recall Dyen Divergences:
+# Illustration of Dyen Divergences:
 $$
 D^1_i=\frac{n^*_{H^*_k}}{N(H^*_k)}
 $$
@@ -225,7 +227,7 @@ $$
 
 ---
 
-# Additional Example: G versus I
+# Additional Example: E versus I
 ![](AncillaryFiles/example1.png)
 
 ---
@@ -235,7 +237,7 @@ $$
   - chain from E to D to A to B to C
   - chain from E to F to I to G to H
   - Dyen Divergence - 2 chains, 4 events each. $D^1=2$, $D^2=2$.
-- If D is the point of origin:
+- If I is the point of origin:
   - chain from I to D to A to B to C
   - chain from I to E, chain from I to F
   - chain from I to H to G. 
@@ -266,18 +268,18 @@ $$
 
 - Why would one believe the exponential/Poisson arrival rate story?
 - Idea: stochastic population growth model
-  - Some development creates a superabundance of resources. 
-  - Once a barrier is achieved, the superabundance dissipates. 
-  - Too many people at this point in time, so some segment of the population moves on to an uninhabited area.
+  - Migratory chain corresponds with some superabundance of resources. 
+  - If population in a location reaches a barrier, the superabundance is dissipated. 
+  - Some segment of the population moves on to an uninhabited area.
   - Once the population has moved on, a new superabundance parameter is drawn in the location.
 
 ---
 # Formal approach (like Baker, 2008):
-- Utility, children, and income are all the same in current location: 
+- Utility, children, and (net) income are all the same in current location: 
 - Suppose income has a fixed component, a congestion component, and a stochastic component: $y_t=1+r(1-\frac{p_t}{K})+\sigma (\epsilon_{t+\Delta}-\epsilon_t)$ 
 - Total population next period, $p_{t+\Delta}$ is $p_tk_t$ or:
 $$
-p_{t+\Delta}=p_tk_t=p_t\left[1+r\left(1-\frac{p_t}{K}\right)+\sigma (\epsilon_{t+\Delta}-\epsilon_t)\right]
+p_{t+\Delta}=p_ty_t=p_t\left[1+r\left(1-\frac{p_t}{K}\right)+\sigma (\epsilon_{t+\Delta}-\epsilon_t)\right]
 $$
 
 ---
@@ -304,13 +306,30 @@ where $t_1$ is the first moment of the distribution of the first passage time di
 
 ---
 
-# The Story
-1. Population arrives in a new place. Moving involves a cost $c$ and requires a minimum population $M$ to move. 
-2. Stochastic logistic growth 
-3. If $p=B$ is achieved $K$ falls immediately to $K-D$ for the current generation. A new $K,D$ are redrawn subsequently. 
-4. Current generation: Stay put or split and move to a new location?
-5. Upon exit, a new $B,K,D$ combination is drawn.
-6. Stylized friendly birds?
+# Rounding out the Story
+1. Moving to a new location involves a cost $c$ and requires a minimum population $M$ to move. 
+2. If $p=B$ is achieved $K$ falls immediately to $K-D$ for the current generation. 
+3. Current generation: Can split and move to a new location?
+4. Upon exit, a new $B,K,D$ combination is drawn.
+5. Stylized friendly birds?
+
+---
+
+# Parameterization
+
+- Utility is $1+r(1-\frac{p_t}{K})$. 
+- Assume that $B=K$. 
+- Costs of moving are $c=r$, so utility in a new location is maximally $1$, while utility before the barrier is hit in the original always greater than one.
+- When $p=B=K$, arbitrage condition dictates size of staying population and emigrating population: 
+
+---
+
+# Arbitrage
+If $m$ is the emigrating group, then:
+$$
+1+r\left(1-\frac{B-m}{K-D}\right)=1-c+r\left(1-\frac{m}{K}\right)
+$$
+Results in $B=K$, $p_0=m=\frac{DK}{2K-D}$
 
 ---
 
@@ -331,15 +350,23 @@ Further illustration:
 
 
 # Applications
-- Afrasan (Afroasiatic in older sources) and its point of origin. Arabic and Semitic languages, Ancient Egyptian, and Ethiopiac languages as well. Where did it all begin?
+- Afrasan or Afroasiatic and its point of origin. Arabic and Semitic languages, Ancient Egyptian, and Ethiopiac languages as well. Where did it all begin?
 - NaDene phylogeny and its point of origin. Simulating _spatial and temporal points of origin_.
 
 ---
 
-## Ehret Figure - origins of Afrasans
+## From Ehret (2000) Figure - origins of Afrasans
 <img src="AncillaryFiles/EhretPic.png" alt="Drawing" style="width: 700px;"/>
 
 ---
+
+## Diamond and Bellwood (2003)- origins
+<img src="AncillaryFiles/F1.Large.jpg" alt="Drawing" style="width: 900px;"/>
+
+---
+
+
+
 ## Probabilities of Origin Points
 - [Link to Afrasan Map](https://s3.amazonaws.com/instevo/PrelimAfroAsiaMap.html)
 - [Link to Na Dene Map](https://s3.amazonaws.com/instevo/PrelimNaDeneMap.html)
