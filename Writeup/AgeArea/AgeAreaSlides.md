@@ -7,6 +7,7 @@
 - The economic basis for indigenous institutions:
   - Baker (2003, 2008), Baker and Miceli (2005), Baker and Jacobsen (2007, 2008).  
 - Exploring the relationship between environment, technology, and institutions. 
+- Cross-cultural data sets
 - Interesting perhaps, but of limited larger interest...
 
 ---
@@ -15,10 +16,18 @@
 - Applications in economic growth:
   - Alesina et. al. (2005), Spolaore and Wacziarg (2013), Michalopoulus (2012), Fenske (2012)  
 - Computational linguistics and Phylogenetic approaches to analyzing cultural diversity (Mace, 2006) 
-  - A computational field blending tools from biology, geographical data. Computing power!
-- Incorporation of geographical data into analyses.
+  - A computational field blending tools from biology, geographical data.
+- Incorporation of geographical data into analyses
 
-### Deep Question: How did ethnic and geographic diversity that we observe today come about?
+### Question: How did ethnic and geographic diversity that we observe today come about?
+
+---
+# Difficulties
+- Galton's problem - Dependencies between cultures
+  - Problems of inheritance (vertical transmission)
+  - Borrowing (horizontal transmission)
+  - Behavioral ecology / adaptation
+# How can one know times and places?	
 
 ---
 # Cultural Phylogenetics
@@ -33,17 +42,17 @@
 
 ---
 ## Practical Questions: 
-- A sophisticated statistical description of relationships between cultures.
-- What can be said about the Geography of this the Tree? 
+- A sophisticated statistical description of Phylogenetic relationships between cultures.
+- What can be said about the geography underlying the Phylogeny? 
 - How did the cultures on the tree come to be where they are?
-- Which related cultures have been in close proximity, and for how long?
+- _Which related cultures have been in close proximity, and for how long? Who learned what from whom?_
 
 ---
 # The Age-Area Hypothesis (AAH)
 - Sapir (1916) - *the root of the Phylogenetic tree is the most likely geographical point of origin.* 
 - Also: maximum divergence, maximum variety, maximum differentiation...
 - Recursive application - migratory routes
-- When coupled with a Phylogeny - times _and_ places.
+- When coupled with a Phylogeny - we now have a details of time _and_ place.
 - Used to resolve historical debates, but also could be important in creating new theories
 
 ---
@@ -55,15 +64,15 @@
 - Native American population dispersal
 ---
 
-# On the need or theory...
-- Greenhill and Gray (2005) write: "many expansion scenarios are little more than plausible narratives. A common feature of these narratives is the assertion that a particular lineof evidence (archaeological, linguistic, or genetic) is 'consistent with' the scenario. 'Consistent with' covers a multitude of sins. 
+# On the need for theory...
+- Greenhill and Gray (2005) write: "many expansion scenarios are little more than plausible narratives. A common feature of these narratives is the assertion that a particular line of evidence (archaeological, linguistic, or genetic) is 'consistent with' the scenario. 'Consistent with' covers a multitude of sins." 
 - Regressions and Spatial Econometrics - Leave me wondering what the DGP is...
 
 ---
 # So why believe the AAH (or not)?
 - Occam's Razor
 - Minimum effort or \# of moves
-- Dyer (1956, p. 613) hits upon the idea of conserving moves of a particular sort: "...the probabilities of different reconstructed migrations are in inverse relation to the number of language movements required."
+- Dyen (1956, p. 613) hits upon the idea of conserving moves of a particular sort: "...the probabilities of different reconstructed migrations are in inverse relation to the number of language movements required."
 
 ---
 # Problem Preview
@@ -78,12 +87,12 @@
 # Candidate Migratory Histories:
 - A is point of origin - A to B to C to D to E
 - C is point of origin - C to A, C to B, C to D to E
-- Both are consistent with observed phylogenetic difference or drift. **The tree tells us which migrations happened first!**  
-- Note "minimum moves" doesn't get us very far. Both have four moves!
-- Actually - example approximates the debate between Ehret (2004) and Bellwood and Diamond (2003) about Afrasan or Afroasiatic cultures/languages.
+- Both are consistent with observed phylogenetic difference or drift. **The tree constrains the set of possible migrations**  
+- Note "minimum moves" doesn't get us very far. Both have four moves
+- Actually - example approximates the debate between Ehret (2004) and Bellwood and Diamond (2003) about the origins Afrasan or Afroasiatic cultures/languages.
 ---
 
-# Basic Model:
+# Basic Model: 
 - Assume a full, rooted binary tree
    - $k$ terminal nodes/taxa/cultures, $k-1$ internal nodes. $k-1$ moves needed to span the tree.
 - Current locations coincide with historic locations
@@ -163,6 +172,7 @@ This kernel is _convex_. Breaking it up into smaller chunks reduces likelihood. 
 $$
 h(n) > h(n-k)h(k)
 $$
+**Simpler explanations mean longer chains mean higher probability**
 
 
 ---
@@ -179,7 +189,7 @@ $$
 - With each location/culture $k$, there are a family of possible migratory histories $\mathcal{H}_k$ that explain the underlying geography of the phylogeny.
 - For $H_k \in \mathcal{H_k}$, define $N(H_k)$ as a count of the number of (non-degenerate) migratory chains in the history.   
 - Define $n(C)$ as the number of events in a non-degenerate migratory chain, and then define:
-- $n_{H_k}^*=\max_{C_{ik}\in H_k} [n(C_{1k}),n(C_{2k}),...,n(C_{N(H_k)k})]$ - The maximum node count for the chains in $H_k$. 
+- $n_{H_k}^*=\max_{C_{ik}\in H_k} [n(C_{1k}),n(C_{2k}),...,n(C_{N(H_k)k})]$ - The maximum event count for the chains in $H_k$. 
 
 ---
 # Definition: Dyen Divergence
@@ -258,27 +268,27 @@ $$
 # Bells and Whistles
 
 - Known branch lengths - 
-  - Poisson becomes Exponential distribution.
-  - Important case for including migration model with tree estimation.  
+  - Poisson becomes Exponential distribution
+  - Important case for including migration model with tree estimation  
 - Algorithm for calculating probabilities/divergences - 
-  - one can traverse the tree backwards, using dynamic programming to pick out the most likely continuation path 
+  - One can traverse the tree backwards, using dynamic programming to pick out the most likely continuation path 
 - Include other information in the decision 
-  - physical distance
-  - prior knowledge
+  - Physical distance
+  - Prior knowledge of location, time, or split time
 
 ---
 # Micro foundations
 
 - Why would one believe the exponential/Poisson arrival rate story?
 - Idea: stochastic population growth model
-  - Chain is propelled by a positive resource/technology shock. 
-  - If population in a location reaches a barrier, the shock dissipates. 
-  - Population splits and some fraction moves on to a new area.
+  - Chain propelled by positive resource/technology shock. 
+  - If location population hits a barrier, the shock dissipates. 
+  - Population splits and a fraction moves on to a new area.
   - A new shock parameter is drawn in the location.
 
 ---
 # Formal approach (Baker, 2008):
-- Utility, children, and (net) income are equal in the current location: 
+- Utility, children, and (net) income are equal (at a location): 
 - Income has a fixed component, a congestion component, and a stochastic component: $y_t=1+r(1-\frac{p_t}{K})+\sigma (\epsilon_{t+\Delta}-\epsilon_t)$ 
 - Total population next period, $p_{t+\Delta}$ is $p_tk_t$ or:
 $$
@@ -312,15 +322,15 @@ where $t_1$ is the first moment of the distribution of the first passage time di
 # Rounding out the Story
 1. Moving to a new location involves a cost $c$ and requires a minimum population $M$ to move. 
 2. If $p=B$ is achieved $K$ falls immediately to $K-D$ for the current generation. 
-3. Current generation: Can split and move to a new location?
+3. Current generation: Splits to spread the drop in utility.
 4. Upon exit, a new $B,K,D$ combination is drawn.
 
 ---
 
-# Current Parameterization
+# Parameterization
 
 - Utility is $1+r(1-\frac{p_t}{K})$. 
-- Assume that $B=K$. 
+- $B=K$. 
 - Costs of moving are $c=r$, so utility in a new location is maximally $1$, while utility before the barrier is hit in the original always greater than one.
 - When $p=B=K$, arbitrage condition dictates size of staying population and emigrating population: 
 
@@ -350,7 +360,7 @@ Further illustration:
 
 
 # Applications
-- Afrasan or Afroasiatic and its point of origin. Arabic and Semitic languages, Ancient Egyptian, and Ethiopiac languages as well. Where did it all begin?
+- Afrasan or Afroasiatic and its point of origin. Arabic and Semitic languages, Ancient Egyptian, and Ethiopiac languages as well. Where did this Phylogeny originate?
 - NaDene phylogeny and its point of origin. Simulating _spatial and temporal points of origin_.
 
 ---
