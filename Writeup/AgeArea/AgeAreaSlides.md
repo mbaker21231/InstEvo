@@ -27,6 +27,13 @@
   - Problems of inheritance (vertical transmission)
   - Borrowing (horizontal transmission)
   - Behavioral ecology / adaptation
+
+---
+# Difficulties
+- Galton's problem - Dependencies between cultures
+  - Problems of inheritance (vertical transmission)
+  - Borrowing (horizontal transmission)
+  - Behavioral ecology / adaptation
 # How can one know times and places?	
 
 ---
@@ -43,13 +50,13 @@
 ---
 ## Practical Questions: 
 - A sophisticated statistical description of Phylogenetic relationships between cultures.
-- What can be said about the geography underlying the Phylogeny? 
+- What can be said about the geography underlying the Phylogeny?
 - How did the cultures on the tree come to be where they are?
 - _Which related cultures have been in close proximity, and for how long? Who learned what from whom?_
 
 ---
 # The Age-Area Hypothesis (AAH)
-- Sapir (1916) - *the root of the Phylogenetic tree is the most likely geographical point of origin.* 
+- Sapir (1916) - **the root of the Phylogenetic tree is the most likely geographical point of origin.**
 - Also: maximum divergence, maximum variety, maximum differentiation...
 - Recursive application - migratory routes
 - When coupled with a Phylogeny - we now have a details of time _and_ place.
@@ -100,7 +107,7 @@
 ---
 # Definitions
 ## Migratory Event
-A location jump from one location to a new, unoccupied one.
+A location jump from one location to a new, unoccupied one. For simplicity, the jump takes zero time and can be of any distance.
 ## Migratory Chain
 A chronological sequence of jumps through connected nodes that end at a terminal node/taxa/culture.
 ## Migratory History
@@ -114,7 +121,7 @@ A collection of chains spanning the whole tree.
 4. Each migratory chain is unique in that it has its own parameters.
 ---
 ### Chain One: 
-- requires a chain from A to B to C to D to E (or D to E)
+- requires a chain from A to B to C to D to E (or E to D)
 - By the previous rules, new chains start at A, B, C, and D. Let $T$ denote the length of the tree.
 - Likelihood: 
 $$\begin{aligned}
@@ -135,7 +142,7 @@ Optimized with $\lambda_A=\lambda_B=\lambda_C=\lambda_D=0$, and then:
 $$
 \lambda_1=\frac{4}{T}
 $$
-Substituting this all back into the original likelihood gives "Profile" or "Concentrated" likelihood:
+Substituting this all back into the original likelihood gives the "Profile" or "Concentrated" likelihood:
 $$
 L_A=\frac{4^4e^{-4}}{4!}
 $$
@@ -149,7 +156,7 @@ L_{C}&=\frac{(\lambda_1(t_4+t_A)^1e^{-\lambda_1(t_4+t_A)}}{1!}\frac{(\lambda_2(t
 &\times\frac{(\lambda_Ct_C)^0e^{-\lambda_Ct_C}}{0!}\frac{(\lambda_Dt_D)^0e^{-\lambda_Dt_D}}{0!}
 \end{aligned}
 $$
-Highlight: fewer degenerate chains, and more active chains!
+Highlight: **fewer degenerate chains, and more active chains!**
 
 ---
 ## Chain Two: profile/concentrated-likelihood:
@@ -282,9 +289,14 @@ $$
 - Why would one believe the exponential/Poisson arrival rate story?
 - Idea: stochastic population growth model
   - Chain propelled by positive resource/technology shock. 
-  - If location population hits a barrier, the shock dissipates. 
-  - Population splits and a fraction moves on to a new area.
+  - If the population in a location hits a barrier, the positive shock instantaneously dissipates. 
+  - Population splits according to an arbitrage condition, and a fraction moves on to a new area.
   - A new shock parameter is drawn in the location.
+
+---
+# Point of emphasis
+
+It is important that the shock dissipates, and does not instead reset. Otherwise, locations would be observed to continually expel migratory groups, and mass migrations would occur from all locations continually, like a branching process.
 
 ---
 # Formal approach (Baker, 2008):
@@ -321,8 +333,8 @@ where $t_1$ is the first moment of the distribution of the first passage time di
 
 # Rounding out the Story
 1. Moving to a new location involves a cost $c$ and requires a minimum population $M$ to move. 
-2. If $p=B$ is achieved $K$ falls immediately to $K-D$ for the current generation. 
-3. Current generation: Splits to spread the drop in utility.
+2. If $p=B$ is achieved,  $K$ falls immediately to $K-D$ for the current generation. 
+3. Current generation: Splits to avoid the precipitous drop in utility.
 4. Upon exit, a new $B,K,D$ combination is drawn.
 
 ---
@@ -345,7 +357,7 @@ Results in $B=K$, $p_0=m=\frac{DK}{2K-D}$
 
 ---
 
-Illustration:
+Illustration in which new values of $B, K,D$ are drawn so that the location is effectively dormant.
 
 ![](AncillaryFiles/figure25.png)
 
@@ -365,7 +377,7 @@ Further illustration:
 
 ---
 
-## From Ehret (2000) Figure - origins of Afrasans
+## From Ehret (2000) - origins of Afrasans
 <img src="AncillaryFiles/EhretPic.png" alt="Drawing" style="width: 700px;"/>
 
 ---
@@ -378,6 +390,7 @@ Further illustration:
 
 
 ## Probabilities of Origin Points
+- These are "Tree Ring" type maps!
 - [Link to Afrasan Map](https://s3.amazonaws.com/instevo/PrelimAfroAsiaMap.html)
 - [Link to Na Dene Map](https://s3.amazonaws.com/instevo/PrelimNaDeneMap.html)
 - [Link to Khoisan Map](https://s3.amazonaws.com/instevo/PrelimKhoisanPlot.html)
@@ -390,16 +403,28 @@ Further illustration:
   - Lexicostatistics/glottochronology
   - Bayesian Priors on some dates, MCMC sampling (Baker, 2015) 	 
 - Create a probability distribution over histories. 
-- Idea follows Baxter and Ramer (1993), Mace and Pagel (1993) - use the type of first letter for Swadesh lists. 
+- Idea follows Baxter and Ramer (1993), Mace and Pagel (1993), and Dogolpolsky (1985) - use the type of first letter for Swadesh lists. 
 
 ---
-![](AncillaryFiles/gencode.png)
+# Swadesh Lists
+
+Essentially, a list of words that are:
+- Very resistant to borrowing
+- Evolve very slowly somewhat like a genetic code. 
 ### Words: I, you, we, one, two, person, fish, dog, louse, tree, leaf, skin, blood, bone, horn, ear, eye, nose, tooth, tongue, knee, hand, breast, liver, drink, see, hear, die, come, sun, star, water, stone, fire, path, mountain, night, full, new, name.
+
+
+---
+# The Na-Dene letters/Dogolpolsky classes
+![](AncillaryFiles/gencode.png)
+
 ---
 
 
 # Estimation using MCMC methods
-- Density is $P(H|T)P(T)$, coupled with prior on certain split dates and on tree structure.
+- We want density $P(H,T)$. 
+- So, simulation by drawing from conditional densities $P(H|T)P(T)$ and then $P(T|H)P(H)$
+- Can add in prior on certain split dates and on tree structure.
 - [Simulation from distribution estimated using linguistics](https://s3.amazonaws.com/instevo/CombNaDeneMovie.html)
 - [Backup](https://drive.google.com/open?id=1EePJi_sOUfW3Vkp7U-uq59x1b813Mh95)
 
