@@ -5,9 +5,9 @@
 
 # Background
 - The economic basis for indigenous institutions:
-  - Baker (2003, 2008), Baker and Miceli (2005), Baker and Jacobsen (2007, 2008).  
+  - Baker (2003, 2008), Baker and Miceli (2005), Baker and Jacobsen (2007, 2008), and Baker, Bulte, and Weisdorf (2012).  
 - Exploring the relationship between environment, technology, and institutions. 
-- Cross-cultural data sets
+- [Cross-cultural data sets](https://archive.org/stream/GeorgeP.MurdockEthnographicAtlasUniversityOfPittsburghPress1967/George%20P.%20Murdock-Ethnographic%20Atlas-University%20of%20Pittsburgh%20Press%20%281967%29#page/n57/mode/2up)
 - Interesting perhaps, but of limited larger interest...
 
 ---
@@ -17,7 +17,7 @@
   - Alesina et. al. (2005), Spolaore and Wacziarg (2013), Michalopoulus (2012), Fenske (2012)  
 - Computational linguistics and Phylogenetic approaches to analyzing cultural diversity (Mace, 2006) 
   - A computational field blending tools from biology, geographical data.
-- Incorporation of geographical data into analyses
+- Incorporation of detailed geographical data into analyses (Fenske, 2012)
 
 ### Question: How did ethnic and geographic diversity that we observe today come about?
 
@@ -39,7 +39,7 @@
 ---
 # Cultural Phylogenetics
 - Modeling cultural evolution using Phylogenetic tools.
-- Attractive and novel approach - explicit consideration of path dependency. Typical Econometric treatment a hammer in search of a nail?
+- Attractive and novel approach - explicit consideration of path dependency. Typical Spatial-Econometric treatment a hammer in search of a nail?
 - Computational linguistics - direct means of phylogeny-building (Mace, 2006)
 - Atkinson and Gray (2006) example: Indo-European Tree.
 
@@ -49,18 +49,18 @@
 
 ---
 ## Practical Questions: 
-- A sophisticated statistical description of Phylogenetic relationships between cultures.
-- What can be said about the geography underlying the Phylogeny?
+- A sophisticated statistical description of Phylogenetic relationships between cultures...Addresses vertical transmission.
+- What can be said about the **geography** underlying the Phylogeny?
 - How did the cultures on the tree come to be where they are?
 - _Which related cultures have been in close proximity, and for how long? Who learned what from whom?_
 
 ---
 # The Age-Area Hypothesis (AAH)
-- Sapir (1916) - **the root of the Phylogenetic tree is the most likely geographical point of origin.**
+- Sapir (1916) - **the point of origin of the tree is the location of the most divergent culture/language .**
 - Also: maximum divergence, maximum variety, maximum differentiation...
 - Recursive application - migratory routes
 - When coupled with a Phylogeny - we now have a details of time _and_ place.
-- Used to resolve historical debates, but also could be important in creating new theories
+- Used to resolve historical debates, but also could be important in creating new theories.
 
 ---
 # Old applications and continuing debates
@@ -73,7 +73,7 @@
 
 # On the need for theory...
 - Greenhill and Gray (2005) write: "many expansion scenarios are little more than plausible narratives. A common feature of these narratives is the assertion that a particular line of evidence (archaeological, linguistic, or genetic) is 'consistent with' the scenario. 'Consistent with' covers a multitude of sins." 
-- Regressions and Spatial Econometrics - Leave me wondering what the DGP is...
+- Regressions and Spatial Econometrics (again)- What's the DGP?
 
 ---
 # So why believe the AAH (or not)?
@@ -230,7 +230,7 @@ $$
 L_k \propto\prod_{j=1}^{N(H^*_k)} h(n_j), \quad \sum n_j=I
 $$
 
-Because of convexity of $h(n)$, pile up as many $n$'s in as few chains as possible. Analogy: a risk-loving investor with fixed assets and a bunch of investment choices. 
+Because of convexity and continuity of $h(n)$, pile up as many $n$'s in as few chains as possible. Analogy: a risk-loving investor with fixed assets and a bunch of investment choices. 
 
 Also, finite ordered sets have a maximum.
 
@@ -281,14 +281,14 @@ $$
   - One can traverse the tree backwards, using dynamic programming to pick out the most likely continuation path 
 - Include other information in the decision 
   - Physical distance
-  - Prior knowledge of location, time, or split time
+  - Prior knowledge of locations and times, or split times (e.g., German and English)
 
 ---
 # Micro foundations
 
 - Why would one believe the exponential/Poisson arrival rate story?
 - Idea: stochastic population growth model
-  - Chain propelled by positive resource/technology shock. 
+  - Chain propelled by positive resource/technology shock common to all locations. 
   - If the population in a location hits a barrier, the positive shock instantaneously dissipates. 
   - Population splits according to an arbitrage condition, and a fraction moves on to a new area.
   - A new shock parameter is drawn in the location.
@@ -296,13 +296,15 @@ $$
 ---
 # Point of emphasis
 
-It is important that the shock dissipates, and does not instead reset. Otherwise, locations would be observed to continually expel migratory groups, and mass migrations would occur from all locations continually, like a branching process.
+It is important that the shock dissipates, randomly, at some future time. Otherwise: 
+1) locations would be observed to continually expel migratory groups, and mass migrations would occur from all locations continually, like a branching process, and
+2) .
 
 ---
 # Formal approach (Baker, 2008):
 - Utility, children, and (net) income are equal (at a location): 
 - Income has a fixed component, a congestion component, and a stochastic component: $y_t=1+r(1-\frac{p_t}{K})+\sigma (\epsilon_{t+\Delta}-\epsilon_t)$ 
-- Total population next period, $p_{t+\Delta}$ is $p_tk_t$ or:
+- Total population next period, $p_{t+\Delta}$ is $p_ty_t$ or:
 $$
 p_{t+\Delta}=p_ty_t=p_t\left[1+r\left(1-\frac{p_t}{K}\right)+\sigma (\epsilon_{t+\Delta}-\epsilon_t)\right]
 $$
@@ -355,9 +357,11 @@ $$
 $$
 Results in $B=K$, $p_0=m=\frac{DK}{2K-D}$
 
+### Idea: shock creates population growth, while dissipation results in a large surplus of people at a given point in time.
+
 ---
 
-Illustration in which new values of $B, K,D$ are drawn so that the location is effectively dormant.
+Illustration in which new values of $B, K, D$ are drawn so that the location is effectively dormant.
 
 ![](AncillaryFiles/figure25.png)
 
