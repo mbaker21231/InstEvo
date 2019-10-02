@@ -1,7 +1,7 @@
 ## My gitignore file ##
 ## Ignore web files and profile files ##
 
-#*.html
+*.html
 *.prof
 *.pkl
 *.png
