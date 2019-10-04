@@ -1210,9 +1210,21 @@ class ResolvedTree(PhyloTree):
     
     def __init__(self, Data, Title):
         
-        PhyloTree.__init__(self,Data,Title)
+        if type(Data) == pd.core.frame.DataFrame:
+            print('Initiating from Data Frame...')
+            PhyloTree.__init__(self,Data,Title)
 
-        # Adding in the key points of differentiation for the resolved tree:
+        else:
+            print('Initiating from basic tree with user-provide matrices.')
+            self.BaseTree  = Data.BaseTree
+            self.deathmat  = Data.deathmat
+            self.deathdata = Data.deathdata
+            self.states    = Data.states
+            self.name      = Data.name
+            self.lat       = Data.lat
+            self.lon       = Data.lon
+            self.D         = Data.D
+            # Adding in the key points of differentiation for the resolved tree:
         
         self.resolvedtree = resolvedTree(self.BaseTree)
         self.branchpositions = branchpos(self.resolvedtree).astype(int)
