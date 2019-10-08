@@ -1295,7 +1295,7 @@ class ParameterizedTree(ResolvedTree):
 
         midd = self.eparms
         self.depth = np.exp(midd)/(1 + np.exp(midd))*mind + 1/(1 + np.exp(midd))*maxd
-        TFS = timeFractions(self.resolvedtree, self.bparms,False, self.deathmat)     
+        TFS = timeFractions(self.resolvedtree, self.bparms, False, self.deathmat)     
         self.filledtimeFractions = TFS[0]
         self.timeFractions = TFS[1]
         
