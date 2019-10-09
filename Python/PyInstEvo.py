@@ -273,11 +273,11 @@ def timeFractions(Tree, b, fill=False, DM=np.ones((1, 1)), r=1, a=0):
        needs to be checked.'''
        
     if cols(b) == 1: 
-        Z = bpa(Tree, 1)      #Only one parameter makes for a funny tree!
+        Z = bpa(Tree, 1)           #Only one parameter makes for a funny tree!
     else: 
-        Z = bpa(Tree, b[0,0:-1]) 
+        Z = bpa(Tree, b[0, 0:-1]) 
 
-    Z[:,0] = b[0,-1]
+    Z[:,0] = b[0, -1]
 
     V = J(rows(Z), cols(Z), np.nan)
     F = J(rows(Z), cols(Z), np.nan)
@@ -313,9 +313,9 @@ def timeFractions(Tree, b, fill=False, DM=np.ones((1, 1)), r=1, a=0):
     # Otherwise, the first thing returns is filled, and the second is not!
     
     if np.any(DM[:,0] == 0):            
-        ind = np.where(DM[:,0] == 0)[0]    
-        VV[ind,-1] = 1/(1 + np.exp(DM[ind[0],-1]))
-        VV2[ind,-1] = 1/(1 + np.exp(DM[ind[0],-1]))
+        ind = np.where(DM[:, 0] == 0)[0]
+        VV[ind,-1] =   VV[ind, -1] * 1/(1 + np.exp(DM[ind, -1].T))
+        VV2[ind,-1] = VV2[ind, -1] * 1/(1 + np.exp(DM[ind, -1].T))
 
     if fill == True:
         return VV     
@@ -1425,11 +1425,11 @@ class ParameterizedTree(ResolvedTree):
         
         timeFracs = np.matrix(np.nansum(self.filledtimeFractions, axis=1)).T
         
-        Place = np.where(self.deathmat[:,0]==0)[0]
+        Place = np.where(self.deathmat[:, 0] == 0)[0]
         
         EDates = np.matrix(refpoint - self.depth*(1 - timeFracs)*1000)
         self.expirydates = EDates
-        DateErr = (EDates[Place] - self.deathdata[Place,0])/self.deathdata[Place,1]
+        DateErr = (EDates[Place] - self.deathdata[Place,0])/self.deathdata[Place, 1]
         DateErr = DateErr.astype(float)
         return np.sum(norm.logpdf(DateErr))
     
@@ -1559,7 +1559,7 @@ class ParameterizedTree(ResolvedTree):
 
         # Plot the root of the tree...
 
-        plt.plot([-depth,-depth + TFR[0,0]], [(rows(TFR) - 1)/2,(rows(TFR) - 1)/2])
+        #plt.plot([-depth,-depth + TFR[0,0]], [(rows(TFR) - 1)/2,(rows(TFR) - 1)/2])
 
         for c in range(0, cols(TFR) - 1):
             for r in range(0, rows(Tree)):
