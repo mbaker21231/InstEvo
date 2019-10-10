@@ -1061,7 +1061,7 @@ def puzzler(Data,Splits,ruhlen_1,phylum,its=1000,priordepthmin=5,priordepthmax=1
         PTreeHat.priordepth(priordepthmin,priordepthmax)
         PTreeHat.splitinfo(Splits[Splits['phylum']==phylum])
         PTreeHat.settimes()
-        valHat=mlfun(parmsHat,PTreeHat)
+        valHat=mlfun(parmsHat, PTreeHat)
         
         if valHat>valMax:
             valMax, PTreeMax=valHat,PTreeHat
@@ -1272,7 +1272,7 @@ class ParameterizedTree(ResolvedTree):
     '''Here we add a parameter vector to the Tree. The dimension information 
        and all that have previously been set up.  '''
     
-    def __init__(self,Data,Title,Parameters):
+    def __init__(self, Data, Title, Parameters):
         ResolvedTree.__init__(self, Data, Title)
         self.parameters = Parameters
         self.unpack()
@@ -1295,6 +1295,10 @@ class ParameterizedTree(ResolvedTree):
 
         midd = self.eparms
         self.depth = np.exp(midd)/(1 + np.exp(midd))*mind + 1/(1 + np.exp(midd))*maxd
+        
+        dmfill = self.dparms
+        locs   = np.where(self.deathmat[:, 0] == 0)[0]
+        self.deathmat[locs, 1] = self.dparms
         TFS = timeFractions(self.resolvedtree, self.bparms, False, self.deathmat)     
         self.filledtimeFractions = TFS[0]
         self.timeFractions = TFS[1]
@@ -1527,6 +1531,8 @@ class ParameterizedTree(ResolvedTree):
         Num = np.matrix(np.arange(0, rows(Tree))).T
         names = np.array(self.name)
 
+        mildepth = np.nansum(TFR, axis=1).max().round().astype(int)
+        
         # Some place holders for translating the tree into data
             
         minPos = J(rows(Tree), cols(Tree), np.nan)
@@ -1559,18 +1565,40 @@ class ParameterizedTree(ResolvedTree):
 
         # Plot the root of the tree...
 
-        #plt.plot([-depth,-depth + TFR[0,0]], [(rows(TFR) - 1)/2,(rows(TFR) - 1)/2])
+        fig, ax = plt.subplots()
+        
+        ax.plot([-depth,-depth + TFR[0,0]], [(rows(TFR) - 1)/2,(rows(TFR) - 1)/2 + 2])
 
+        dag = ax.axhline(y=1, xmin=0, xmax=mildepth/(mildepth + 1))
+        
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
+        ax.get_yaxis().set_ticks([])
+        ax.get_xaxis().set_ticks([])
+        
         for c in range(0, cols(TFR) - 1):
             for r in range(0, rows(Tree)):
-                y = [avePos[r,c], avePos[r,c+1]]
+                y = [avePos[r,c] + 2, avePos[r,c+1] + 2]
                 x = [runningsum[r,c], runningsum[r,c+1]]
-                plt.plot(x, y)
-                plt.axis([-depth - 1,np.max(runningsum) + 1.5,-1,rows(Tree) + 1],yticks='none')
+                ax.plot(x, y)
+                ax.axis([-depth - 1,np.max(runningsum) + 1.5, -1, rows(Tree) + 1], yticks='none')
         
         names = list(names)        
         for n in range(0, len(names)):
-            plt.annotate(names[n][0], xy = (runningsum[n,-1] + .2, n))      
+            ax.annotate(names[n][0], xy = (runningsum[n,-1] + .2, n + 2)) 
+            
+        for a in range(0, mildepth + 2):
+            if a != 0:
+                ax.annotate('-'+str(a), xy = (-a, -1))
+            else:
+                ax.annotate(str(a), xy= (a, -1))
+            
+        for a in range(0, mildepth + 1):
+            ax.plot(-a, 1, '|', color='black')
+            
+        ax.set_xlabel('Time (millenia) before present        ')
             
     def RouteChooser(self):
         Tr = self.filledtimeFractions
