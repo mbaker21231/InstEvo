@@ -1396,20 +1396,26 @@ class ParameterizedTree(ResolvedTree):
            Splits data 
            were _the_same_ group'''
 
-        SplitsArray=np.array(self.splittimes)
-        Names1=np.array(SplitsArray[:,0]).flatten()
-        Names2=np.array(SplitsArray[:,1]).flatten()
+        SA = self.splittimes
+        TR = self.resolvedtree
+        TF = self.filledtimeFractions
+        N  = self.name
 
-        NameInd1=np.where(self.name==Names1)[0]
-        NameInd2=np.where(self.name==Names2)[0]
-        SplitIndices=np.vstack((NameInd1,NameInd2)).T
-        JointTimes=J(rows(SplitIndices),1,0)
+        JointTimes=J(rows(SA), 3, 0)
         i=0
-        for Split in SplitIndices:
-            ToSum=np.where((self.resolvedtree[Split[0],:]==self.resolvedtree[Split[1],:]))[1]
-            JointTimes[i,0]=np.nansum(self.filledtimeFractions[Split[1],ToSum])
+        for split in SA:
+            n1 = split[0]
+            n2 = split[1]
+            pos1 = np.where(n1 == N)[0][0]
+            pos2 = np.where(n2 == N)[0][0]
+            cm   = (TR[pos1] == TR[pos2]).astype(int)
+            row  = np.matrix(TF[pos1])
+            JointTimes[i, 0] = pos1
+            JointTimes[i, 1] = pos2
+            JointTimes[i, 2] = np.nansum(np.multiply(cm, row))
             i+=1
-        return np.hstack((SplitIndices,JointTimes))  
+
+        return JointTimes  
     
     def SplitLikelihood(self):
         
