@@ -1449,6 +1449,7 @@ class ParameterizedTree(ResolvedTree):
         bp       = self.branchpositions      
         bp       = bp[rows(TM):]
         branches = self.filledtimeFractions*self.depth*1000
+        branches = self.filledtimeFractions
  
         LL       = np.zeros(rows(TM))
         LL_D     = np.zeros(rows(TM))
