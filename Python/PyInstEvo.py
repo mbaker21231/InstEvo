@@ -1426,7 +1426,7 @@ class ParameterizedTree(ResolvedTree):
         Vals = (TimeSplit - self.splittimes[:,2])/self.splittimes[:,3]
         Vals = Vals.astype(float)
         
-        return np.sum(norm.logpdf(Vals))      
+        return np.sum(norm.logpdf(Vals))         
     
     def DeathLikelihood(self, refpoint=2000):
         
