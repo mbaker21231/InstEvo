@@ -3,10 +3,16 @@
 import pandas as pd
 import numpy as np
 import re
+
 from scipy.stats import norm
 from tqdm import tqdm
 from scipy.stats import multivariate_normal 
 from numpy.random import normal
+
+import matplotlib.pyplot as plt
+import mplleaflet    
+
+##### Basic Functions for manipulating Strings ######
 
 def worddolg(word):
     
@@ -28,14 +34,12 @@ def worddolg(word):
 
     return(np.asscalar(check[0]))
 
-
 def worddolgs(words):
 
     '''This function transforms a list or array of words into 
        Dogolpolsy classes'''
    
     return [worddolg(word) for word in words]
-
 
 def charnum_to_dummies(W):
     
@@ -61,6 +65,8 @@ def charnum_to_dummies(W):
     return(States)   
 
 
+###### Basic Functions for rearranging Panel-Style matrices and Trees #######
+
 def uniq(X):
     
     '''Returns unique values of a matrix. Saves us the trouble of
@@ -69,7 +75,6 @@ def uniq(X):
        of things every time'''
     
     return np.unique(np.asarray(X))
-
 
 def reindex(Tree):
 
@@ -239,7 +244,7 @@ def marknodes(Tree):
             Nodes[m[i,0]:m[i,1]+1,j] = sum(Dump)
     return Nodes
 
-def bpa(Tree,b):
+def bpa(Tree, b):
     
     '''Finds locations where branching parameters should go, 
        using nodemarkers. It then puts the parameters where they need
@@ -490,7 +495,6 @@ def JCallFast(Tree,branchPos,rates,branchParms,States,depth,DM):
     S = rowmax + np.log(np.dot(np.exp(S - rowmax), np.ones((10, 1))))
     
     return(sum(S)) 
-  
     
 def FractionCommon(Tree,TreeBL,Splits,Names):
     
@@ -555,90 +559,6 @@ def gcircledist(lat, lon):
                     np.cos(rlat[i])*np.cos(rlat[j])*np.cos(rlon[i] - rlon[j]))
     
     return (D + D.T)/2    
-
-
-def LnLikeOrigins(Tr,D,Tree,bp):
-    
-    '''A function that takes in a time-filled in Tree (Tr), a pairwise distance
-       matrix D, the actual Tree in Matrix form (Tree), and a list of the 
-       row,column branch positions of the Tree. It puts
-       out the likelihood of each row in Tree being the point 
-       of origin for the tree. Do we ever use this function? '''
-    
-    '''Some things to watch out for - the np.where function can behave in 
-       funny ways! Also, it is critical that maxFinder and toAdd have the 
-       right shape - column vectors, effectively.'''
-    
-    '''In trouble shooting, a frequent culprit causing problems were 
-       programming snafus that left TM empty (equal to zero) while at the 
-       same time attempting to take a log.'''
-    
-    '''Another thing to watch out for - branches that are so small they 
-       violate Poisson rareness assumption!'''
-    
-    # Initialize placeholders:
-    
-    TM = Tr[:,-1]
-    LL = np.zeros((rows(TM), 1))
-    IndCount = np.zeros((rows(TM), 1))
-    Live = np.zeros((rows(TM), 1))        
-
-    # Get rid of zeros in the Distance matrix:
-
-    D[D <= 0] = 10 
-    lnD = np.matrix(-np.log(D))
-    np.fill_diagonal(lnD, 0) 
-
-    # The main recursive loop backwards through the branches:
-
-    for i in range(rows(Tree), rows(bp)):     
-        id = Tree[bp[i,0], bp[i,1]]
-        tu = np.where(Tree[:,bp[i,1]] == id)[0]
-        Bhat = Tr[tu,bp[i,1]:]
-        TreeHat = Tree[tu,bp[i,1]:]
-        IndCountHat = np.copy(IndCount[tu])
-        LLHat = np.copy(LL[tu])
-    
-        z = 0
-        while True:
-            ids = uniq(TreeHat[:,z])
-            nums = TreeHat[:,z]
-            z += 1
-            if len(ids) > 1:
-                break
-            
-        TMHat = np.zeros((len(nums), 1))
-        IMHat = np.copy(IndCountHat)   
-        DHat = (lnD[tu,:])[:,tu] 
-
-        for m in ids:
-            posi =  np.where(nums == m)[0]
-            posni = np.where(nums != m)[0]
-            toAdd = np.matrix(np.nansum(Bhat[posni,:], axis = 1)).T
-            for q in posi:
-                maxFinder = DHat[q,posni].T
-                for n in range(0, len(posni)):
-                    if IndCountHat[posni[n]] >= 1:
-                        maxFinder[n] = maxFinder[n] + IndCountHat[posni[n]]*(np.log(IndCountHat[posni[n]]) - np.log(toAdd[n])) + LLHat[posni[n]]
-                max = np.argmax(maxFinder)         
-                TMHat[q] = toAdd[max]
-                IMHat[q] = 1 + IndCountHat[posni[max]]
-                LLHat[q] = DHat[q,posni[max]]
-            TMHat[posi] = toAdd[max]
-            IMHat[posi] = IndCountHat[posni[max]] + 1
-        
-        for p in range(0, rows(tu)):
-            if Live[tu[p]] == 1:
-                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p]))+LLHat[p]
-                TM[tu[p]] = np.copy(TMHat[p])
-                IndCount[tu[p]] = np.copy(IMHat[p])
-            else:
-                LL[tu[p]] = LLHat[p]
-                Live[tu[p]] = 1
-                TM[tu[p]] = TMHat[p]
-                IndCount[tu[p]] = IMHat[p]   
-    
-    return LL
 
 
 def runningsum(X):
@@ -750,21 +670,21 @@ def OriginLikelihood_args(Tree, bp, Dhat, TFR):
     
     return LL
     
-def RouteChooser(ParameterizedTreeClass):
+def RouteChooser(PT):
     
     '''Recursively applies OriginLikelihood to pick the most
-       likely point occupied at any time.'''
+       likely point occupied at any time. The input is a parameterized Tree. '''
        
-    Tr = 100*ParameterizedTreeClass.filledtimeFractions*ParameterizedTreeClass.depth
-    Tree = ParameterizedTreeClass.resolvedtree
-    bp = ParameterizedTreeClass.branchpositions
-    D = ParameterizedTreeClass.D
+    Tr = 100*PT.filledtimeFractions*PT.depth
+    Tree = PT.resolvedtree
+    bp = PT.branchpositions
+    D = PT.D
 
     branchRoute = J(0, 2, np.nan) 
     TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0,rows(Tree))).T))        #Renumbered tree
 
     # Compute origin probability....
-    lnProbs = ParameterizedTreeClass.OriginLikelihood()
+    lnProbs = PT.OriginLikelihood()
     
     init = DiscretePicker(lnProbs)
     Path = J(rows(Tree), cols(Tree), np.nan)
@@ -795,7 +715,7 @@ def RouteChooser(ParameterizedTreeClass):
             subTr = Tr[colns,ind[1]:]
             subBr = branchpos(subTree)
             subD = D[colns,:][:,colns]
-            contProb = OriginLikelihood(subTree, subBr, subD, subTr)
+            contProb = OriginLikelihood_args(subTree, subBr, subD, subTr)
             toGet = np.matrix(-np.log(D))[origin,:][:,colns].T
             contProb = contProb + toGet
             destination = colns[DiscretePicker(contProb, np.where(colns == origin)[0])]
@@ -823,6 +743,11 @@ def RouteChooser(ParameterizedTreeClass):
     return Path, branchRoute    
 	
 def OriginLikelihood(Tree, timescale=1000, distances=True, distancescale=1, usetimes=True):
+    
+    '''
+    New and Improved version of the Origin Likelihood Function that we previously put together. 
+    Mistakes have been corrected and everything should work a little better now.
+    '''
 
     TM = Tree.resolvedtree                                       # Gets the Tree in Matrix Form
     bp = Tree.branchpositions[rows(TM):]                         # Gets the position in the matrix of interior branches
@@ -944,7 +869,11 @@ def settimes(PhyTree):
     PhyTree.timeFractions = TFS[1]
 
 def myMcMcSampler_mwg(lnlike, xinit, Vinit, draws, burn, damper, aopt, *args):
- 
+    
+    '''
+    Generic MCMC sampler for a given set of log likelihoods. Arguments can be passed to the 
+    function to be evaluated as well. This is a Metropolis-Within-Gibbs sampler.
+    '''    
     nb     = np.shape(xinit)[1]
     xold   = xinit
     lam    = 2.38**2/nb*np.ones((1,nb))
@@ -982,7 +911,9 @@ def myMcMcSampler_mwg(lnlike, xinit, Vinit, draws, burn, damper, aopt, *args):
     return xs, val, Accept
 	
 def myMcMcSampler_global(lnlike, xinit, Vinit, draws, burn, damper, aopt, *args):
- 
+
+    '''Same as above, but a global sampler.'''
+    
     nb   = np.shape(xinit)[1]
     xold = xinit
     lam  = 2.38**2/nb
@@ -1067,6 +998,10 @@ def mlfun(x, Obj):
 
 def puzzler(Data,Splits,ruhlen_1,phylum,its=1000,priordepthmin=5,priordepthmax=10,parameters=np.array([])):
 
+    '''We probably want to check that this is working correctly - it should randomly puzzle a tree
+       and cross-check the likelihood after puzzling. 
+       '''
+
     RTree=ResolvedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree')   
     RTree=ResolvedTree(Data.loc[Data['ruhlen_1']==ruhlen_1],'Tree')   
     if np.shape(parameters)[0] == 0:
@@ -1101,11 +1036,43 @@ def puzzler(Data,Splits,ruhlen_1,phylum,its=1000,priordepthmin=5,priordepthmax=1
             
     return PTreeMax
 
-# Collecting all the information for class building
+def DFill():
 
-import numpy as np
-import matplotlib.pyplot as plt
-import mplleaflet          
+    ''' This method basically creates a blank tree as I have understood the object.
+        That is, it creates all the variables (null values, though) that are required for
+        the tree class, so that a user can just manually fill them in. It is useful if one
+        does not want to make a tree, but just wants to impose one that has been created by someone else.'''
+
+    words = ['word1', 'word2', 'word3', 'word11', 'word12', 'word18', 'word19',
+           'word21', 'word22', 'word23', 'word25', 'word28', 'word30', 
+           'word31', 'word34', 'word39', 'word40', 'word41', 'word43', 
+           'word44', 'word47', 'word48', 'word51', 'word53', 'word54', 
+           'word57', 'word58', 'word61', 'word66', 'word72', 'word74',
+           'word75', 'word77', 'word82', 'word85', 'word86', 'word92', 
+           'word95', 'word96', 'word100']
+        
+    namelist = [ 'TR' + str(x) for x in range(1, 17) ]  
+
+    dim1 = len(words)
+    DogList = ['p', 't', 's', 'c', 'm', 'N', 'l', 'w', 'y', 'i']
+
+    # Creates a list of all the names of states variables. 
+    
+    statenames=[]
+    for i in range(0, dim1):
+        for j in range(0, 10):
+            statenames.append(words[i] + str(i) + '_' + DogList[j])    
+
+    A={}
+    for a in namelist + statenames + ['name', 'lat', 'lon', 'deadOne', 'ex_date', 'ex_date_sd']:
+        A[a] = [0]
+
+    DF = pd.DataFrame(A)    
+    return(DF)
+
+
+############ Some Tree Classes - Phylo Tree is the most basic, which is then extended in "Resolved Tree ####
+############ which is then extended in Parameterized Tree #####
 
 class PhyloTree:
     
