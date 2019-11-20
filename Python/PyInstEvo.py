@@ -588,87 +588,108 @@ def DiscretePicker(lnProbs, toExclude=False):
     return np.max(np.where(rs < pick)[0])    
 
 
-def OriginLikelihood_args(Tree, bp, Dhat, TFR):
+def OriginLikelihood_args(TM, bp, Dhat, branches, timescale=1000, distances=True, distancescale=1, usetimes=True):
+
+    LL   = np.zeros(rows(TM))         #Log-likelihood for jumps, continuation LL
+    LL_D = np.zeros(rows(TM))              #Log-likelihood for distances using negative exponential model
+    NN   = np.zeros(rows(TM))              #Number of jumps on current path
+    TT   = branches[:, -1]              # Time spanned on current path
+    DD   = np.zeros(rows(TM))              # Seemingly redundant?
+    Live = np.zeros(rows(TM))              # Whether or not the location has been used yet as the algorithm moves along
     
-    '''A function that takes in a time-filled in Tree (Tr), a pairwise distance 
-       matrix D, the actual Tree in Matrix form (Tree), and a list of the row,
-       column branch positions of the Tree. It puts
-       out the likelihood of each row in Tree being the point of origin for the
-       tree. '''
-
-    '''Some things to watch out for - the np.where function can behave in funny
-       ways! Also, it is critical that maxFinder and toAdd have the right shape
-       - column vectors, effectively.'''
-
-    '''In trouble shooting, a frequent culprit causing problems were 
-       programming snafus that left TM empty (equal to zero) while at the same 
-       time attempting to take a log.'''
+    ### Physical distance manipulation
     
-    '''Another thing to watch out for - branches that are so small they violate
-       Poisson rareness assumption!'''
-
-    # Initialize placeholders:
+    D = np.copy(Dhat) * distancescale
+    np.fill_diagonal(D, 1)
+    lnD = - np.log(D)                      # Matrix now of exponential jump probabilities
     
-    TM = np.copy(Tree[:,-1])   #Just to shorten the code a bit
-    LL = np.zeros((rows(TM),1))
-    IndCount = np.zeros((rows(TM),1))
-    Live = np.zeros((rows(TM),1))        
-
-    # Get rid of zeros in the Distance matrix:
+    ### Little code to either include or get rid of times...
+    if usetimes == True:
+        tf = 1
+    else: 
+        tf = 0
     
-    D = np.copy(Dhat)
-    D [D <= 0] = 10                                      # Here again I love Python!
-    lnD = np.matrix(-np.log(D))
-    np.fill_diagonal(lnD, 0) 
+    #### Main algorithm - traversing the branches backwards through the tree #####
+    
+    for bb in bp:                          
+        
+        r, c = bb[0], bb[1]                     # row, column position of branch in matrix
+        id   = TM[r, c]                         # corresponding row id for the subpanel of groups 
+        tu   = np.where(TM[:, c] == id)[0]      #  the row positions in the overall tree matrix of the groups
+        bhat = branches[tu, c]                  # branches positioned in these rows 
+        That = TM[tu, c:]                       # the entire subtree proceeding from the branch   
+        DHat = (lnD[tu, :])[:, tu]              # Distance matrix for the subtree
+        
+        LLHat = LL[tu]                          # Current state of the log-likelihoods for groups in branch
+        LL_DHat = LL_D[tu]                       # Distance traversion log likelihood placeholder
+        
+        ### Placeholders for updating the log-likelihood placeholders above
+        
+        NNCount = NN[tu] + 1                    # Incremented by one as when added to another group, it is an additional jump
+        TTCount = TT[tu] + bhat                 # Add in the branch as it will be considered when added to another group
 
-    # The main recursive loop backwards through the branches:
-    for i in range(rows(Tree), rows(bp)):     
-        id = Tree[bp[i,0], bp[i,1]]
-        tu = np.where(Tree[:,bp[i,1]]==id)[0]
-        Bhat = np.copy(TFR[tu,bp[i,1]:])
-        TreeHat = np.copy(Tree[tu,bp[i,1]:])      # Better safe than sorry!
-        IndCountHat = np.copy(IndCount[tu])
-        LLHat = np.copy(LL[tu])
+        for p in tu:                                                     # Iterate over groups in the subtree
+            if Live[p] == 1:                                             # If "live" existing branch collection 
+                LL[p] = LL[p] + NN[p] * (np.log(NN[p]) - tf*np.log(TT[p]))  # update the likelihood
+
+    ### block of code to find the split in the matrix "above" the given tree
+    ### Upon "break" being reached, "ids" will have two values that identify the two branches of the tree
+    ### nums will have the corresponding numbers arranged so they contain the constituent groups of the two branches
+    
         z = 0
         while True:
-            ids = uniq(TreeHat[:,z])
-            nums = TreeHat[:,z]
+            ids = uniq(That[:, z])
+            nums = That[:, z]
             z += 1
             if len(ids) > 1:
                 break
+        
+        ##### Some additional placholders...maybe not necessary but we will use them for now. 
+        
+        TTHat   = np.zeros(len(nums))
+        NNHat   = np.zeros(len(nums))
+        DDHat   = np.zeros(len(nums))
+        LikeHat = np.zeros(len(nums))
+        
+        for m in ids:                                     # iterate over each branch
+            posi    = np.where(nums == m)[0]              # position in subtree of groups on the branch
+            posni   = np.where(nums != m)[0]              # position in subtree of groups on the other branch
+            toAdd   = TTCount[posni]                      # length in time of branch to be added
+            
+            # Now, see which continuation is highest for each group in posi. Note that the code adds up 
+            # current branch likelihood using NNCount and toAdd, but on the second line pulls in the continuation
+            # distance likelihoods and other stuff. 
 
-        TMHat = np.zeros((len(nums), 1))
-        IMHat = np.copy(IndCountHat)   
-        DHat = (lnD[tu,:])[:,tu] 
-
-        for m in ids:
-            posi = np.where(nums == m)[0]
-            posni = np.where(nums != m)[0]
-            toAdd = np.matrix(np.nansum(Bhat[posni,:], axis=1)).T
             for q in posi:
-                maxFinder = DHat[q,posni].T
-                for n in range(0,len(posni)):
-                    if IndCountHat[posni[n]]>=1:
-                        maxFinder[n] = maxFinder[n] + IndCountHat[posni[n]]*(np.log(IndCountHat[posni[n]]) - np.log(toAdd[n])) + LLHat[posni[n]]
-                max = np.argmax(maxFinder)           # No need to do more - defaults to first entry if more than one
-                TMHat[q] = toAdd[max]
-                IMHat[q] = 1 + IndCountHat[posni[max]]
-                LLHat[q] = DHat[q,posni[max]]
-            TMHat[posi] = toAdd[max]
-            IMHat[posi] = IndCountHat[posni[max]]+1
-     
+                maxFinder  = NNCount[posni] * (np.log(NNCount[posni]) - tf*np.log(toAdd)) + \
+                            LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                maxm       = np.argmax(maxFinder)           # The highest value for continuation found
+
+                TTHat[q]   = toAdd[maxm]
+                NNHat[q]   = NNCount[posni[maxm]]
+                DDHat[q]   = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
+                LikeHat[q] = LLHat[posni[maxm]]             # Update our submatrix likelihood to include continuation
+                                                            # DHat is the distance continuation
+        ########## Now, update our algorithm placeholders with the interim placeholders
+
         for p in range(0, rows(tu)):
-            if Live[tu[p]] == 1:
-                LL[tu[p]] = LL[tu[p]] + IndCount[tu[p]]*(np.log(IndCount[tu[p]]) - np.log(TMHat[p])) + LLHat[p]
-                TM[tu[p]] = np.copy(TMHat[p])
-                IndCount[tu[p]] = np.copy(IMHat[p])
-            else:
-                LL[tu[p]] = LLHat[p]
-                Live[tu[p]] = 1
-                TM[tu[p]] = TMHat[p]
-                IndCount[tu[p]] = IMHat[p]   
-    
-    return LL
+            TT[tu[p]]    = TTHat[p]
+            NN[tu[p]]    = NNHat[p]
+            LL_D[tu[p]]  = LL_D[tu[p]] + DDHat[p]           #### HMMMMM.... 
+            LL[tu[p]]    = LL[tu[p]] + LikeHat[p]
+            Live[tu[p]]  = 1                                #Overwrite or set value to indicate group has been through a calc.
+            
+    ######## When the looping stops, we now need to collect our state variables into a final likelihood
+
+    for p in tu:
+        if Live[p] == 1: ### Should be true for all groups at this point...
+            LL[p] = LL[p] + NN[p] * (np.log(NN[p]) - tf*np.log(TT[p]))
+      
+    if distances:
+        return LL_D + LL
+    else:
+        return LL
+ 
     
 def RouteChooser(PT):
     
@@ -1442,81 +1463,118 @@ class ParameterizedTree(ResolvedTree):
         DateErr = DateErr.astype(float)
         return np.sum(norm.logpdf(DateErr))
     
-    def OriginLikelihood(self):
+    def OriginLikelihood(self, timescale=1000, distances=True, distancescale=1, usetimes=True):
     
-        TM       = self.resolvedtree 
-        bp       = self.branchpositions      
-        bp       = bp[rows(TM):]
-        branches = self.filledtimeFractions*self.depth*1000
- 
-        LL       = np.zeros(rows(TM))
-        LL_D     = np.zeros(rows(TM))
-        NN       = np.zeros(rows(TM))        
-        TT       = branches[:, -1]
-        DD       = np.zeros(rows(TM))
-        Live     = np.zeros(rows(TM))
-        
-        D         = np.copy(self.D)
+        '''
+        New and Improved version of the Origin Likelihood Function that we previously put together. 
+        Mistakes have been corrected and everything should work a little better now.
+        '''
+
+        TM = self.resolvedtree                                       # Gets the Tree in Matrix Form
+        bp = self.branchpositions[rows(TM):]                         # Gets the position in the matrix of interior branches
+        branches = self.filledtimeFractions*self.depth*timescale     # Makes the branches in the matrix into times
+    
+        #### Placeholders for the algorithm ####
+    
+        LL   = np.zeros(rows(TM))              #Log-likelihood for jumps, continuation LL
+        LL_D = np.zeros(rows(TM))              #Log-likelihood for distances using negative exponential model
+        NN   = np.zeros(rows(TM))              #Number of jumps on current path
+        TT   = branches[:, -1]              # Time spanned on current path
+        DD   = np.zeros(rows(TM))              # Seemingly redundant?
+        Live = np.zeros(rows(TM))              # Whether or not the location has been used yet as the algorithm moves along
+    
+        ### Physical distance manipulation
+    
+        D = np.copy(self.D) * distancescale
         np.fill_diagonal(D, 1)
-        lnD       = - np.log(D)
-        lnD       = np.zeros(np.shape(lnD))
+        lnD = - np.log(D)                      # Matrix now of exponential jump probabilities
+    
+        ### Little code to either include or get rid of times...
+        if usetimes == True:
+            tf = 1
+        else: 
+            tf = 0
+    
+        #### Main algorithm - traversing the branches backwards through the tree #####
+    
+        for bb in bp:                          
+        
+            r, c = bb[0], bb[1]                     # row, column position of branch in matrix
+            id   = TM[r, c]                         # corresponding row id for the subpanel of groups 
+            tu   = np.where(TM[:, c] == id)[0]      #  the row positions in the overall tree matrix of the groups
+            bhat = branches[tu, c]                  # branches positioned in these rows 
+            That = TM[tu, c:]                       # the entire subtree proceeding from the branch   
+            DHat = (lnD[tu, :])[:, tu]              # Distance matrix for the subtree
+        
+            LLHat = LL[tu]                          # Current state of the log-likelihoods for groups in branch
+            LL_DHat = LL_D[tu]                       # Distance traversion log likelihood placeholder
+        
+            ### Placeholders for updating the log-likelihood placeholders above
+        
+            NNCount = NN[tu] + 1                    # Incremented by one as when added to another group, it is an additional jump
+            TTCount = TT[tu] + bhat                 # Add in the branch as it will be considered when added to another group
 
-        for bb in bp:
-            r, c    = bb[0], bb[1]
-            id      = TM[r, c]
-            tu      = np.where(TM[:, c] == id)[0]
-            bhat    = branches[tu, c]
-            THat    = TM[tu, c:]
-            NNCount = NN[tu] + 1
-            TTCount = TT[tu] + bhat
-            LLHat   = LL[tu]
+            for p in tu:                                                     # Iterate over groups in the subtree
+                if Live[p] == 1:                                             # If "live" existing branch collection 
+                    LL[p] = LL[p] + NN[p] * (np.log(NN[p]) - tf*np.log(TT[p]))  # update the likelihood
 
-            for p in tu:
-                if Live[p] == 1:
-                    LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
-                    LL_D[p] = LL_D[p] + DD[p]
-     
-            LL_DHat = LL_D[tu]
-
-            DHat    = (lnD[tu, :])[:, tu]
-     
+        ### block of code to find the split in the matrix "above" the given tree
+        ### Upon "break" being reached, "ids" will have two values that identify the two branches of the tree
+        ### nums will have the corresponding numbers arranged so they contain the constituent groups of the two branches
+    
             z = 0
             while True:
-                ids  = uniq(THat[:, z])
-                nums = THat[:, z]
-                z    = z + 1
+                ids = uniq(That[:, z])
+                nums = That[:, z]
+                z += 1
                 if len(ids) > 1:
                     break
-         
-            TTHat = np.zeros(len(nums))
-            NNHat = np.zeros(len(nums))
-            DDHat = np.zeros(len(nums))
-     
-            for m in ids:
-                posi   = np.where(nums == m)[0]
-                posni  = np.where(nums != m)[0]
-                toAdd  = TTCount[posni]
-                for q in posi:
-                    maxFinder = NNCount[posni]*(np.log(NNCount[posni]) \
-                        - np.log(toAdd)) + LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
-                    maxm      = np.argmax(maxFinder)
-                    TTHat[q]  = toAdd[maxm]
-                    NNHat[q]  = NNCount[posni[maxm]]
-                    DDHat[q]  = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
-     
-            for p in range(0, rows(tu)):
-                TT[tu[p]] = TTHat[p]
-                NN[tu[p]] = NNHat[p]
-                DD[tu[p]] = DDHat[p]
-                if Live[tu[p]] == 0:
-                    Live[tu[p]] = 1
-    
-        for p in tu:
-            if Live[p] == 1:
-                LL[p]   = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]))
-                LL_D[p] = LL_D[p] + DD[p]    
         
-        return LL_D + LL 
+            ##### Some additional placholders...maybe not necessary but we will use them for now. 
+        
+            TTHat   = np.zeros(len(nums))
+            NNHat   = np.zeros(len(nums))
+            DDHat   = np.zeros(len(nums))
+            LikeHat = np.zeros(len(nums))
+        
+            for m in ids:                                     # iterate over each branch
+                posi    = np.where(nums == m)[0]              # position in subtree of groups on the branch
+                posni   = np.where(nums != m)[0]              # position in subtree of groups on the other branch
+                toAdd   = TTCount[posni]                      # length in time of branch to be added
+            
+                # Now, see which continuation is highest for each group in posi. Note that the code adds up 
+                # current branch likelihood using NNCount and toAdd, but on the second line pulls in the continuation
+                # distance likelihoods and other stuff. 
+
+                for q in posi:
+                    maxFinder  = NNCount[posni] * (np.log(NNCount[posni]) - tf*np.log(toAdd)) + \
+                                LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                    maxm       = np.argmax(maxFinder)           # The highest value for continuation found
+
+                    TTHat[q]   = toAdd[maxm]
+                    NNHat[q]   = NNCount[posni[maxm]]
+                    DDHat[q]   = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
+                    LikeHat[q] = LLHat[posni[maxm]]             # Update our submatrix likelihood to include continuation
+                                                            # DHat is the distance continuation
+            ########## Now, update our algorithm placeholders with the interim placeholders
+
+            for p in range(0, rows(tu)):
+                TT[tu[p]]    = TTHat[p]
+                NN[tu[p]]    = NNHat[p]
+                LL_D[tu[p]]  = LL_D[tu[p]] + DDHat[p]           #### HMMMMM.... 
+                LL[tu[p]]    = LL[tu[p]] + LikeHat[p]
+                Live[tu[p]]  = 1                                #Overwrite or set value to indicate group has been through a calc.
+            
+        ######## When the looping stops, we now need to collect our state variables into a final likelihood
+
+        for p in tu:
+            if Live[p] == 1: ### Should be true for all groups at this point...
+                LL[p] = LL[p] + NN[p] * (np.log(NN[p]) - tf*np.log(TT[p]))
+      
+        if distances:
+            return LL_D + LL
+        else:
+            return LL
     
     def TotalLikelihood(self):
         '''Compute the combined likelihood of the tree, given death times
