@@ -1465,6 +1465,7 @@ class ParameterizedTree(ResolvedTree):
         ax.set_xlabel('Time (millenia) before present        ')
             
     def RouteChooser(self):
+    
         Tr = self.filledtimeFractions
         Tree = self.resolvedtree
         bp = self.branchpositions
@@ -1503,7 +1504,7 @@ class ParameterizedTree(ResolvedTree):
             else:
                 subTree = TreeHat[colns,ind[1]:]
                 subTr = Tr[colns,ind[1]:]
-                subBr = branchpos(subTree)
+                subBr = branchpos(subTree)[rows(subTree):]
                 subD = D[colns,:][:,colns]
                 contProb = OriginLikelihood_args(subTree, subBr, subD, subTr)
                 toGet = np.matrix(-np.log(D))[origin,:][:,colns].T
