@@ -590,6 +590,12 @@ def DiscretePicker(lnProbs, toExclude=False):
 
 def OriginLikelihood_args(TM, bp, Dhat, branches, timescale=1000, distances=True, distancescale=1, usetimes=True):
 
+
+    '''Takes a tree in matrix form, with INTERNAL branches catalogued by bp, considers a pairwise distance matrix
+      and then a matrix with branches inserted into it in filled fashion, and returns the probability of each site
+      on the tree being the point of origin. This function is called by the OriginLikelihood() method for a 
+      parameterized tree. '''
+
     LL   = np.zeros(rows(TM))         #Log-likelihood for jumps, continuation LL
     LL_D = np.zeros(rows(TM))              #Log-likelihood for distances using negative exponential model
     NN   = np.zeros(rows(TM))              #Number of jumps on current path
@@ -691,34 +697,31 @@ def OriginLikelihood_args(TM, bp, Dhat, branches, timescale=1000, distances=True
         return LL
  
     
-def RouteChooser(PT):
-    
-    '''Recursively applies OriginLikelihood to pick the most
-       likely point occupied at any time. The input is a parameterized Tree. '''
-       
-    Tr = 100*PT.filledtimeFractions*PT.depth
-    Tree = PT.resolvedtree
-    bp = PT.branchpositions
-    D = PT.D
+def RouteChooser(TREE):
+   
+    Tr = TREE.filledtimeFractions
+    Tree = TREE.resolvedtree
+    bp = TREE.branchpositions
+    D = TREE.D
 
-    branchRoute = J(0, 2, np.nan) 
-    TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0,rows(Tree))).T))        #Renumbered tree
+    branchRoute = J(0, 2, np.nan)   # Arrows
 
     # Compute origin probability....
-    lnProbs = PT.OriginLikelihood()
+        
+    TREE.OriginLikelihood()
+    lnProbs = TREE.originProbs   #### NEEDS TO BE CHANGED TO REFLECT NEW THING
     
     init = DiscretePicker(lnProbs)
     Path = J(rows(Tree), cols(Tree), np.nan)
     Path[:,0] = init   
     
-    for i in reversed(range(rows(Tree), rows(bp) - 1)): 
- 
+    for i in reversed(range(rows(Tree), rows(bp) - 1)):    # Cycles backwards through the node positions. 
         ind = bp[i,:]          # Retrieve an index
         z = ind[1] - 1
         found = 0
     
-        groupId = TreeHat[ind[0],ind[1]]
-        colns = np.where(TreeHat[:,ind[1]] == groupId)[0]
+        groupId = Tree[ind[0], ind[1]]
+        colns = np.where(Tree[:,ind[1]] == groupId)[0] # This picks out the next group - where everything goes.
         while True:
             if Path[max(colns),z] >= 0:               # Really just looking for np.nans!
                 found = 1
@@ -732,25 +735,26 @@ def RouteChooser(PT):
         elif any(colns == origin):
             destination = origin
         else:
-            subTree = TreeHat[colns,ind[1]:]
+            subTree = Tree[colns,ind[1]:]
             subTr = Tr[colns,ind[1]:]
-            subBr = branchpos(subTree)
+            subBr = branchpos(subTree)[rows(subTree):]
             subD = D[colns,:][:,colns]
             contProb = OriginLikelihood_args(subTree, subBr, subD, subTr)
             toGet = np.matrix(-np.log(D))[origin,:][:,colns].T
             contProb = contProb + toGet
-            destination = colns[DiscretePicker(contProb, np.where(colns == origin)[0])]
+            destination = colns[DiscretePicker(contProb,np.where(colns == origin)[0])]
+    
         branchRoute = np.vstack(([origin,destination], branchRoute))
-        colns = colns[np.where(colns!=origin)[0]]
+        colns = colns[np.where(colns != origin)[0]]
         Path[colns,ind[1]] = destination    
         
         # Cleaning up a few things from the route.. 
- 
-    for i in range(0,rows(Path)):
-        if (np.any(branchRoute[:,1]==i)):
+    
+    for i in range(0, rows(Path)):
+        if (np.any(branchRoute[:,1] == i)):
             pass
         else:
-            s = cols(Path)- 2    #Not the last column, but the one before that!
+            s = cols(Path) - 2    #Not the last column, but the one before that!
             originFound = 0
             while True:
                 if Path[i,s] >= 0:               # Really just looking for np.nans!
@@ -758,20 +762,26 @@ def RouteChooser(PT):
                 else: s -= 1
                 if originFound == 1:
                     if Path[i,s] != i:
-                        branchRoute=np.vstack((branchRoute, (Path[i,s] ,i)))
+                        branchRoute = np.vstack((branchRoute, (Path[i,s], i)))
                     break
-    
-    return Path, branchRoute    
+    TREE.Path = Path
+    TREE.branchRoute = branchRoute    
 	
-#def OriginLikelihood(Tree, timescale=1000, distances=True, distancescale=1, usetimes=True):
-#    
-#        TM = Tree.resolvedtree                                       # Gets the Tree in Matrix Form
-#        bp = Tree.branchpositions[rows(TM):]                         # Gets the position in the matrix of interior branches
-#        branches = Tree.filledtimeFractions*Tree.depth*timescale     # Makes the branches in the matrix into times
-#        Dhat = Tree.D
+def OriginLikelihood(Tree, timescale=1000, distances=True, distancescale=1, usetimes=True):
+    
+    '''A version of the OriginLikelihood Function that acts directly on the tree, which 
+       can come in handy when OL is to be included in an algorithm. Still, this method calls
+       OriginLikelihood_args so that should be referred to for details.'''
+    
+    TM = Tree.resolvedtree                                       # Gets the Tree in Matrix Form
+    bp = Tree.branchpositions[rows(TM):]                         # Gets the position in the matrix of interior branches
+    branches = Tree.filledtimeFractions*Tree.depth*timescale     # Makes the branches in the matrix into times
+    Dhat = Tree.D
         
-#        vals = OriginLikelihood_args(TM, bp, Dhat, branches, 
-#               timescale=timescale, distances=distances, distancescale=distancescale, usetimes=usetimes)
+    vals = OriginLikelihood_args(TM, bp, Dhat, branches, 
+        timescale=timescale, distances=distances, distancescale=distancescale, usetimes=usetimes)
+        
+    return(vals)
 
 def settimes(PhyTree):
         
@@ -909,7 +919,7 @@ def mlfun(x, Obj):
     L1=-Obj.SplitLikelihood()
     L2=-Obj.jukescantorlikelihood()
     L3=-Obj.DeathLikelihood()
-    L4=-np.max(Obj.OriginLikelihood())
+    L4=-np.max(Obj.OriginLikelihood())            # This won't work as intended, as Origin Likelihood does not return an argument now 
     
     penalty = np.sum(Obj.penaltyparm*np.square(Obj.parameters))
     return -L1-L2-L3-L4	- penalty
@@ -1466,72 +1476,7 @@ class ParameterizedTree(ResolvedTree):
             
     def RouteChooser(self):
     
-        Tr = self.filledtimeFractions
-        Tree = self.resolvedtree
-        bp = self.branchpositions
-        D = self.D
-
-        branchRoute = J(0, 2, np.nan)   # Arrows
-        TreeHat = np.hstack((Tree[:,0:-1], np.matrix(np.arange(0, rows(Tree))).T))        #Renumbered tree
-
-        # Compute origin probability....
-    
-        lnProbs = self.OriginLikelihood()
-    
-        init = DiscretePicker(lnProbs)
-        Path = J(rows(Tree), cols(Tree), np.nan)
-        Path[:,0] = init   
-    
-        for i in reversed(range(rows(Tree), rows(bp) - 1)): 
-            ind = bp[i,:]          # Retrieve an index
-            z = ind[1] - 1
-            found = 0
-    
-            groupId = TreeHat[ind[0], ind[1]]
-            colns = np.where(TreeHat[:,ind[1]] == groupId)[0]
-            while True:
-                if Path[max(colns),z] >= 0:               # Really just looking for np.nans!
-                    found = 1
-                    origin = Path[max(colns),z].astype(int)
-                else: z -= 1
-                if found == 1:
-                    break
-            
-            if len(np.where(colns != origin)[0]) == 1:
-                destination = colns[np.where(colns != origin)[0]]
-            elif any(colns == origin):
-                destination = origin
-            else:
-                subTree = TreeHat[colns,ind[1]:]
-                subTr = Tr[colns,ind[1]:]
-                subBr = branchpos(subTree)[rows(subTree):]
-                subD = D[colns,:][:,colns]
-                contProb = OriginLikelihood_args(subTree, subBr, subD, subTr)
-                toGet = np.matrix(-np.log(D))[origin,:][:,colns].T
-                contProb = contProb + toGet
-                destination = colns[DiscretePicker(contProb,np.where(colns == origin)[0])]
-            branchRoute = np.vstack(([origin,destination], branchRoute))
-            colns = colns[np.where(colns != origin)[0]]
-            Path[colns,ind[1]] = destination    
-        
-            # Cleaning up a few things from the route.. 
-    
-        for i in range(0, rows(Path)):
-            if (np.any(branchRoute[:,1] == i)):
-                pass
-            else:
-                s = cols(Path) - 2    #Not the last column, but the one before that!
-                originFound = 0
-                while True:
-                    if Path[i,s] >= 0:               # Really just looking for np.nans!
-                        originFound = 1
-                    else: s -= 1
-                    if originFound == 1:
-                        if Path[i,s] != i:
-                            branchRoute = np.vstack((branchRoute, (Path[i,s], i)))
-                        break
-        self.Path = Path
-        self.branchRoute = branchRoute
+        RouteChooser(self) # Can I do this? 
 
     def TimeInPlace(self):
 
