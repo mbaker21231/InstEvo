@@ -599,7 +599,8 @@ def OriginLikelihood_args(TM, bp, Dhat, branches, timescale=1000, distances=True
     LL   = np.zeros(rows(TM))         #Log-likelihood for jumps, continuation LL
     LL_D = np.zeros(rows(TM))              #Log-likelihood for distances using negative exponential model
     NN   = np.zeros(rows(TM))              #Number of jumps on current path
-    TT   = branches[:, -1]              # Time spanned on current path
+    #TT   = branches[:, -1]              # Time spanned on current path
+    TT   = np.copy(branches[:, -1])
     DD   = np.zeros(rows(TM))              # Seemingly redundant?
     Live = np.zeros(rows(TM))              # Whether or not the location has been used yet as the algorithm moves along
     
@@ -695,7 +696,117 @@ def OriginLikelihood_args(TM, bp, Dhat, branches, timescale=1000, distances=True
         return LL_D + LL
     else:
         return LL
- 
+
+def DyenDist_args(TM, bp, Dhat, branches, distances=True, distancescale=1, usetimes=False):
+
+    '''This creates the Dyen divergence measure for all the locations on a tree, or the exponential measure. 
+       If the "usetimes" argument is equal to False, it just computes the dyen measure. Otherwise, it computes
+       the exponential-based measure from the paper. Note the time argument should be the time element, 
+       which is really the cumulative sum to date. So, we accordingly add up the branches using the nancumsum
+       function.'''
+    
+    LL   = np.zeros(rows(TM))              #Continuation value of distance measure
+    LL_D = np.zeros(rows(TM))              #Log-likelihood for distances using negative exponential model
+    NN   = np.zeros(rows(TM))              #Number of jumps on current path
+    TT   = np.copy(branches[:, -1])        #Note that branches should be normalized - or just "filledtimeFractions" 
+    DD   = np.zeros(rows(TM))              # Seemingly redundant?
+    Live = np.zeros(rows(TM))              # Whether or not the location has been used yet as the algorithm moves along
+    
+    ### Physical distance manipulation
+    
+    D = np.copy(Dhat) * distancescale
+    np.fill_diagonal(D, 1)
+    lnD = - np.log(D)                      # Matrix now of exponential jump probabilities
+    
+    #### Main algorithm - traversing the branches backwards through the tree #####
+    
+    for bb in bp:                          
+        
+        r, c = bb[0], bb[1]                     # row, column position of branch in matrix
+        id   = TM[r, c]                         # corresponding row id for the subpanel of groups 
+        tu   = np.where(TM[:, c] == id)[0]      #  the row positions in the overall tree matrix of the groups
+        bhat = branches[tu, c]                  # branches positioned in these rows 
+        That = TM[tu, c:]                       # the entire subtree proceeding from the branch   
+        DHat = (lnD[tu, :])[:, tu]              # Distance matrix for the subtree
+        
+        LLHat = LL[tu]                          # Current state of the log-likelihoods for groups in branch
+        LL_DHat = LL_D[tu]                       # Distance traversion log likelihood placeholder
+        
+        ### Placeholders for updating the log-likelihood placeholders above
+        
+        NNCount = NN[tu] + 1                    # Incremented by one as when added to another group, it is an additional jump
+        TTCount = TT[tu] + bhat                 # Add in the branch as it will be considered when added to another group
+
+        for p in tu:                                                     # Iterate over groups in the subtree
+            if Live[p] == 1:                                             # If "live" existing branch collection 
+                if usetimes == True:
+                    LL[p] = LL[p] + NN[p] * (np.log(NN[p]) - np.log(TT[p]) )     # update the likelihood
+                else:
+                    LL[p] = LL[p] - np.log(2*np.pi) - np.log(NN[p])
+    ### block of code to find the split in the matrix "above" the given tree
+    ### Upon "break" being reached, "ids" will have two values that identify the two branches of the tree
+    ### nums will have the corresponding numbers arranged so they contain the constituent groups of the two branches
+    
+        z = 0
+        while True:
+            ids = uniq(That[:, z])
+            nums = That[:, z]
+            z += 1
+            if len(ids) > 1:
+                break
+        
+        ##### Some additional placholders...maybe not necessary but we will use them for now. 
+        
+        TTHat   = np.zeros(len(nums))
+        NNHat   = np.zeros(len(nums))
+        DDHat   = np.zeros(len(nums))
+        LikeHat = np.zeros(len(nums))
+        
+        for m in ids:                                     # iterate over each branch
+            posi    = np.where(nums == m)[0]              # position in subtree of groups on the branch
+            posni   = np.where(nums != m)[0]              # position in subtree of groups on the other branch
+            toAdd   = TTCount[posni]                      # length in time of branch to be added
+            
+            # Now, see which continuation is highest for each group in posi. Note that the code adds up 
+            # current branch likelihood using NNCount and toAdd, but on the second line pulls in the continuation
+            # distance likelihoods and other stuff. 
+
+            for q in posi:
+                if usetimes==True:
+                    maxFinder  = NNCount[posni] * (np.log(NNCount[posni]) - np.log(toAdd)) + \
+                        LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                else:
+                    maxFinder = -np.log(2*np.pi) - np.log(NNCount[posni]) + \
+                        LL_DHat[posni] + DHat[q, posni] + LLHat[posni]
+                maxm       = np.argmax(maxFinder)           # The highest value for continuation found
+
+                TTHat[q]   = toAdd[maxm]
+                NNHat[q]   = NNCount[posni[maxm]]
+                DDHat[q]   = DHat[q, posni[maxm]] + LL_DHat[posni[maxm]]
+                LikeHat[q] = LLHat[posni[maxm]]             # Update our submatrix likelihood to include continuation
+                                                            # DHat is the distance continuation
+        ########## Now, update our algorithm placeholders with the interim placeholders
+
+        for p in range(0, rows(tu)):
+            TT[tu[p]]    = TTHat[p]
+            NN[tu[p]]    = NNHat[p]
+            LL_D[tu[p]]  = LL_D[tu[p]] + DDHat[p]           #### HMMMMM.... 
+            LL[tu[p]]    = LL[tu[p]] + LikeHat[p]
+            Live[tu[p]]  = 1                                #Overwrite or set value to indicate group has been through a calc.
+            
+    ######## When the looping stops, we now need to collect our state variables into a final likelihood
+
+    for p in tu:
+        if Live[p] == 1: ### Should be true for all groups at this point...
+            if usetimes == True:
+                LL[p] = LL[p] + NN[p] * ( np.log(NN[p]) - np.log(TT[p]) )
+            else:
+                LL[p] = LL[p] - np.log(2*np.pi) - np.log(NN[p])
+
+    if distances:
+        return LL_D + LL
+    else:
+        return LL
     
 def RouteChooser(TREE):
    
@@ -781,6 +892,20 @@ def OriginLikelihood(Tree, timescale=1000, distances=True, distancescale=1, uset
     vals = OriginLikelihood_args(TM, bp, Dhat, branches, 
         timescale=timescale, distances=distances, distancescale=distancescale, usetimes=usetimes)
         
+    return(vals)
+
+def DyenDist(TM, bp, Dhat, branches, distances=True, distancescale=1, usetimes=False):
+
+    '''A version of the Dyen Divergence measure that acts directly on the tree.'''
+
+    TM = Tree.resolvedtree
+    bp = Tree.branchpositions[rows(TM):]
+    branches = Tree.filledtimeFractions
+    Dhat = Tree.D
+
+    vals = DyenDist_args(TM, bp, Dhat, branches, distances=distances, 
+         distancescale=distancescale, usetimes=usetimes)
+
     return(vals)
 
 def settimes(PhyTree):
@@ -1386,6 +1511,27 @@ class ParameterizedTree(ResolvedTree):
                timescale=timescale, distances=distances, distancescale=distancescale, usetimes=usetimes)
         
         self.originProbs = vals
+
+    def DyenDist(self, distances=True, distancescale=1, usetimes=False):
+
+        '''
+        Method to calculate Dyen Divergence measures for trees. If usetimes=False, it returns the
+        original distance measure as developed in the paper.
+        '''
+
+        TM = self.resolvedtree
+        bp = self.branchpositions[rows(TM):]
+        branches = self.filledtimeFractions
+        Dhat = self.D
+
+        vals = DyenDist_args(TM, bp, Dhat, branches, distances=distances,
+               distancescale=1, usetimes=usetimes)
+
+        if usetimes == False:
+            self.Dyen = vals
+        else:
+            self.timeDyen = vals
+
     
     def TotalLikelihood(self):
         '''Compute the combined likelihood of the tree, given death times
