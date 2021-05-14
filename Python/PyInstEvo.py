@@ -1603,7 +1603,7 @@ class ParameterizedTree(ResolvedTree):
                 y = [avePos[r,c] + 2, avePos[r,c+1] + 2]
                 x = [runningsum[r,c], runningsum[r,c+1]]
                 ax.plot(x, y)
-                ax.axis([-depth - 1,np.max(runningsum) + 1.5, -1, rows(Tree) + 1], yticks='none')
+                ax.axis([-depth - 1,np.max(runningsum) + 1.5, -1, rows(Tree) + 1])
         
         names = list(names)        
         for n in range(0, len(names)):
