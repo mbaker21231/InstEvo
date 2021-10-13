@@ -1618,7 +1618,7 @@ class ParameterizedTree(ResolvedTree):
         for a in range(0, mildepth + 1):
             ax.plot(-a, 1, '|', color='black')
             
-        ax.set_xlabel('Time (millenia) before present        ')
+        ax.set_xlabel('Time (millennia) before present        ')
             
     def RouteChooser(self):
     
